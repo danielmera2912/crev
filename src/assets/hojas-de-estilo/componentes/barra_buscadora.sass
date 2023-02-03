@@ -1,0 +1,63 @@
+// se establecen valores al buscador principal del inicio, como contenedor principal
+.buscador
+    display : flex
+    justify-content : end
+    text-align :  right
+    padding-top : 1rem
+    // se establecen valores a la caja del input, donde se escribiría el texto a buscar
+    &__caja
+        padding-left : 1em
+        height : 3rem
+        width :40rem
+        border-top-left-radius : 15px
+        border-bottom-left-radius : 15px
+        font-size : $xs
+        outline : none
+    // se establecen valores para el botón que debe de ser pulsado para buscar el texto introducido en el input
+    &__boton
+        background-color : $color_primario
+        height : 3rem
+        width : 3rem
+        border-top-right-radius : 15px
+        border-bottom-right-radius : 15px
+        cursor : pointer
+        text-decoration : none
+        display : block
+        text-align : center
+        border : 1px solid $color_oscuro
+        @media (max-width: 800px)
+            height : 2rem
+        // se establecen valores para la imágen de la lupa que aparece en el botón de búsqueda
+        &__imagen
+            width : 2.2rem
+            padding-top : 15%
+    // se establecen valores para el momento en el que se pase el ratón por encima del botón de la búsqueda
+    &__boton:hover
+        background-color : $color_secundario_oscuro
+
+// se añaden propiedades al contenedor de búsqueda del encabezado
+.buscador-encabezado
+    display : flex
+    // se añaden propiedades al input de búsqueda del encabezado
+    &__caja
+        padding-left : 1em
+        height : 3rem
+        width :20rem
+        border-top-left-radius : 15px
+        border-bottom-left-radius : 15px
+        font-size : $xs
+        outline : none
+        @media (max-width: 1300px)
+            width :15rem
+        @media (max-width: 800px)
+            font-size : $xxs
+            height : 2rem
+        @media (max-width: 720px)
+            width : 10rem
+    // se añaden propiedades al botón de búsqueda del encabezado
+
+    // se añaden propiedades al botón de búsqueda del encabezado al pasar el ratón por encima
+    &__boton:hover
+        background-color : $color_secundario_oscuro
+    @media (max-width: 1200px)
+        width : 100% 
