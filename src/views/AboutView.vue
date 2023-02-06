@@ -1,7 +1,10 @@
+<script setup>
+import Competiciones from '../components/Competiciones.vue'
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <main>
+    <Competiciones />
+  </main>
 </template>
 
 <style>

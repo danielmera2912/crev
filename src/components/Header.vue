@@ -1,3 +1,6 @@
+<script setup>
+import Menu from './Menu_desplegable.vue'
+</script>
 <script>
 </script>
 <template>
@@ -8,12 +11,14 @@
                 <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos únicos</RouterLink>
                 </li>
-                <li>
+
+                <!-- Este código es para el futuro -->
+                <!-- <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/about" class="encabezado__lista__enlace">Ligas</RouterLink>
                 </li>
                 <li>
                     <div href="#" class="encabezado__lista__enlace">Torneos</div>
-                </li>
+                </li> -->
 
             </ul>
         </nav>
@@ -21,13 +26,6 @@
             <input type="text" class="buscador-encabezado__caja" placeholder="Buscar..." @input="(event) => this.$emit('inputChange', event)" /> 
             <button class="buscador__boton"><span class="material-symbols-outlined">search</span></button>
         </form>
-        <a class="encabezado__menu"><span class="material-symbols-outlined">menu</span></a>
-        <nav style="display: none;">
-            <ul>
-                <li>Opción 1</li>
-                <li>Opción 2</li>
-                <li>Opción 3</li>
-            </ul>
-        </nav>
+        <Menu></Menu>
     </header>
 </template>

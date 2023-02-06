@@ -1,7 +1,8 @@
 <template>
   <a class="partido">
     <div class="partido__deporte">
-      Tenis
+      <div>Tenis</div>
+      <div>Pamplona</div>
     </div>
     <div class="partido__datos">
       <div class="partido__datos__rival">

@@ -1,0 +1,79 @@
+
+// Estilos para el cuadro desplegable que te permite registrar una cuenta.
+.registrar
+    height : 658px
+    width : 500px
+    background-color : $color_claro
+    position : absolute
+    top : 50%
+    left : 50%
+    margin: -300px 0 0 -250px
+    z-index : 99
+    display : flex
+    flex-direction: column
+    justify-content : space-between
+    padding : 1.5rem
+    // Se define las propiedas para el botón cerrar, que te permite cerrar el desplegable al pulsar.
+    &__cerrar
+        width : 25px
+        position : absolute
+        top : 1px
+        right : 0px
+        font-size : 2rem
+        color : $color_primario
+    // Se define las propiedades para el título que representa el funcionamiento del desplegable.
+    &__titulo
+        width : 100%
+        color : $color_primario
+        font-size : $xl
+        font-family : $fuente_oswald
+        text-align : center
+    // Se define las propiedades para la caja que engloba los inputs del desplegable.
+    &__caja
+        display : flex
+        flex-direction : column
+        justify-content : center
+        align-items : center
+        // Se define las propiedades de los inputs del desplegable.
+        &__elemento
+            margin : 1rem
+            width : 80%
+            height: 4rem
+            padding-left : 1em
+            font-size : $xs
+        &__informativo1
+            display : none
+        &__informativo1--visible
+            display : flex
+            color : red
+            font-size : $xs
+    // Se define el botón que te redirigirá a la página de iniciar sesión, una vez que se ha registrado la cuenta.
+    &__boton
+        display : flex
+        flex-direction : column
+        justify-content : center
+        align-items : center
+        // Se define el texto que posee el botón.
+        &__opcion
+            text-align : center
+            background-color : $color_primario
+            height : 2.8rem
+            width : 8rem
+            border-radius : 5px
+            color : $color_claro
+            font-size : $xs
+            font-family : $fuente_inter
+            cursor : pointer
+            border : 1px solid $color_oscuro
+            padding-top: 10px
+// Se define las características del fondo que poseerá el desplegable, que será transparente con opacidad para no
+// darle importancia a los elementos del fondo y también que te permite que al pulsar, cierras el desplegable.
+.fondo
+    height : 100%
+    width : 100%
+    position : absolute
+    top : 0
+    left : 0
+    background-color : $color_oscuro
+    opacity : 60%
+    z-index : 1

@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import Partidos from '../components/Partidos_unicos.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <Partidos />
   </main>
 </template>
