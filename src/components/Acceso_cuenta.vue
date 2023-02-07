@@ -8,7 +8,7 @@
                 <img className="perfil__avatar__imagen" src={Avatar}/>
             </section>
             <form className="perfil__boton">
-                <a href="/"  className="perfil__boton__opcion">Acceder perfil</a>
+                <RouterLink to="/perfil" @click="$emit('cerrarTodo')" className="perfil__boton__opcion">Acceder perfil</RouterLink>
                 <a href="/"  className="perfil__boton__opcion">Cerrar sesión</a>
             </form>
         </div>

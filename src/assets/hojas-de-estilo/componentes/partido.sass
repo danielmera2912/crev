@@ -4,16 +4,25 @@
     flex-direction : column
     
     height: 100%
+.interfaz
+    margin-top : 1rem
+    margin-bottom : 1rem
 .partido
-
+    position : relative
     font-family : $fuente_inter
-    background-color : #F6F9FC
+    background-color : $color_terciario
     border-radius : 25px
     text-align : center
     margin-bottom : 1.6rem
     width : 60rem
+    &__resultado
+        position: absolute
+        top: 0
+        right: 0
+
     &__deporte
         padding : 0.5rem
+        font-family: $fuente_oswald
     &__datos
         display : flex
         justify-content : center
@@ -21,8 +30,8 @@
             display : flex
             padding : 1rem
             &__imagen
-                width : 4rem
-                height : 4rem
+                width : 4.25rem
+                height : 4.25rem
             &__nombre
                 display : flex
                 height : 4rem
@@ -31,7 +40,13 @@
                 justify-content : center
         &__detalles
             padding : 1rem
+            margin-left : 0.5rem
+            margin-right : 0.5rem
             display : flex
+            flex-direction : column
             width : 4rem
             align-items: center
             justify-content : center
+            &__hora
+                margin-top : 0.5rem
+                margin-bottom : 0.5rem

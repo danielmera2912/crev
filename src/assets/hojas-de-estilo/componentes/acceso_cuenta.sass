@@ -3,7 +3,7 @@
     height : 600px
     width : 500px
     background-color : $color_claro
-    position : absolute
+    position : fixed
     top : 50%
     left : 50%
     margin: -300px 0 0 -250px
@@ -19,11 +19,11 @@
         top : 1px
         right : 0px
         font-size : 2rem
-        color : $color_primario
+        color : $color_oscuro
     // Se define las propiedades para el título que representa el funcionamiento del desplegable.
     &__titulo
         width : 100%
-        color : $color_primario
+        color : $color_oscuro
         font-size : $xl
         font-family : $fuente_oswald
         text-align : center
@@ -56,18 +56,7 @@
             height : 2.8rem
             width : 8rem
             border-radius : 5px
-            color : $color_claro !important
+            color : $color_oscuro !important
             font-size : $xs
             font-family : $fuente_inter
             cursor : pointer
-// Se define las características del fondo que poseerá el desplegable, que será transparente con opacidad para no
-// darle importancia a los elementos del fondo y también que te permite que al pulsar, cierras el desplegable.
-.fondo
-    height : 100%
-    width : 100%
-    position : absolute
-    top : 0
-    left : 0
-    background-color : $color_oscuro
-    opacity : 60%
-    z-index : 1

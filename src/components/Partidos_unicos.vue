@@ -8,13 +8,18 @@ import SupportIcon from './icons/IconSupport.vue'
 </script>
 
 <template>
-  <select name="filtro">
+  
+  <div class="partidos">
+    <div class="interfaz">
+      <select name="filtro">
     <option value="id_descendente">Todos</option>
     <option value="id_ascendente">Padel</option>
     <option value="nombre_descendente">Baloncesto</option>
     <option value="nombre_ascendente">Tenis</option>
   </select>
-  <div class="partidos">
+  <a className="boton">Registrar</a>
+    </div>
+    
     <Partido></Partido>
     <Partido></Partido>
     <Partido></Partido>

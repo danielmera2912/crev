@@ -1,17 +1,32 @@
 <script setup>
 import Menu from './Menu_desplegable.vue'
+import Buscador from './Buscador.vue'
 </script>
 <script>
+export default {
+  data() {
+    return {
+      search: ''
+    }
+  },
+  methods: {
+    handleChange(event) {
+      const {value} = event.target;
+      this.search = value;
+    }
+}
+}
 </script>
 <template>
     <header class="encabezado">
-        <div class="encabezado__logo"><a href="index.html">Logo</a></div>
+      <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png"/></RouterLink>
+        
         <nav class="encabezado__navegador">
             <ul class="encabezado__lista">
                 <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos únicos</RouterLink>
                 </li>
-
+                
                 <!-- Este código es para el futuro -->
                 <!-- <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/about" class="encabezado__lista__enlace">Ligas</RouterLink>
@@ -22,10 +37,7 @@ import Menu from './Menu_desplegable.vue'
 
             </ul>
         </nav>
-        <form :v-model="search" class="buscador-encabezado">
-            <input type="text" class="buscador-encabezado__caja" placeholder="Buscar..." @input="(event) => this.$emit('inputChange', event)" /> 
-            <button class="buscador__boton"><span class="material-symbols-outlined">search</span></button>
-        </form>
+        <Buscador @inputChange="handleChange" :search="search"></Buscador>
         <Menu></Menu>
     </header>
 </template>
