@@ -13,7 +13,7 @@
           <label className="iniciar_sesion__caja__recordar"><input type="checkbox" id="check" value="check" /> Recordar Cuenta</label>
       </section>
       <section className="iniciar_sesion__boton">
-          <a className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar" @click="$emit('accederCuenta')">Entrar</a>
+          <a  className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar" @click="$emit('iniciarSesion')">Entrar</a>
           <p>o</p>
           <a className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--registrar" @click="$emit('abrirRegistrar')">Regístrate</a>
       </section>

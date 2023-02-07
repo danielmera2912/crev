@@ -20,15 +20,9 @@ import SupportIcon from './icons/IconSupport.vue'
   <a className="boton">Registrar</a>
     </div>
     
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
-    <Partido></Partido>
+    <Partido v-for="i in 5" :deporte='"Tenis"' :fecha='"20/04/2011"' :ciudad='"Pamplona"' :hora='"20:20"' :jugador1='"Pepe"' 
+    :jugador2='"Juan"' :imagen1='"https://cdn.resfu.com/img_data/players/medium/1004380.jpg?size=120x&lossy=1"' 
+    :imagen2='"https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1"'></Partido>
   </div>
   
 

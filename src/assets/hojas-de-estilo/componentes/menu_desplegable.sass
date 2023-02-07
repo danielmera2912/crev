@@ -9,12 +9,17 @@
     display: block
     text-align: center
     &__lista
-        right: 0
-        left: auto
+        position : relative
+        top: 1rem
+        left: -12rem
         width: 12rem
         background-color: $color_primario
         list-style-type: none
-        box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px
+        z-index: 999
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px
+        &__elemento
+            color : $color_oscuro !important
+            text-decoration : none !important
     @media (max-width: 920px)
         height: 2rem
         width: 2rem

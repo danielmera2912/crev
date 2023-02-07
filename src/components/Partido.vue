@@ -1,22 +1,59 @@
+<script setup>
+defineProps({
+  deporte: {
+    type: String,
+    required: true
+  },
+  fecha: {
+    type: String,
+    required: true
+  },
+  ciudad: {
+    type: String,
+    required: true
+  },
+  hora: {
+    type: String,
+    required: true
+  },
+  jugador1: {
+    type: String,
+    required: true
+  },
+  jugador2: {
+    type: String,
+    required: true
+  },
+  imagen1: {
+    type: String,
+    required: true
+  },
+  imagen2: {
+    type: String,
+    required: true
+  }
+})
+
+</script>
 <template>
   <a class="partido">
     <button class="boton partido__resultado">Añadir resultado</button>
     <div class="partido__deporte">
-      Tenis
+      {{ deporte }}
     </div>
     <div class="partido__datos">
       <div class="partido__datos__rival">
-        <div class="partido__datos__rival__nombre">Pepe</div>
-        <img class="partido__datos__rival__imagen" src="https://cdn.resfu.com/img_data/players/medium/1004380.jpg?size=120x&lossy=1"/>
+        <div class="partido__datos__rival__nombre">{{ jugador1 }}</div>
+        <img class="partido__datos__rival__imagen" :src="imagen1"/>
       </div>
       <div class="partido__datos__detalles">
-        <div class="partido__datos__detalles__fecha">10/11/2023</div>
-        <div class="partido__datos__detalles__hora">10:20</div>
-        <div class="partido__datos__detalles__ciudad">Pamplona</div>
+        <div class="partido__datos__detalles__fecha">{{ fecha }}</div>
+        <div class="partido__datos__detalles__hora">{{ hora }}</div>
+        <div class="partido__datos__detalles__ciudad">{{ ciudad }}</div>
       </div>
       <div class="partido__datos__rival">
-        <img class="partido__datos__rival__imagen" src="https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1"/>
-        <div class="partido__datos__rival__nombre">Juan</div>
+        <img class="partido__datos__rival__imagen" :src="imagen2"/>
+        <div class="partido__datos__rival__nombre">{{ jugador2 }}</div>
       </div>
     </div>
   </a>
