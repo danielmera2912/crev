@@ -17,8 +17,10 @@
     </div>
     <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" 
     @abrirRegistrar="toggleRegistrar" :showRegistrar="showRegistrar" :showAcceso="showAcceso" 
-    @iniciarSesion="accederPerfilconIniciar" :sesionIniciada="sesionIniciada"></Iniciar>
-    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar" @abrirIniciar="toggleInicio" :showInicio="showInicio"></Registrar>
+    @iniciarSesion="accederPerfilconIniciar" :sesionIniciada="sesionIniciada"
+    @check="toggleCheck" :checkForm="checkForm"></Iniciar>
+    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar" @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio" 
+    @check="toggleCheck2" :checkForm="checkRegistro"></Registrar>
     <Acceso v-if="showAcceso" @cerrarTodo="toggleAcceso" :showAcceso="showAcceso" ></Acceso>
 </template>
 
@@ -31,7 +33,9 @@ export default {
             sesionIniciada: false,
             showInicio: false,
             showRegistrar: false,
-            showAcceso: false
+            showAcceso: false,
+            checkForm: false,
+            checkRegistro: false
         };
     },
     methods: {
@@ -50,15 +54,32 @@ export default {
             this.sesionIniciada = !this.sesionIniciada;
             this.showIniciado = false;
             this.showMenu = false;
+            if(this.sesionIniciada==false) {
+                this.checkForm = false;
+            }
         },
         toggleInicio() {
             this.showInicio = !this.showInicio;
             this.showMenu = false;
             this.showRegistrar = false;
+            
+        },
+        toggleInicioDesdeRegistro() {
+            if(this.checkRegistro){
+                this.showInicio = !this.showInicio;
+                this.showMenu = false;
+                this.showRegistrar = false;
+                this.checkRegistro = false;
+            }
+            
+            
         },
         accederPerfilconIniciar(){
-            this.toggleIniciado();
-            this.toggleAcceso();
+            if(this.checkForm){
+                this.toggleIniciado();
+                this.toggleAcceso();
+            }
+            
         },
         toggleRegistrar() {
             this.showRegistrar = !this.showRegistrar;
@@ -69,6 +90,12 @@ export default {
             this.showAcceso = !this.showAcceso;
             this.showMenu = false;
             this.showInicio = false;
+        },
+        toggleCheck(){
+            this.checkForm = !this.checkForm;
+        },
+        toggleCheck2(){
+            this.checkRegistro = !this.checkRegistro;
         }
 
     }

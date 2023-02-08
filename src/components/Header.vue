@@ -1,6 +1,14 @@
 <script setup>
 import Menu from './Menu_desplegable.vue'
 import Buscador from './Buscador.vue'
+
+defineProps({
+  search: {
+    type: String,
+    required: true
+  },
+})
+
 </script>
 <script>
 export default {
@@ -13,9 +21,10 @@ export default {
     handleChange(event) {
       const {value} = event.target;
       this.search = value;
+      this.$emit('inputChange', event)
     }
-}
-}
+  },
+};
 </script>
 <template>
     <header class="encabezado">
