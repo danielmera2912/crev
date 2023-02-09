@@ -11,7 +11,7 @@
     z-index : 99
     display : flex
     flex-direction: column
-    justify-content : space-between
+    justify-content : space-evenly
     padding : 1.5rem
     // Se define las propiedas para el botón cerrar, que te permite cerrar el desplegable al pulsar.
     &__cerrar
@@ -33,9 +33,11 @@
         display : flex
         flex-direction : column
         justify-content : center
-        align-items : center
+        
         &__recordar
+            margin-top : 2rem
             font-size : $xs
+            align-self : center
         &__informativo1
             display : none
         &__informativo1--visible
@@ -43,44 +45,33 @@
             display : flex
             color : red
             font-size : $xs
+            margin-left : 2.8rem  
         // Se define las propiedades de los inputs del desplegable.
         &__elemento
-            margin : 2rem
+            margin : 2rem 2rem 0 2rem
             width : 80%
             height: 4rem
             padding-left : 1em
             font-size : $xs
+            align-self : center
     // Se define el botón que te redirigirá a la página del acceso a usuario, una vez que se ha iniciado sesión.
     &__boton
+        margin-top: 1rem
         display : flex
         flex-direction : column
         justify-content : center
         align-items : center
-        
+        align-self : center
         // Se define el texto que posee el botón.
         &__opcion
-            background-color : $color_primario
+            background-color : $color_secundario_oscuro
             border : 1px solid $color_oscuro
             padding: 10px
             height : 2.8rem
             width : 8rem
             border-radius : 5px
-            color : $color_oscuro
+            color : $color_claro
             font-size : $xs
             font-family : $fuente_inter
             cursor : pointer
             text-align : center
-.boton
-    
-    // Se define el texto que posee el botón.
-    background-color : $color_primario
-    border : 1px solid $color_oscuro
-    padding: 10px
-    height : 2.8rem
-    width : 8rem
-    border-radius : 5px
-    color : $color_oscuro
-    font-size : $xs
-    font-family : $fuente_inter
-    cursor : pointer
-    text-align : center

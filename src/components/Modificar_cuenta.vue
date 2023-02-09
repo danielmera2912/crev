@@ -3,14 +3,12 @@
 export default {
     data() {
         return {
-            textUser: '',
             textPass: '',
             textCorreo: '',
             textFecha: '',
             expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             expresionCorreo: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
-            userValido: false,
             passValido: false,
             correoValido: false,
             fechaValida: false,
@@ -22,14 +20,6 @@ export default {
         }
     },
     methods: {
-        cambiarTextoUsuario(e) {
-            this.textUser = e.target.value
-            if (this.expresionUsuario.test(this.textUser)) {
-                this.userValido = true
-            } else {
-                this.userValido = false
-            }
-        },
         cambiarTextoPass(e) {
             this.textPass = e.target.value
             if (this.expresionPass.test(this.textPass)) {
@@ -64,14 +54,15 @@ export default {
             }
         },
         check() {
-            if (this.passValido && this.userValido && this.fechaValida && this.correoValido) {
+            if (this.passValido && this.fechaValida && this.correoValido) {
+                console.log("hola?")
                 this.$emit('check')
             }
         },
-        registrar() {
+        modificar() {
             this.check()
-            this.$emit('abrirIniciar')
-            if (!this.passValido || !this.userValido || !this.correoValido || !this.fechaValida) {
+            this.$emit('modificar')
+            if (!this.passValido || !this.correoValido || !this.fechaValida) {
                 this.hayErrores = true
             }
         }
@@ -80,41 +71,39 @@ export default {
 </script>
 <template>
     <div>
-        <div className="fondo" @click="$emit('cerrarTodo')"></div>
-        <form className="registrar">
+        <div className="fondo" @click="$emit('cerrar')"></div>
+        <form className="modificar">
             <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
-                    @click="$emit('cerrarTodo')">close</span></a>
-            <tittle className="registrar__titulo">Registrar</tittle>
-            <section className="registrar__caja">
-                <input v-on:input="cambiarTextoUsuario" className="registrar__caja__elemento" type="text"
-                    placeholder="Usuario..." />
-                <div v-if="!userValido && hayErrores" className="registrar__caja__informativo1--visible">{{
-                    mensajeError1
-                }}</div>
+                    @click="$emit('cerrar')">close</span></a>
+            <tittle className="modificar__titulo">Modificar</tittle>
+            <section className="modificar__caja">
+                <div className="modificar__avatar">
+                    <img className="modificar__avatar__imagen" src="https://cdn.resfu.com/img_data/players/medium/64734.jpg?size=120x&lossy=1"/>
+                    <input class="modificar__avatar__file" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                </div>
+                
 
-                <input v-on:input="cambiarTextoCorreo" className="registrar__caja__elemento" type="email"
-                    placeholder="Correo electrónico..." />
-                <div v-if="!correoValido && hayErrores" className="registrar__caja__informativo1--visible">{{
+                <input v-on:input="cambiarTextoCorreo" className="modificar__caja__elemento" type="email"
+                    placeholder="Correo electrónico..." :value="textCorreo"/>
+                <div v-if="!correoValido && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
 
-                <input v-on:input="cambiarTextoPass" className="registrar__caja__elemento" type="password"
-                    placeholder="Contraseña..." />
-                <div v-if="!passValido && hayErrores" className="registrar__caja__informativo1--visible">{{
+                <input v-on:input="cambiarTextoPass" className="modificar__caja__elemento" type="password"
+                    placeholder="Contraseña..." :value="textPass" />
+                <div v-if="!passValido && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>
 
-                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date" />
-                <div v-if="!fechaValida && hayErrores" className="registrar__caja__informativo1--visible">{{
+                <input v-on:input="cambiarTextoFecha" className="modificar__caja__elemento" type="date" :value="textFecha"/>
+                <div v-if="!fechaValida && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError4
                 }}</div>
             </section>
-            <section className="registrar__boton">
-                <input type="submit" className="registrar__boton__opcion registrar__boton__opcion--registrar"
-                    @click.prevent="registrar" value="Registrar" readonly />
-                <div class="registrar__boton__condicion">o</div>
-                <a className="registrar__boton__opcion registrar__boton__opcion--iniciar"
-                    @click="$emit('abrirIniciarSinRegistrar')">Identíficate aquí</a>
+            <section className="modificar__boton">
+                <input type="submit" className="modificar__boton__opcion modificar__boton__opcion--modificar"
+                    @click.prevent="modificar" value="Modificar" readonly />
+
             </section>
         </form>
     </div>

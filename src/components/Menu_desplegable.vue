@@ -11,7 +11,7 @@
             <li @click="toggleRegistrar">Crear cuenta</li>
         </ul>
         <ul class="encabezado__menu__lista" v-if="showIniciado">
-            <li><RouterLink class="encabezado__menu__lista__elemento" to="/perfil" @click="toggleMenu">Perfil</RouterLink></li>
+            <li><RouterLink class="encabezado__menu__lista__elemento" to="/profile" @click="toggleMenu">Perfil</RouterLink></li>
             <li><RouterLink class="encabezado__menu__lista__elemento" to="/" @click="toggleIniciado">Cerrar sesión</RouterLink></li>
         </ul>
     </div>
@@ -19,8 +19,9 @@
     @abrirRegistrar="toggleRegistrar" :showRegistrar="showRegistrar" :showAcceso="showAcceso" 
     @iniciarSesion="accederPerfilconIniciar" :sesionIniciada="sesionIniciada"
     @check="toggleCheck" :checkForm="checkForm"></Iniciar>
-    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar" @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio" 
-    @check="toggleCheck2" :checkForm="checkRegistro"></Registrar>
+    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar" @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio"  
+    @check="toggleCheck2" :checkForm="checkRegistro" 
+    @abrirIniciarSinRegistrar="toggleInicio"></Registrar>
     <Acceso v-if="showAcceso" @cerrarTodo="toggleAcceso" :showAcceso="showAcceso" ></Acceso>
 </template>
 
@@ -70,6 +71,7 @@ export default {
                 this.showMenu = false;
                 this.showRegistrar = false;
                 this.checkRegistro = false;
+                alert("Se ha registrado correctamente")
             }
             
             
@@ -78,6 +80,7 @@ export default {
             if(this.checkForm){
                 this.toggleIniciado();
                 this.toggleAcceso();
+                alert("Se ha iniciado sesión correctamente")
             }
             
         },

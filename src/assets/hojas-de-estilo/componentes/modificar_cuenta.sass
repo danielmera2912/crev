@@ -1,6 +1,6 @@
 
-// Estilos para el cuadro desplegable que te permite registrar una cuenta.
-.registrar
+// Estilos para el cuadro desplegable que te permite modificar una cuenta.
+.modificar
     height: 700px
     width: 500px
     background-color: $color_claro
@@ -13,6 +13,18 @@
     flex-direction: column
     justify-content: space-evenly
     padding: 1.5rem
+    &__avatar
+
+        margin-left: 2rem
+        &__imagen
+            width: 7rem
+            height: 7rem
+        &__file
+            width: 32%
+            text-align: center
+            position : relative
+            top: -50px
+            left : 21px
     // Se define las propiedas para el botón cerrar, que te permite cerrar el desplegable al pulsar.
     &__cerrar
         width: 25px
@@ -36,12 +48,12 @@
 
         // Se define las propiedades de los inputs del desplegable.
         &__elemento
-            margin : 2rem 2rem 0 2rem
+            margin: 2rem 2rem 0 2rem
             width: 80%
             height: 4rem
             padding-left: 1em
             font-size: $xs
-            align-self : center
+            align-self: center
         &__informativo1
             display: none
         &__informativo1--visible
@@ -50,13 +62,13 @@
             color: red
             font-size: $xs
             align-self: center
-            
+
     // Se define el botón que te redirigirá a la página de iniciar sesión, una vez que se ha registrado la cuenta.
     &__boton
         display: flex
         flex-direction: column
         justify-content: center
-        align-self : center
+        align-self: center
         margin-top: 0.5rem
         // Se define el texto que posee el botón.
         &__opcion
@@ -72,7 +84,4 @@
             border: 1px solid $color_oscuro
             padding-top: 10px
         &__condicion
-            align-self : center
-input[type="file"] 
-  background-color: #FFC107
-  color: #fff
+            align-self: center

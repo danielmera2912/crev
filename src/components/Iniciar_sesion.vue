@@ -59,19 +59,19 @@ export default {
             <tittle className="iniciar_sesion__titulo">Iniciar sesión</tittle>
 
             <form className="iniciar_sesion__caja">
-                <div v-if="!userValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{ mensajeError1 }}
-                </div>
                 <input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
                     placeholder="Usuario..." />
-                <div v-if="!passValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{ mensajeError2 }}
-                </div>
+                    <label v-if="!userValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{ mensajeError1 }}</label>
+                
                 <input @input="cambiarTextoPass" className="iniciar_sesion__caja__elemento" type="password"
                     placeholder="Contraseña..." />
+                    <div v-if="!passValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{ mensajeError2 }}
+                </div>
                 <label className="iniciar_sesion__caja__recordar"><input type="checkbox" id="check" value="check" />
                     Recordar Cuenta</label>
                 <section className="iniciar_sesion__boton">
-                    <input type="text" className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar"
-                        @click="iniciar" value="Entrar" readonly/>
+                    <input type="submit" className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar"
+                        @click.prevent="iniciar" value="Entrar"/>
                     <p>o</p>
                     <a className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--registrar"
                         @click="$emit('abrirRegistrar')">Regístrate</a>
