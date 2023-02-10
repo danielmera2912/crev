@@ -11,7 +11,7 @@
             <li @click="toggleRegistrar">Crear cuenta</li>
         </ul>
         <ul class="encabezado__menu__lista" v-if="showIniciado">
-            <li><RouterLink class="encabezado__menu__lista__elemento" to="/profile" @click="toggleMenu">Perfil</RouterLink></li>
+            <li><RouterLink class="encabezado__menu__lista__elemento" to="/perfil" @click="toggleMenu">Perfil</RouterLink></li>
             <li><RouterLink class="encabezado__menu__lista__elemento" to="/" @click="toggleIniciado">Cerrar sesión</RouterLink></li>
         </ul>
     </div>

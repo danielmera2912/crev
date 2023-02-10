@@ -31,17 +31,13 @@ defineProps({
   imagen2: {
     type: String,
     required: true
-  },
-  perfil: {
-    type: Boolean,
-    required: true
   }
 })
 
 </script>
 <template>
-  <RouterLink to="/partido_detalles" class="partido">
-    <button v-if="!perfil" class="boton partido__resultado">Añadir resultado</button>
+  <a class="partido">
+    <button class="boton partido__resultado">Añadir resultado</button>
     <div class="partido__deporte">
       {{ deporte }}
     </div>
@@ -60,5 +56,5 @@ defineProps({
         <div class="partido__datos__rival__nombre">{{ jugador2 }}</div>
       </div>
     </div>
-  </RouterLink>
+  </a>
 </template>
