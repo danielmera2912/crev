@@ -1,5 +1,5 @@
 <script setup>
-import Crear_evento from './Crear_evento.vue'
+import Modificar_evento from './Modificar_evento.vue'
 defineProps({
   id: {
     type: Number,
@@ -36,6 +36,17 @@ export default {
       const response = await fetch(this.API+"/"+this.id)
       const data = await response.json()
       this.results = data
+    },
+    toggleCheckForm(){
+      this.checkForm = !this.checkForm
+    },
+    realizarEvento() {
+      if(this.checkForm){
+        this.creacion = false;
+        this.checkForm = false;
+        alert("Se ha actualizado el evento satisfactoriamente")
+      }
+      
     }
 
   },
@@ -75,6 +86,6 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <Crear_evento  @cerrarTodo="toggleCreacion" v-if="creacion"></Crear_evento>
+    <Modificar_evento v-if="creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento" @check="toggleCheckForm" :checkForm="checkForm"></Modificar_evento>
   </div>
 </template>

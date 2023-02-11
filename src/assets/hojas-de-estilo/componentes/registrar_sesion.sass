@@ -36,18 +36,19 @@
 
         // Se define las propiedades de los inputs del desplegable.
         &__elemento
-            margin: 2rem 2rem 0 2rem
+            margin: 0.75rem 2rem 0 2rem
             width: 80%
             height: 4rem
             padding-left: 1em
             font-size: $xs
             align-self: center
+            position: relative
         &__informativo1
             display: none
         &__informativo1--visible
             text-align: center
             display: flex
-            color: red
+            color: $color_rojo
             font-size: $xs
             align-self: center
 
@@ -74,3 +75,16 @@
         &__condicion
             align-self: center
 
+.icon1
+    position: absolute
+    right: 16%
+    top: 47.5%
+    transform: translateY(-50%)
+    cursor: pointer
+
+.registrar__caja__elemento + .icon2
+    position: absolute
+    right: 16%
+    top: 58.5%
+    transform: translateY(-50%)
+    cursor: pointer

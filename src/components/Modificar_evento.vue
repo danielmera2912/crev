@@ -20,14 +20,6 @@ export default {
         }
     },
     methods: {
-        cambiarTextoDeporte(e) {
-            this.textDeporte = e.target.value
-            if (this.expresionDeporte.test(this.textDeporte)) {
-                this.deporteValido = true
-            } else {
-                this.deporteValido = false
-            }
-        },
         cambiarTextoHora(e) {
             this.textHora = e.target.value
             if(this.textHora.length > 0) {
@@ -65,7 +57,7 @@ export default {
             }
         },
         check() {
-            if (this.ciudadValida && this.horaValida && this.deporteValido && this.fechaValida) {
+            if (this.ciudadValida && this.horaValida && this.fechaValida) {
                 this.$emit('check')
             }
         },
@@ -73,7 +65,7 @@ export default {
             console.log("XD")
             this.check()
             this.$emit('realizarEvento')
-            if (!this.ciudadValida || !this.horaValida ||!this.deporteValido || !this.fechaValida) {
+            if (!this.ciudadValida || !this.horaValida || !this.fechaValida) {
                 this.hayErrores = true
             }
         }
@@ -86,21 +78,10 @@ export default {
         <form className="crear_evento">
             <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
                     @click="$emit('cerrarTodo')">close</span></a>
-            <tittle className="crear_evento__titulo">Crear evento</tittle>
+            <tittle className="crear_evento__titulo">Modificar evento</tittle>
             <section className="crear_evento__caja">
-                <div class="crear_evento__caja__deporte">
-                    <select v-on:input="cambiarTextoDeporte" class="crear_evento__caja__deporte__elemento">
-                        <option value="">Elige un deporte</option>
-                        <option value="futbol">Fútbol</option>
-                        <option value="baloncesto">Baloncesto</option>
-                    </select>
-                </div>
-                <div v-if="!deporteValido && hayErrores" className="crear_evento__caja__informativo1--visible">{{
-                    mensajeError1
-                }}</div>
-
                 <input v-on:input="cambiarTextoCiudad" className="crear_evento__caja__elemento" type="text"
-                    placeholder="Ciudad" />
+                    placeholder="Ciudad" :value="textCiudad" />
                     <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>

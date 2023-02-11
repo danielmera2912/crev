@@ -16,7 +16,9 @@ export default {
             mensajeError2: "Se necesita entre 8-16 caracteres, mínimo un dígito, mayúscula y minúscula",
             mensajeError3: "Necesitas tener un patrón correcto (ej: usuario@gmail.com)",
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
-            hayErrores: false
+            hayErrores: false,
+            inputType: "password",
+            icon: "visibility"
         }
     },
     methods: {
@@ -65,6 +67,10 @@ export default {
             if (!this.passValido || !this.correoValido || !this.fechaValida) {
                 this.hayErrores = true
             }
+        },
+        toggleVisibility() {
+            this.inputType = this.inputType === "password" ? "text" : "password";
+            this.icon = this.icon === "visibility" ? "visibility_off" : "visibility";
         }
     }
 }
@@ -78,24 +84,27 @@ export default {
             <tittle className="modificar__titulo">Modificar</tittle>
             <section className="modificar__caja">
                 <div className="modificar__avatar">
-                    <img className="modificar__avatar__imagen" src="https://cdn.resfu.com/img_data/players/medium/64734.jpg?size=120x&lossy=1"/>
-                    <input class="modificar__avatar__file" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                    <img className="modificar__avatar__imagen"
+                        src="https://cdn.resfu.com/img_data/players/medium/64734.jpg?size=120x&lossy=1" />
+                    <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
+                        accept="image/png, image/jpeg">
                 </div>
-                
+
 
                 <input v-on:input="cambiarTextoCorreo" className="modificar__caja__elemento" type="email"
-                    placeholder="Correo electrónico..." :value="textCorreo"/>
+                    placeholder="Nuevo correo electrónico..." :value="textCorreo" />
                 <div v-if="!correoValido && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
-
-                <input v-on:input="cambiarTextoPass" className="modificar__caja__elemento" type="password"
-                    placeholder="Contraseña..." :value="textPass" />
+                <input :type="inputType" @input="cambiarTextoPass" class="modificar__caja__elemento"
+                    placeholder="Nueva contraseña..." :value="textPass"/>
+                <span class="material-symbols-outlined" @click="toggleVisibility">{{ icon }}</span>
                 <div v-if="!passValido && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>
 
-                <input v-on:input="cambiarTextoFecha" className="modificar__caja__elemento" type="date" :value="textFecha"/>
+                <input v-on:input="cambiarTextoFecha" className="modificar__caja__elemento" type="date"
+                    :value="textFecha" />
                 <div v-if="!fechaValida && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError4
                 }}</div>

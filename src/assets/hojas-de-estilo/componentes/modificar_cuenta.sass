@@ -54,12 +54,13 @@
             padding-left: 1em
             font-size: $xs
             align-self: center
+            position : relative
         &__informativo1
             display: none
         &__informativo1--visible
             text-align: center
             display: flex
-            color: red
+            color: $color_rojo
             font-size: $xs
             align-self: center
 
@@ -85,3 +86,9 @@
             padding-top: 10px
         &__condicion
             align-self: center
+.modificar__caja__elemento + .material-symbols-outlined
+    position: absolute
+    right: 16%
+    top: 63.5%
+    transform: translateY(-50%)
+    cursor: pointer

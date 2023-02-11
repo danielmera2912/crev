@@ -5,6 +5,7 @@ export default {
         return {
             textUser: '',
             textPass: '',
+            textPass2: '',
             textCorreo: '',
             textFecha: '',
             expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
@@ -12,13 +13,19 @@ export default {
             expresionCorreo: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
             userValido: false,
             passValido: false,
+            passValido2: false,
             correoValido: false,
             fechaValida: false,
             mensajeError1: "Necesitas tener al menos 4 caracteres",
             mensajeError2: "Se necesita entre 8-16 caracteres, mínimo un dígito, mayúscula y minúscula",
             mensajeError3: "Necesitas tener un patrón correcto (ej: usuario@gmail.com)",
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
-            hayErrores: false
+            mensajeError5: "La contraseña no coincide",
+            hayErrores: false,
+            inputType: "password",
+            inputType2: "password",
+            icon: "visibility",
+            icon2: "visibility"
         }
     },
     methods: {
@@ -36,6 +43,19 @@ export default {
                 this.passValido = true
             } else {
                 this.passValido = false
+            }
+        },
+        cambiarTextoPass2(e) {
+            this.textPass2 = e.target.value
+            if (this.expresionPass.test(this.textPass2)) {
+                if (this.textPass == this.textPass2) {
+                    this.passValido2 = true
+                } else {
+                    this.passValido2 = false
+                }
+
+            } else {
+                this.passValido2 = false
             }
         },
         cambiarTextoCorreo(e) {
@@ -64,16 +84,24 @@ export default {
             }
         },
         check() {
-            if (this.passValido && this.userValido && this.fechaValida && this.correoValido) {
+            if (this.passValido && this.passValido2 && this.userValido && this.fechaValida && this.correoValido) {
                 this.$emit('check')
             }
         },
         registrar() {
             this.check()
             this.$emit('abrirIniciar')
-            if (!this.passValido || !this.userValido || !this.correoValido || !this.fechaValida) {
+            if (!this.passValido || !this.passValido || !this.userValido || !this.correoValido || !this.fechaValida) {
                 this.hayErrores = true
             }
+        },
+        toggleVisibility() {
+            this.inputType = this.inputType === "password" ? "text" : "password";
+            this.icon = this.icon === "visibility" ? "visibility_off" : "visibility";
+        },
+        toggleVisibility2() {
+            this.inputType2 = this.inputType2 === "password" ? "text" : "password";
+            this.icon2 = this.icon2 === "visibility" ? "visibility_off" : "visibility";
         }
     }
 }
@@ -97,14 +125,19 @@ export default {
                 <div v-if="!correoValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
-
-                <input v-on:input="cambiarTextoPass" className="registrar__caja__elemento" type="password"
+                <input :type="inputType" @input="cambiarTextoPass" class="registrar__caja__elemento"
                     placeholder="Contraseña..." />
+                <span class="material-symbols-outlined icon1" @click="toggleVisibility">{{ icon }}</span>
                 <div v-if="!passValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>
-
-                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date"/>
+                <input :type="inputType2" @input="cambiarTextoPass2" className="registrar__caja__elemento"
+                    placeholder="Repite la contraseña..." />
+                <span class="material-symbols-outlined icon2" @click="toggleVisibility2">{{ icon2 }}</span>
+                <div v-if="!passValido2 && hayErrores" className="registrar__caja__informativo1--visible">{{
+                    mensajeError5
+                }}</div>
+                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date" />
                 <div v-if="!fechaValida && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError4
                 }}</div>
