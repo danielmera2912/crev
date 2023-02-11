@@ -104,7 +104,7 @@ export default {
                     mensajeError2
                 }}</div>
 
-                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date" />
+                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date"/>
                 <div v-if="!fechaValida && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError4
                 }}</div>

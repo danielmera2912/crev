@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 defineProps({
   deporte: {
     type: String,
@@ -41,7 +42,7 @@ defineProps({
 </script>
 <template>
   <RouterLink to="/partido_detalles" class="partido">
-    <button v-if="!perfil" class="boton partido__resultado">Añadir resultado</button>
+    <span v-if="!perfil" className="material-symbols-outlined partido__resultado">edit</span>
     <div class="partido__deporte">
       {{ deporte }}
     </div>

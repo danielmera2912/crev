@@ -1,0 +1,85 @@
+.partido-detalles
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-between
+    padding: 20px
+
+.partido-detalles__enfrentamiento
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    width: 100%
+    margin: 20px 0
+    background-color: #f2f2f2
+    border-radius: 10px
+    box-shadow: 0px 0px 10px #ccc
+
+.partido-detalles__enfrentamiento__jugador
+    display: flex
+    flex-direction: column
+    align-items: center
+    text-align: center
+    margin: 0 20px
+    width: 20%
+
+.partido-detalles__enfrentamiento__jugador__texto
+    font-weight: bold
+    font-size: 18px
+
+.partido-detalles__enfrentamiento__jugador__nombre
+    font-size: 16px
+    margin-top: 20px
+
+.partido-detalles__enfrentamiento__jugador__avatar
+    width: 100px
+    height: 100px
+    border-radius: 50px
+    margin-top: 20px
+    margin-bottom: 20px
+
+.partido-detalles__enfrentamiento__duelo
+    font-weight: bold
+    font-size: 36px
+    margin: 20px
+.partido-detalles__datos
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+    margin: 20px 0
+    padding: 20px
+    border: 1px solid #ccc
+    border-radius: 10px
+    position: relative
+
+.partido-detalles__datos__enunciado
+    font-size: 18px
+    font-weight: bold
+    margin-bottom: 20px
+
+.partido-detalles__datos__ciudad,
+.partido-detalles__datos__fecha,
+.partido-detalles__datos__hora
+    width: 30%
+    text-align: center
+
+.partido-detalles__datos__ciudad__enunciado,
+.partido-detalles__datos__fecha__enunciado,
+.partido-detalles__datos__hora__enunciado
+    font-size: 14px
+    font-weight: bold
+    margin-bottom: 10px
+
+.partido-detalles__datos__ciudad__dato,
+.partido-detalles__datos__fecha__dato,
+.partido-detalles__datos__hora__dato
+    font-size: 16px
+    font-weight: normal
+.partido-detalles__datos__modificar
+    position: absolute
+    top: 1px
+    right: 1px
+    color: $color_secundario_oscuro
+    cursor: pointer
