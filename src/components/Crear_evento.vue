@@ -1,5 +1,4 @@
 <script>
-
 export default {
     data() {
         return {
@@ -7,7 +6,7 @@ export default {
             textHora: '',
             textCiudad: '',
             textFecha: '',
-            expresionDeporte: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
+            expresionDeporte: /^[a-zA-ZÀ-ÿ\s,]{4,}$/,
             deporteValido: false,
             fechaValida: false,
             ciudadValida: false,
@@ -30,9 +29,9 @@ export default {
         },
         cambiarTextoHora(e) {
             this.textHora = e.target.value
-            if(this.textHora.length > 0) {
+            if (this.textHora.length > 0) {
                 this.horaValida = true
-            }else{
+            } else {
                 this.horaValida = false
             }
         },
@@ -40,10 +39,10 @@ export default {
             this.textCiudad = e.target.value
             if (this.expresionDeporte.test(this.textCiudad)) {
                 this.ciudadValida = true
-            }else{
+            } else {
                 this.ciudadValida = false
             }
-            
+
 
         },
         cambiarTextoFecha(e) {
@@ -55,7 +54,7 @@ export default {
                 let tiempoRestante = anio - fechaUser
                 if (tiempoRestante <= 0) {
                     this.fechaValida = true
-                    
+
                 } else {
                     this.fechaValida = false
                 }
@@ -67,15 +66,23 @@ export default {
         check() {
             if (this.ciudadValida && this.horaValida && this.deporteValido && this.fechaValida) {
                 this.$emit('check')
+                this.submitPartido()
             }
         },
         ejecutarEvento() {
-            console.log("XD")
             this.check()
-            this.$emit('realizarEvento')
-            if (!this.ciudadValida || !this.horaValida ||!this.deporteValido || !this.fechaValida) {
+            if (!this.ciudadValida || !this.horaValida || !this.deporteValido || !this.fechaValida) {
                 this.hayErrores = true
             }
+        },
+        submitPartido() {
+            this.$emit('updatePartido', {
+                deporte: this.textDeporte,
+                hora: this.textHora,
+                ciudad: this.textCiudad,
+                fecha: this.textFecha
+            })
+            this.$emit('realizarEvento')
         }
     }
 }
@@ -101,7 +108,7 @@ export default {
 
                 <input v-on:input="cambiarTextoCiudad" className="crear_evento__caja__elemento" type="text"
                     placeholder="Ciudad" />
-                    <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
+                <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>
                 <input v-on:input="cambiarTextoFecha" className="crear_evento__caja__elemento" type="date" />
@@ -111,7 +118,7 @@ export default {
 
                 <input v-on:input="cambiarTextoHora" className="crear_evento__caja__elemento" type="time"
                     placeholder="Hora exacta" required />
-                    <div v-if="!horaValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
+                <div v-if="!horaValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
             </section>
@@ -120,7 +127,7 @@ export default {
 
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
-                    @click.prevent="ejecutarEvento" value="Crear evento"/>
+                    @click.prevent="ejecutarEvento" value="Crear evento" />
             </section>
         </form>
     </div>

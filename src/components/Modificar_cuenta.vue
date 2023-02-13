@@ -57,7 +57,6 @@ export default {
         },
         check() {
             if (this.passValido && this.fechaValida && this.correoValido) {
-                console.log("hola?")
                 this.$emit('check')
             }
         },

@@ -1,5 +1,29 @@
+<script setup>
+import axios from 'axios';
+defineProps({
+    id: {
+        type: Number,
+        required: true
+    },
+    ciudad: {
+        type: String,
+        required: true
+    },
+    deporte: {
+        type: String,
+        required: true
+    },
+    fecha: {
+        type: String,
+        required: true
+    },
+    hora: {
+        type: String,
+        required: true
+    }
+})
+</script>
 <script>
-
 export default {
     data() {
         return {
@@ -7,7 +31,7 @@ export default {
             textHora: '',
             textCiudad: '',
             textFecha: '',
-            expresionDeporte: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
+            expresionDeporte: /^[a-zA-ZÀ-ÿ\s,]{4,}$/,
             deporteValido: false,
             fechaValida: false,
             ciudadValida: false,
@@ -16,15 +40,29 @@ export default {
             mensajeError2: "Se necesita escribir una ciudad",
             mensajeError3: "Se necesita insertar una hora",
             mensajeError4: "Se necesita una fecha válida",
-            hayErrores: false
+            hayErrores: false,
+            formData: {
+                id: this.id,
+                deporte: this.deporte,
+                jugador1: 'ejemplo1',
+                jugador2: 'ejemplo2',
+                ciudad: '',
+                fecha: '',
+                hora: ''
+            },
         }
+    },
+    mounted() {
+        this.textCiudad = this.ciudad
+        this.textFecha = this.fecha
+        this.textHora = this.hora
     },
     methods: {
         cambiarTextoHora(e) {
             this.textHora = e.target.value
-            if(this.textHora.length > 0) {
+            if (this.textHora.length > 0) {
                 this.horaValida = true
-            }else{
+            } else {
                 this.horaValida = false
             }
         },
@@ -32,10 +70,10 @@ export default {
             this.textCiudad = e.target.value
             if (this.expresionDeporte.test(this.textCiudad)) {
                 this.ciudadValida = true
-            }else{
+            } else {
                 this.ciudadValida = false
             }
-            
+
 
         },
         cambiarTextoFecha(e) {
@@ -47,7 +85,7 @@ export default {
                 let tiempoRestante = anio - fechaUser
                 if (tiempoRestante <= 0) {
                     this.fechaValida = true
-                    
+
                 } else {
                     this.fechaValida = false
                 }
@@ -59,14 +97,26 @@ export default {
         check() {
             if (this.ciudadValida && this.horaValida && this.fechaValida) {
                 this.$emit('check')
+                this.updatePartido()
             }
         },
         ejecutarEvento() {
-            console.log("XD")
             this.check()
             this.$emit('realizarEvento')
             if (!this.ciudadValida || !this.horaValida || !this.fechaValida) {
                 this.hayErrores = true
+            }
+        },
+        async updatePartido() {
+            this.formData.ciudad = this.textCiudad
+            this.formData.fecha = this.textFecha
+            this.formData.hora = this.textHora
+            try {
+                const response = await axios.put("http://127.0.0.1:3001/api/v1/partidos/" + this.id, this.formData);
+                console.log(response.data);
+                this.$router.push('/');
+            } catch (error) {
+                console.error(error);
             }
         }
     }
@@ -80,19 +130,19 @@ export default {
                     @click="$emit('cerrarTodo')">close</span></a>
             <tittle className="crear_evento__titulo">Modificar evento</tittle>
             <section className="crear_evento__caja">
-                <input v-on:input="cambiarTextoCiudad" className="crear_evento__caja__elemento" type="text"
-                    placeholder="Ciudad" :value="textCiudad" />
-                    <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
+                <input className="crear_evento__caja__elemento" type="text" placeholder="Ciudad"
+                    v-bind:value="textCiudad" v-on:input="cambiarTextoCiudad" />
+                <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>
-                <input v-on:input="cambiarTextoFecha" className="crear_evento__caja__elemento" type="date" />
+                <input v-on:input="cambiarTextoFecha" v-bind:value="textFecha" className="crear_evento__caja__elemento" type="date" />
                 <div v-if="!fechaValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError4
                 }}</div>
 
-                <input v-on:input="cambiarTextoHora" className="crear_evento__caja__elemento" type="time"
+                <input v-on:input="cambiarTextoHora" v-bind:value="textHora" className="crear_evento__caja__elemento" type="time"
                     placeholder="Hora exacta" required />
-                    <div v-if="!horaValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
+                <div v-if="!horaValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
             </section>
@@ -101,7 +151,7 @@ export default {
 
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
-                    @click.prevent="ejecutarEvento" value="Crear evento"/>
+                    @click.prevent="ejecutarEvento" value="Modificar evento" />
             </section>
         </form>
     </div>
