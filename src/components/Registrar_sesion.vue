@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 export default {
     data() {
         return {
@@ -12,20 +13,26 @@ export default {
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             expresionCorreo: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
             userValido: false,
+            userValidoServer: true,
             passValido: false,
             passValido2: false,
             correoValido: false,
+            correoValidoServer: true,
             fechaValida: false,
             mensajeError1: "Necesitas tener al menos 4 caracteres",
             mensajeError2: "Se necesita entre 8-16 caracteres, mínimo un dígito, mayúscula y minúscula",
             mensajeError3: "Necesitas tener un patrón correcto (ej: usuario@gmail.com)",
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
             mensajeError5: "La contraseña no coincide",
+            mensajeError6: "El nombre de usuario ya existe",
+            mensajeError7: "El email de usuario ya existe",
             hayErrores: false,
             inputType: "password",
             inputType2: "password",
             icon: "visibility",
             icon2: "visibility",
+            checkEmailServer: false,
+            checkUserServer: false,
             formData: {
                 name: "",
                 password: "",
@@ -92,7 +99,6 @@ export default {
         },
         check() {
             if (this.passValido && this.passValido2 && this.userValido && this.fechaValida && this.correoValido) {
-                this.$emit('check')
                 this.crearUsuario()
             }
         },
@@ -120,8 +126,30 @@ export default {
                 avatar: null
             };
             try {
-                const response = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
-                console.log(response.data);
+                const response = await fetch("http://127.0.0.1:3001/api/v1/users/email/" + this.formData.email)
+                const data = await response.json()
+                this.checkEmailServer = data
+
+                const response2 = await fetch("http://127.0.0.1:3001/api/v1/users/name/" + this.formData.name)
+                const data2 = await response2.json()
+                this.checkUserServer = data2
+                if (!this.checkEmailServer && !this.checkUserServer) {
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash(this.formData.password, salt);
+                    this.formData.password = hashedPassword;
+                    const responsePost = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
+                    console.log(responsePost.data);
+                    this.$emit('check')
+                } else {
+                    this.hayErrores = true
+                    if(this.checkEmailServer){
+                        this.correoValidoServer = false
+                    }
+                    if(this.checkUserServer){
+                        this.userValidoServer = false
+                    }
+                }
+
             } catch (error) {
                 console.error(error);
             }
@@ -142,11 +170,16 @@ export default {
                 <div v-if="!userValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError1
                 }}</div>
-
+                <div v-else-if="!userValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
+                    mensajeError6
+                }}</div>
                 <input v-on:input="cambiarTextoCorreo" className="registrar__caja__elemento" type="email"
                     placeholder="Correo electrónico..." />
                 <div v-if="!correoValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError3
+                }}</div>
+                <div v-else-if="!correoValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
+                    mensajeError7
                 }}</div>
                 <input :type="inputType" @input="cambiarTextoPass" class="registrar__caja__elemento"
                     placeholder="Contraseña..." />
