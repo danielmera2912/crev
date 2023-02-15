@@ -20,6 +20,86 @@ defineProps({
     hora: {
         type: String,
         required: true
+    },
+    jugador1: {
+        type: String,
+        required: true
+    },
+    jugador2: {
+        type: String,
+        required: true
+    },
+    jugador3: {
+        type: String,
+        required: false
+    },
+    jugador4: {
+        type: String,
+        required: false
+    },
+    jugador5: {
+        type: String,
+        required: false
+    },
+    jugador6: {
+        type: String,
+        required: false
+    },
+    jugador7: {
+        type: String,
+        required: false
+    },
+    jugador8: {
+        type: String,
+        required: false
+    },
+    jugador9: {
+        type: String,
+        required: false
+    },
+    jugador10: {
+        type: String,
+        required: false
+    },
+    imagen1: {
+        type: String,
+        required: true
+    },
+    imagen2: {
+        type: String,
+        required: true
+    },
+    imagen3: {
+        type: String,
+        required: false
+    },
+    imagen4: {
+        type: String,
+        required: false
+    },
+    imagen5: {
+        type: String,
+        required: false
+    },
+    imagen6: {
+        type: String,
+        required: false
+    },
+    imagen7: {
+        type: String,
+        required: false
+    },
+    imagen8: {
+        type: String,
+        required: false
+    },
+    imagen9: {
+        type: String,
+        required: false
+    },
+    imagen10: {
+        type: String,
+        required: false
     }
 })
 </script>
@@ -44,8 +124,28 @@ export default {
             formData: {
                 id: this.id,
                 deporte: this.deporte,
-                jugador1: 'ejemplo1',
-                jugador2: 'ejemplo2',
+                equipo1: this.equipo1,
+                equipo2: this.equipo2,
+                imagen1: this.imagen1,
+                imagen2: this.imagen2,
+                imagen3: this.imagen3,
+                imagen4: this.imagen4,
+                imagen5: this.imagen5,
+                imagen6: this.imagen6,
+                imagen7: this.imagen7,
+                imagen8: this.imagen8,
+                imagen9: this.imagen9,
+                imagen10: this.imagen10,
+                jugador1: this.jugador1,
+                jugador2: this.jugador2,
+                jugador3: this.jugador3,
+                jugador4: this.jugador4,
+                jugador5: this.jugador5,
+                jugador6: this.jugador6,
+                jugador7: this.jugador7,
+                jugador8: this.jugador8,
+                jugador9: this.jugador9,
+                jugador10: this.jugador10,
                 ciudad: '',
                 fecha: '',
                 hora: ''

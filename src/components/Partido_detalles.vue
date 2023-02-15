@@ -26,9 +26,11 @@ export default {
       permisos: true
     }
   },
-  async mounted(){
+  async mounted() {
+    
     await this.llamarApiPartido()
     this.establecerValores()
+
   },
   methods: {
     recibirValores() {
@@ -38,21 +40,22 @@ export default {
       this.creacion = !this.creacion
     },
     async llamarApiPartido() {
+      // this.$emit('enviarValores', this.id)
       const response = await fetch(this.API_partido + "/" + this.id)
       const data = await response.json()
       this.results2 = data
-      
+
     },
     async eliminarPartido() {
-    if (this.permisos) {
-      try {
-        await axios.delete(this.API_partido+"/"+this.id);
-        this.$router.push('/');
-      } catch (error) {
-        console.error(error);
+      if (this.permisos) {
+        try {
+          await axios.delete(this.API_partido + "/" + this.id);
+          this.$router.push('/');
+        } catch (error) {
+          console.error(error);
+        }
       }
-    }
-  },
+    },
     toggleCheckForm() {
       this.checkForm = !this.checkForm
     },
@@ -64,7 +67,7 @@ export default {
       }
 
     },
-    establecerValores(){
+    establecerValores() {
       this.deporte = this.results2.deporte
       this.jugador1 = this.results2.jugador1
       this.jugador2 = this.results2.jugador2
@@ -79,18 +82,19 @@ export default {
 };
 </script>
 <template>
-  <div v-if="jugador1!=null" to="/partido_detalles" class="partido-detalles">
-    
+  <div v-if="jugador1 != null" to="/partido_detalles" class="partido-detalles">
+
     <div class="partido-detalles__deporte">Partido de {{ deporte }}</div>
     <div class="partido-detalles__enfrentamiento">
-      
-      <span v-if="permisos" @click="eliminarPartido" class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
+
+      <span v-if="permisos" @click="eliminarPartido"
+        class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
       <a class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 1</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador1 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
       </a>
-      <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png"/></div>
+      <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <div class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
@@ -117,9 +121,11 @@ export default {
     </div>
     <button class="partido-detalles__boton boton">Participar</button>
     <Modificar_evento v-if="permisos && creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
-      @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha" :hora="hora"></Modificar_evento>
+      @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha"
+      :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2"></Modificar_evento>
   </div>
   <div v-else>
-    <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">pulsa aquí</RouterLink>  para volver al inicio.</div>
+    <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
+        pulsa aquí</RouterLink> para volver al inicio.</div>
   </div>
 </template>

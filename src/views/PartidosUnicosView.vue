@@ -4,6 +4,10 @@ defineProps({
   results: {
     type: Object,
     required: true
+  },
+  search : {
+    type: String,
+    required: true
   }
 })
 </script>
@@ -23,6 +27,6 @@ export default {
 </script>
 <template>
   <main>
-    <Partidos @enviarValores="enviarValores" :results="results"/>
+    <Partidos :search="search" @enviarValores="enviarValores" :results="results"/>
   </main>
 </template>

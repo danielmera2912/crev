@@ -1,5 +1,5 @@
 <script>
-
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -25,7 +25,14 @@ export default {
             inputType: "password",
             inputType2: "password",
             icon: "visibility",
-            icon2: "visibility"
+            icon2: "visibility",
+            formData: {
+                name: "",
+                password: "",
+                fecha_nacimiento: '',
+                email: "",
+                avatar: null
+            }
         }
     },
     methods: {
@@ -86,6 +93,7 @@ export default {
         check() {
             if (this.passValido && this.passValido2 && this.userValido && this.fechaValida && this.correoValido) {
                 this.$emit('check')
+                this.crearUsuario()
             }
         },
         registrar() {
@@ -102,6 +110,21 @@ export default {
         toggleVisibility2() {
             this.inputType2 = this.inputType2 === "password" ? "text" : "password";
             this.icon2 = this.icon2 === "visibility" ? "visibility_off" : "visibility";
+        },
+        async crearUsuario() {
+            this.formData = {
+                email: this.textCorreo,
+                name: this.textUser,
+                password: this.textPass,
+                fecha_nacimiento: this.textFecha,
+                avatar: null
+            };
+            try {
+                const response = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 }

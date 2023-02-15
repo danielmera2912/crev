@@ -197,7 +197,12 @@ export default {
     </div>
     <button class="partido-detalles__boton boton">Participar</button> 
     <Modificar_evento v-if="creacion && permisos" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
-      @check="toggleCheckForm" :checkForm="checkForm" :id="id" :deporte="deporte" :fecha="fecha" :hora="hora" :ciudad="ciudad"></Modificar_evento>
+      @check="toggleCheckForm" :checkForm="checkForm" :id="id" 
+      :deporte="deporte" :fecha="fecha" :hora="hora" :jugador1="jugador1" :jugador2="jugador2" 
+      :jugador3="jugador3" :jugador4="jugador4" :jugador5="jugador5" :jugador6="jugador6" :jugador7="jugador7" 
+      :jugador8="jugador8" :jugador9="jugador9" :jugador10="jugador10" :imagen1="imagen1" :imagen2="imagen2" :imagen3="imagen3" 
+      :imagen4="imagen4" :imagen5="imagen5" :imagen6="imagen6" :imagen7="imagen7" :imagen8="imagen8" :imagen9="imagen9" 
+      :imagen10="imagen10" :equipo1="equipo1" :equipo2="equipo2"></Modificar_evento>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">pulsa aquí</RouterLink>  para volver al inicio.</div>

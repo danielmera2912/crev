@@ -42,7 +42,6 @@ defineProps({
 </script>
 <template>
   <RouterLink to="/partido_detalles" class="partido">
-    <span v-if="!perfil" className="material-symbols-outlined partido__resultado">edit</span>
     <div class="partido__deporte">
       {{ deporte }}
     </div>

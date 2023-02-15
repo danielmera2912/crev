@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       search: '',
-      id: null,
+      id: sessionStorage.getItem("sesion"),
       API : "http://127.0.0.1:3001/api/v1/partidos",
       results : null
     }
@@ -24,8 +24,9 @@ export default {
     recibirValores(){
       console.log("ejemplo")
     },
-    enviarValores(id) {
-      this.id = id;
+    enviarValores(n) {
+      sessionStorage.setItem('sesion', n);
+      this.id = sessionStorage.getItem("sesion")
     },
     async llamarApi(){
       
@@ -38,6 +39,6 @@ export default {
 </script>
 <template>
   <Header @inputChange="handleChange" :search="search"></Header>
-  <RouterView @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results"/>
+  <RouterView :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results"/>
 </template>
 
