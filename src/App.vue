@@ -8,7 +8,8 @@ export default {
   data() {
     return {
       search: '',
-      id: sessionStorage.getItem("sesion"),
+      id: '',
+      //id: sessionStorage.getItem("sesion"),
       API : "http://127.0.0.1:3001/api/v1/partidos",
       results : null
     }
@@ -25,8 +26,8 @@ export default {
       console.log("ejemplo")
     },
     enviarValores(n) {
-      sessionStorage.setItem('sesion', n);
-      this.id = sessionStorage.getItem("sesion")
+      //sessionStorage.setItem('sesion', n);
+      //this.id = sessionStorage.getItem("sesion")
     },
     async llamarApi(){
       

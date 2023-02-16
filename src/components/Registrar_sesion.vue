@@ -134,9 +134,11 @@ export default {
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
-                    const salt = await bcrypt.genSalt(10);
-                    const hashedPassword = await bcrypt.hash(this.formData.password, salt);
-                    this.formData.password = hashedPassword;
+                    const encoder = new TextEncoder();
+                    const data = encoder.encode(this.formData.password);
+                    const digest = await crypto.subtle.digest('SHA-1', data);
+                    const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+                    this.formData.password = hash
                     const responsePost = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
                     console.log(responsePost.data);
                     this.$emit('check')
@@ -145,8 +147,14 @@ export default {
                     if(this.checkEmailServer){
                         this.correoValidoServer = false
                     }
+                    else{
+                        this.correoValidoServer = true
+                    }
                     if(this.checkUserServer){
                         this.userValidoServer = false
+                    }
+                    else{
+                        this.userValidoServer = true
                     }
                 }
 

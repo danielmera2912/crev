@@ -1,12 +1,6 @@
 <script setup>
 import PartidoDetalles from '../components/Partido_detalles.vue'
 import PartidoDetalles2 from '../components/Partido_detalles2.vue'
-defineProps({
-  id: {
-    type: Number,
-    required: true,
-  }
-})
 </script>
 
 <script>
@@ -16,9 +10,11 @@ export default {
       equipos: false,
       results2: null,
       API_partido: "http://127.0.0.1:3001/api/v1/partidos",
+      id: ''
     }
   },
   async mounted(){
+    this.id = this.$router.currentRoute.value.params.id;
     await this.llamarApiPartido()
   },
   methods: {

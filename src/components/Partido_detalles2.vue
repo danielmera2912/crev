@@ -1,12 +1,6 @@
 <script setup>
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
-defineProps({
-  id: {
-    type: Number,
-    required: true
-  }
-})
 </script>
 <script>
 export default {
@@ -25,8 +19,8 @@ export default {
       deporte: "Baloncesto",
       equipo1: "Ciervo Verde",
       equipo2: "Ballenas azules",
-      imagen_equipo1: "src/assets/imagenes/ciervoverde.png",
-      imagen_equipo2: "src/assets/imagenes/ballenazul.png",
+      imagen_equipo1: "../src/assets/imagenes/ciervoverde.png",
+      imagen_equipo2: "../src/assets/imagenes/ballenazul.png",
       fecha: "20/04/2023",
       hora: '20:20',
       ciudad: 'Pamplona',
@@ -47,6 +41,7 @@ export default {
     }
   },
   async mounted(){
+    this.id = this.$route.params.id;
     await this.llamarApiPartido(),
     this.establecerValores()
   },

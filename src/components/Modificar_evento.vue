@@ -2,7 +2,7 @@
 import axios from 'axios';
 defineProps({
     id: {
-        type: Number,
+        type: String,
         required: true
     },
     ciudad: {

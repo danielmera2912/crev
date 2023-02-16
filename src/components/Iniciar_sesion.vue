@@ -1,11 +1,11 @@
 <script>
-
+import axios from 'axios';
 export default {
     data() {
         return {
             textUser: '',
             textPass: '',
-            expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
+            expresionUsuario: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             userValido: false,
             passValido: false,
@@ -13,7 +13,11 @@ export default {
             mensajeError2: "Contraseña incorrecta",
             hayErrores: false,
             inputType: "password",
-            icon: "visibility"
+            icon: "visibility",
+            formData: {
+                password: "",
+                email: ""
+            }
 
         }
     },
@@ -38,6 +42,7 @@ export default {
         },
         check() {
             if (this.passValido && this.userValido) {
+                this.lanzarIniciarSesion()
                 this.$emit('check')
             }
         },
@@ -48,6 +53,32 @@ export default {
                 this.hayErrores = true
             }
         },
+        async lanzarIniciarSesion() {
+  this.formData = {
+    email: this.textUser,
+    password: this.textPass
+  };
+  console.log(this.formData);
+  try {
+    const response = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData);
+    console.log(response.status);
+    if (response.status == 200) {
+      console.log(response.data);
+      console.log("logueo correcto");
+
+      // Guardar cookie de sesión en el navegador
+      document.cookie = `sessionId=${response.data.sessionId}; httpOnly`;
+
+      this.$emit('check');
+    } else {
+      console.log("logueo incorrecto");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+},
+
+
         toggleVisibility() {
             this.inputType = this.inputType === "password" ? "text" : "password";
             this.icon = this.icon === "visibility" ? "visibility_off" : "visibility";

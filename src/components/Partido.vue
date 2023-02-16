@@ -1,6 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 defineProps({
+  id: {
+    type: String,
+    required: true
+  },
   deporte: {
     type: String,
     required: true
@@ -32,16 +36,17 @@ defineProps({
   imagen2: {
     type: String,
     required: true
-  },
-  perfil: {
-    type: Boolean,
-    required: true
   }
+  // ,
+  // perfil: {
+  //   type: Boolean,
+  //   required: true
+  // }
 })
 
 </script>
 <template>
-  <RouterLink to="/partido_detalles" class="partido">
+  <RouterLink :to="`/partido_detalles/${id}`"  class="partido">
     <div class="partido__deporte">
       {{ deporte }}
     </div>

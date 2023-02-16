@@ -1,12 +1,12 @@
 <script setup>
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
-defineProps({
-  id: {
-    type: Number,
-    required: true
-  }
-})
+// defineProps({
+//   id: {
+//     type: String,
+//     required: true
+//   }
+// })
 </script>
 <script>
 export default {
@@ -23,11 +23,12 @@ export default {
       creacion: false,
       API_partido: "http://127.0.0.1:3001/api/v1/partidos",
       results2: null,
-      permisos: true
+      permisos: true,
+      id: ''
     }
   },
   async mounted() {
-    
+    this.id = this.$route.params.id;
     await this.llamarApiPartido()
     this.establecerValores()
 
