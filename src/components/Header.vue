@@ -7,6 +7,10 @@ defineProps({
     type: String,
     required: true
   },
+  idUsuario: {
+    type: String,
+    required: true
+  }
 })
 
 </script>
@@ -22,6 +26,10 @@ export default {
       const {value} = event.target;
       this.search = value;
       this.$emit('inputChange', event)
+    },
+    recibirIdUsuario(id){
+      console.log("tercer control"+id)
+      this.$emit('recibirIdUsuario', id)
     }
   },
 };
@@ -35,7 +43,6 @@ export default {
                 <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos únicos</RouterLink>
                 </li>
-                
                 <!-- Este código es para el futuro -->
                 <!-- <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/about" class="encabezado__lista__enlace">Ligas</RouterLink>
@@ -47,6 +54,6 @@ export default {
             </ul>
         </nav>
         <Buscador @inputChange="handleChange" :search="search"></Buscador>
-        <Menu></Menu>
+        <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
     </header>
 </template>

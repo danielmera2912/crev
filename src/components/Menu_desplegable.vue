@@ -1,31 +1,16 @@
 <script setup>
-    import Iniciar from './Iniciar_sesion.vue'
-    import Registrar from './Registrar_sesion.vue'
-    import Acceso from './Acceso_cuenta.vue'
+import Iniciar from './Iniciar_sesion.vue'
+import Registrar from './Registrar_sesion.vue'
+import Acceso from './Acceso_cuenta.vue'
+defineProps({
+    idUsuario: {
+        type: String,
+        required: true
+    }
+})
 </script>
-<template>
-    <div class="encabezado__menu">
-        <a @click="toggleMenu"><span class="material-symbols-outlined encabezado__menu__icono">menu</span></a>
-        <ul class="encabezado__menu__lista" v-if="showMenu">
-            <li @click="toggleInicio">Acceder</li>
-            <li @click="toggleRegistrar">Crear cuenta</li>
-        </ul>
-        <ul class="encabezado__menu__lista" v-if="showIniciado">
-            <li><RouterLink class="encabezado__menu__lista__elemento" to="/perfil" @click="toggleMenu">Perfil</RouterLink></li>
-            <li><RouterLink class="encabezado__menu__lista__elemento" to="/" @click="toggleIniciado">Cerrar sesión</RouterLink></li>
-        </ul>
-    </div>
-    <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" 
-    @abrirRegistrar="toggleRegistrar" :showRegistrar="showRegistrar" :showAcceso="showAcceso" 
-    @iniciarSesion="accederPerfilconIniciar" :sesionIniciada="sesionIniciada"
-    @check="toggleCheck" :checkForm="checkForm"></Iniciar>
-    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar" @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio"  
-    @check="toggleCheck2" :checkForm="checkRegistro" 
-    @abrirIniciarSinRegistrar="toggleInicio"></Registrar>
-    <Acceso v-if="showAcceso" @cerrarTodo="toggleAcceso" :showAcceso="showAcceso" ></Acceso>
-</template>
-
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -39,50 +24,70 @@ export default {
             checkRegistro: false
         };
     },
+    mounted() {
+        if (this.idUsuario) {
+            this.sesionIniciada = true;
+        }
+        else {
+            this.sesionIniciada = false;
+        }
+    },
     methods: {
         toggleMenu() {
 
-            if(this.sesionIniciada==false){
+            if (this.sesionIniciada == false) {
                 this.showMenu = !this.showMenu;
             }
-            else{
+            else {
                 this.showIniciado = !this.showIniciado;
-                
+
             }
-            
+
+        },
+        async cerrarSesion() {
+            this.sesionIniciada = false;
+            this.showAcceso = false;
+            try {
+                await axios.delete("http://127.0.0.1:3001/api/v1/sessions/" + this.idUsuario);
+                this.$router.push('/');
+                this.recibirIdUsuario(undefined)
+            } catch (error) {
+                console.error(error);
+            }
         },
         toggleIniciado() {
             this.sesionIniciada = !this.sesionIniciada;
             this.showIniciado = false;
             this.showMenu = false;
-            if(this.sesionIniciada==false) {
+            if (this.sesionIniciada == false) {
                 this.checkForm = false;
+
             }
         },
         toggleInicio() {
             this.showInicio = !this.showInicio;
             this.showMenu = false;
             this.showRegistrar = false;
-            
+
         },
         toggleInicioDesdeRegistro() {
-            if(this.checkRegistro){
+            if (this.checkRegistro) {
                 this.showInicio = !this.showInicio;
                 this.showMenu = false;
                 this.showRegistrar = false;
                 this.checkRegistro = false;
                 alert("Se ha registrado correctamente")
             }
-            
-            
+
+
         },
-        accederPerfilconIniciar(){
-            if(this.checkForm){
+        accederPerfilconIniciar() {
+            if (this.checkForm) {
                 this.toggleIniciado();
                 this.toggleAcceso();
                 alert("Se ha iniciado sesión correctamente")
             }
-            
+
         },
         toggleRegistrar() {
             this.showRegistrar = !this.showRegistrar;
@@ -94,13 +99,43 @@ export default {
             this.showMenu = false;
             this.showInicio = false;
         },
-        toggleCheck(){
+        toggleCheck() {
             this.checkForm = !this.checkForm;
         },
-        toggleCheck2(){
+        toggleCheck2() {
             this.checkRegistro = !this.checkRegistro;
+        },
+        recibirIdUsuario(id) {
+            console.log("segundo control" + id)
+            this.$emit('recibirIdUsuario', id)
         }
 
     }
 };
 </script>
+<template>
+    <div class="encabezado__menu">
+        <a @click="toggleMenu"><span class="material-symbols-outlined encabezado__menu__icono">menu</span></a>
+        <ul class="encabezado__menu__lista" v-if="showMenu">
+            <li @click="toggleInicio">Acceder</li>
+            <li @click="toggleRegistrar">Crear cuenta</li>
+        </ul>
+        <ul class="encabezado__menu__lista" v-if="showIniciado">
+            <li>
+                <RouterLink class="encabezado__menu__lista__elemento" to="/perfil" @click="toggleMenu">Perfil</RouterLink>
+            </li>
+            <li>
+                <RouterLink class="encabezado__menu__lista__elemento" to="/" @click="toggleIniciado">Cerrar sesión
+                </RouterLink>
+            </li>
+        </ul>
+    </div>
+    <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" @abrirRegistrar="toggleRegistrar"
+        :showRegistrar="showRegistrar" :showAcceso="showAcceso" @iniciarSesion="accederPerfilconIniciar"
+        :sesionIniciada="sesionIniciada" @check="toggleCheck" :checkForm="checkForm" @recibirIdUsuario="recibirIdUsuario">
+    </Iniciar>
+    <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar"
+        @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio" @check="toggleCheck2" :checkForm="checkRegistro"
+        @abrirIniciarSinRegistrar="toggleInicio"></Registrar>
+    <Acceso v-if="showAcceso" @cerrarTodo="toggleAcceso" :showAcceso="showAcceso" @cerrarSesion="cerrarSesion"></Acceso>
+</template>

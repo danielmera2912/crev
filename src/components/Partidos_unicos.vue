@@ -62,7 +62,9 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          const response = await axios.post("http://127.0.0.1:3001/api/v1/partidos", this.formData);
+          const response = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion/partidos", this.formData,{
+            withCredentials: true
+          });
           console.log(response.data);
           alert("Partido creado correctamente")
           this.$router.push('/');

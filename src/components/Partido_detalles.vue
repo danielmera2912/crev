@@ -50,7 +50,9 @@ export default {
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete(this.API_partido + "/" + this.id);
+          await axios.delete("http://127.0.0.1:3001/api/v1/autorizacion/partidos/" + this.id, {
+            withCredentials: true
+          });
           this.$router.push('/');
         } catch (error) {
           console.error(error);

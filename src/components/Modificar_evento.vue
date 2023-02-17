@@ -212,7 +212,9 @@ export default {
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             try {
-                const response = await axios.put("http://127.0.0.1:3001/api/v1/partidos/" + this.id, this.formData);
+                const response = await axios.put("http://127.0.0.1:3001/api/v1/autorizacion/partidos/" + this.id, this.formData, {
+                    withCredentials: true
+                });
                 console.log(response.data);
                 this.$router.push('/');
             } catch (error) {

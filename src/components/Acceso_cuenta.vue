@@ -9,7 +9,7 @@
             </section>
             <form className="perfil__boton">
                 <RouterLink to="/perfil" @click="$emit('cerrarTodo')" className="perfil__boton__opcion" >Acceder perfil</RouterLink>
-                <RouterLink to="/"  className="perfil__boton__opcion">Cerrar sesión</RouterLink>
+                <RouterLink to="/"  @click="$emit('cerrarSesion')" className="perfil__boton__opcion">Cerrar sesión</RouterLink>
             </form>
         </div>
       </div>

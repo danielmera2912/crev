@@ -11,7 +11,8 @@ export default {
       id: '',
       //id: sessionStorage.getItem("sesion"),
       API : "http://127.0.0.1:3001/api/v1/partidos",
-      results : null
+      results : null,
+      idUsuario : localStorage.getItem('userId'),
     }
   },
   mounted(){
@@ -29,6 +30,12 @@ export default {
       //sessionStorage.setItem('sesion', n);
       //this.id = sessionStorage.getItem("sesion")
     },
+    recibirIdUsuario(id){
+      console.log("ha pasado el ultimo control"+id)
+      localStorage.setItem('userId', id);
+      this.idUsuario= id
+      console.log(this.id)
+    },
     async llamarApi(){
       
       const response = await fetch(this.API)
@@ -39,7 +46,7 @@ export default {
 }
 </script>
 <template>
-  <Header @inputChange="handleChange" :search="search"></Header>
-  <RouterView :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results"/>
+  <Header @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
+  <RouterView :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results" :idUsuario="idUsuario" />
 </template>
 

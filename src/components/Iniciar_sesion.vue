@@ -14,6 +14,7 @@ export default {
             hayErrores: false,
             inputType: "password",
             icon: "visibility",
+            resultsUsuario: '',
             formData: {
                 password: "",
                 email: ""
@@ -53,30 +54,41 @@ export default {
                 this.hayErrores = true
             }
         },
+        recibirIdUsuario(id){
+            console.log("primer control")
+            console.log(id)
+            this.$emit('recibirIdUsuario', id)
+        },
         async lanzarIniciarSesion() {
-  this.formData = {
-    email: this.textUser,
-    password: this.textPass
-  };
-  console.log(this.formData);
-  try {
-    const response = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData);
-    console.log(response.status);
-    if (response.status == 200) {
-      console.log(response.data);
-      console.log("logueo correcto");
-
-      // Guardar cookie de sesión en el navegador
-      document.cookie = `sessionId=${response.data.sessionId}; httpOnly`;
-
-      this.$emit('check');
-    } else {
-      console.log("logueo incorrecto");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-},
+            this.formData = {
+                email: this.textUser,
+                password: this.textPass
+            };
+            const encoder = new TextEncoder();
+            const data = encoder.encode(this.formData.password);
+            const digest = await crypto.subtle.digest('SHA-1', data);
+            const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+            this.formData.password = hash
+            try {
+                const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
+                    withCredentials: true
+                });
+                console.log(response2);
+                if (response2.status == 200) {
+                    console.log(response2.data);
+                    console.log("logueo correcto");
+                    const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/emailBuscar/"+this.formData.email)
+                    const dataUsuario = await responseUsuario.json()
+                    this.resultsUsuario = dataUsuario[0].id
+                    this.recibirIdUsuario(this.resultsUsuario)
+                    this.$emit('check');
+                } else {
+                    console.log("logueo incorrecto");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
 
         toggleVisibility() {
@@ -88,7 +100,6 @@ export default {
 </script>
 
 <template>
-
     <div class="fondo" @click="$emit('cerrarTodo')"></div>
     <div className="iniciar_sesion">
         <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
@@ -120,7 +131,5 @@ export default {
             </section>
         </form>
 
-    </div>
-
-
+</div>
 </template>
