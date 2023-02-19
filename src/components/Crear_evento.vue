@@ -1,3 +1,12 @@
+<script setup>
+defineProps({
+
+    idUsuario: {
+        type: String,
+        required: true
+    }
+})
+</script>
 <script>
 export default {
     data() {
@@ -6,7 +15,7 @@ export default {
             textHora: '',
             textCiudad: '',
             textFecha: '',
-            expresionDeporte: /^[a-zA-ZÀ-ÿ\s,]{4,}$/,
+            expresionDeporte: /^[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ0-9\s,]{3,}$/,
             deporteValido: false,
             fechaValida: false,
             ciudadValida: false,
@@ -15,8 +24,14 @@ export default {
             mensajeError2: "Se necesita escribir una ciudad",
             mensajeError3: "Se necesita insertar una hora",
             mensajeError4: "Se necesita una fecha válida",
-            hayErrores: false
+            hayErrores: false,
+            avatar: '',
+            jugador1N: ''
+
         }
+    },
+    mounted(){
+        this.llamarApiUsuario()
     },
     methods: {
         cambiarTextoDeporte(e) {
@@ -80,9 +95,19 @@ export default {
                 deporte: this.textDeporte,
                 hora: this.textHora,
                 ciudad: this.textCiudad,
-                fecha: this.textFecha
+                fecha: this.textFecha,
+                jugador1N: this.jugador1N
             })
             this.$emit('realizarEvento')
+        },
+        async llamarApiUsuario() {
+
+            const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/"+this.idUsuario)
+            const dataUsuario = await responseUsuario.json()
+            this.resultsUsuario = dataUsuario
+            this.jugador1N = this.resultsUsuario.name
+            this.avatar = this.resultsUsuario.avatar
+            
         }
     }
 }
@@ -96,7 +121,7 @@ export default {
             <tittle className="crear_evento__titulo">Crear evento</tittle>
             <section className="crear_evento__caja">
                 <div class="crear_evento__caja__deporte">
-                    <select v-on:input="cambiarTextoDeporte" class="crear_evento__caja__deporte__elemento">
+                    <select @input="cambiarTextoDeporte" class="crear_evento__caja__deporte__elemento">
                         <option value="">Elige un deporte</option>
                         <option value="futbol">Fútbol</option>
                         <option value="baloncesto">Baloncesto</option>
@@ -131,5 +156,4 @@ export default {
             </section>
         </form>
     </div>
-
 </template>

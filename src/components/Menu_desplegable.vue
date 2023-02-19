@@ -25,7 +25,7 @@ export default {
         };
     },
     mounted() {
-        if (this.idUsuario) {
+        if (this.idUsuario != null) {
             this.sesionIniciada = true;
         }
         else {
@@ -46,11 +46,14 @@ export default {
         },
         async cerrarSesion() {
             this.sesionIniciada = false;
+            this.showIniciado = false;
             this.showAcceso = false;
             try {
-                await axios.delete("http://127.0.0.1:3001/api/v1/sessions/" + this.idUsuario);
+                await axios.delete("http://127.0.0.1:3001/api/v1/autorizacion/sessions/" + this.idUsuario, {
+                    withCredentials: true
+                });
                 this.$router.push('/');
-                this.recibirIdUsuario(undefined)
+                localStorage.removeItem('userId');
             } catch (error) {
                 console.error(error);
             }
@@ -76,17 +79,15 @@ export default {
                 this.showMenu = false;
                 this.showRegistrar = false;
                 this.checkRegistro = false;
-                alert("Se ha registrado correctamente")
             }
 
 
         },
         accederPerfilconIniciar() {
-            if (this.checkForm) {
-                this.toggleIniciado();
-                this.toggleAcceso();
-                alert("Se ha iniciado sesión correctamente")
-            }
+
+            this.sesionIniciada = true
+            // this.toggleAcceso();
+
 
         },
         toggleRegistrar() {
@@ -106,7 +107,6 @@ export default {
             this.checkRegistro = !this.checkRegistro;
         },
         recibirIdUsuario(id) {
-            console.log("segundo control" + id)
             this.$emit('recibirIdUsuario', id)
         }
 
@@ -121,11 +121,11 @@ export default {
             <li @click="toggleRegistrar">Crear cuenta</li>
         </ul>
         <ul class="encabezado__menu__lista" v-if="showIniciado">
-            <li>
-                <RouterLink class="encabezado__menu__lista__elemento" to="/perfil" @click="toggleMenu">Perfil</RouterLink>
+            <li class="encabezado__menu__lista__elemento">
+                <RouterLink  :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
             </li>
-            <li>
-                <RouterLink class="encabezado__menu__lista__elemento" to="/" @click="toggleIniciado">Cerrar sesión
+            <li class="encabezado__menu__lista__elemento">
+                <RouterLink to="/" @click="cerrarSesion">Cerrar sesión
                 </RouterLink>
             </li>
         </ul>

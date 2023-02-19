@@ -1,11 +1,36 @@
+<script setup>
+import axios from 'axios';
+defineProps({
+    nombre: {
+        type: String,
+        required: true
+    },
+    correo: {
+        type: String,
+        required: true
+    },
+    fecha_nacimiento: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String,
+        required: true
+    },
+    idUsuario: {
+        type: String,
+        required: true
+    }
+})
+</script>
 <script>
 
 export default {
     data() {
         return {
-            textPass: '',
-            textCorreo: '',
-            textFecha: '',
+            textPass: "",
+            textCorreo: this.correo,
+            textFecha: this.fecha_nacimiento,
             expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             expresionCorreo: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
@@ -18,11 +43,21 @@ export default {
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
             hayErrores: false,
             inputType: "password",
-            icon: "visibility"
+            icon: "visibility",
+            formData: {
+                id: '',
+                name: '',
+                password: "",
+                fecha_nacimiento: '',
+                email: "",
+                avatar: '',
+            }
         }
     },
     methods: {
         cambiarTextoPass(e) {
+            console.log(this.textCorreo)
+            console.log(this.textFecha)
             this.textPass = e.target.value
             if (this.expresionPass.test(this.textPass)) {
                 this.passValido = true
@@ -58,6 +93,7 @@ export default {
         check() {
             if (this.passValido && this.fechaValida && this.correoValido) {
                 this.$emit('check')
+                this.lanzar_modificar_cuenta()
             }
         },
         modificar() {
@@ -65,6 +101,33 @@ export default {
             this.$emit('modificar')
             if (!this.passValido || !this.correoValido || !this.fechaValida) {
                 this.hayErrores = true
+            }
+        },
+        async lanzar_modificar_cuenta() {
+            this.formData = {
+                email: this.textUser,
+                name: this.nombre,
+                password: this.textPass,
+                email: this.textCorreo,
+                fecha_nacimiento: this.textFecha,
+                avatar: this.avatar,
+                id: this.idUsuario
+
+            };
+            const encoder = new TextEncoder();
+            const data = encoder.encode(this.formData.password);
+            const digest = await crypto.subtle.digest('SHA-1', data);
+            const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+            this.formData.password = hash
+            console.log(this.formData)
+            try {
+                const response = await axios.put("http://127.0.0.1:3001/api/v1/autorizacion/users/" + this.formData.id, this.formData, {
+                    withCredentials: true
+                });
+                console.log(response.data);
+                this.$router.push('/');
+            } catch (error) {
+                console.error(error);
             }
         },
         toggleVisibility() {
@@ -83,8 +146,7 @@ export default {
             <tittle className="modificar__titulo">Modificar</tittle>
             <section className="modificar__caja">
                 <div className="modificar__avatar">
-                    <img className="modificar__avatar__imagen"
-                        src="https://cdn.resfu.com/img_data/players/medium/64734.jpg?size=120x&lossy=1" />
+                    <img className="modificar__avatar__imagen" v-bind:src="avatar" />
                     <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
                         accept="image/png, image/jpeg">
                 </div>
@@ -96,7 +158,7 @@ export default {
                     mensajeError3
                 }}</div>
                 <input :type="inputType" @input="cambiarTextoPass" class="modificar__caja__elemento"
-                    placeholder="Nueva contraseña..." :value="textPass"/>
+                    placeholder="Nueva contraseña..." :value="textPass" />
                 <span class="material-symbols-outlined" @click="toggleVisibility">{{ icon }}</span>
                 <div v-if="!passValido && hayErrores" className="modificar__caja__informativo1--visible">{{
                     mensajeError2
@@ -115,5 +177,4 @@ export default {
             </section>
         </form>
     </div>
-
 </template>

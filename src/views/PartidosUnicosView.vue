@@ -8,6 +8,10 @@ defineProps({
   search : {
     type: String,
     required: true
+  },
+  idUsuario : {
+    type: String,
+    required: true
   }
 })
 </script>
@@ -27,6 +31,6 @@ export default {
 </script>
 <template>
   <main>
-    <Partidos :search="search" @enviarValores="enviarValores" :results="results"/>
+    <Partidos :search="search" @enviarValores="enviarValores" :results="results" :idUsuario="idUsuario"/>
   </main>
 </template>

@@ -20,6 +20,10 @@ defineProps({
   search: {
     type: String,
     required: true
+  },
+  idUsuario : {
+    type: String,
+    required: true
   }
 })
 </script>
@@ -29,11 +33,13 @@ export default {
     return {
       formData: {
         deporte: "",
-        jugador1: "ejemplo1",
+        jugador1: "",
         jugador2: 'ejemplo2',
         ciudad: "",
         fecha: "",
-        hora: ""
+        hora: "",
+        imagen1: "",
+        imagen2: ""
       },
       id: 1,
       crearEvento: false,
@@ -66,8 +72,7 @@ export default {
             withCredentials: true
           });
           console.log(response.data);
-          alert("Partido creado correctamente")
-          this.$router.push('/');
+          this.$router.push('/partido_detalles/'+response.data.id);
         } catch (error) {
           console.error(error);
         }
@@ -82,6 +87,11 @@ export default {
       this.formData.hora = partido.hora
       this.formData.ciudad = partido.ciudad
       this.formData.fecha = partido.fecha
+      this.formData.jugador1 = partido.jugador1N
+      this.formData.jugador2 = "Plaza vacante"
+      // esto se cambiará para el futuro cuando el usuario pueda elegir avatar para su perfil
+      this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+      this.formData.imagen2 =  "https://i.ibb.co/VJy4cXk/defaultimage.png"
     },
     async llamarApiCiudad() {
       const response = await fetch("http://127.0.0.1:3001/api/v1/partidos/ciudad/" + this.search)
@@ -123,7 +133,7 @@ export default {
 </script>
 <template>
   <Crear_evento v-if="crearEvento" @cerrarTodo="toggleCrearEvento" @realizarEvento="realizarEvento"
-    @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido"></Crear_evento>
+    @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :idUsuario="idUsuario"></Crear_evento>
   <div class="partidos">
     <div class="interfaz">
       <select v-model="filtroSeleccionado" name="filtro">

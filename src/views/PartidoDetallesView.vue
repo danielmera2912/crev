@@ -1,6 +1,12 @@
 <script setup>
 import PartidoDetalles from '../components/Partido_detalles.vue'
 import PartidoDetalles2 from '../components/Partido_detalles2.vue'
+defineProps({
+  idUsuario : {
+    type: String,
+    required: true
+  }
+})
 </script>
 
 <script>
@@ -35,7 +41,7 @@ export default {
 </script>
 <template>
   <main>    
-    <PartidoDetalles2 v-if="equipos" @recibirValores="recibirValores" :id="id"/>
-    <PartidoDetalles v-else @recibirValores="recibirValores" :id="id"/>
+    <PartidoDetalles2 v-if="equipos" @recibirValores="recibirValores" :id="id" :idUsuario="idUsuario"/>
+    <PartidoDetalles v-else @recibirValores="recibirValores" :id="id" :idUsuario="idUsuario"/>
   </main>
 </template>

@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       search: '',
+      cargando: '',
       id: '',
       //id: sessionStorage.getItem("sesion"),
       API : "http://127.0.0.1:3001/api/v1/partidos",
@@ -31,14 +32,15 @@ export default {
       //this.id = sessionStorage.getItem("sesion")
     },
     recibirIdUsuario(id){
-      console.log("ha pasado el ultimo control"+id)
       localStorage.setItem('userId', id);
       this.idUsuario= id
-      console.log(this.id)
     },
     async llamarApi(){
-      
+      this.cargando = false
       const response = await fetch(this.API)
+      if(response.status == 200){
+        this.cargando = true
+      }
       const data = await response.json()
       this.results = data
     }
@@ -46,7 +48,10 @@ export default {
 }
 </script>
 <template>
-  <Header @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
-  <RouterView :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results" :idUsuario="idUsuario" />
+  <Header v-if="cargando" @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
+  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results" :idUsuario="idUsuario" />
+  <div v-else>
+    <div>Esperando respuesta del servidor</div>
+  </div>
 </template>
 

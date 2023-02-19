@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 export default {
     data() {
         return {
@@ -38,7 +37,7 @@ export default {
                 password: "",
                 fecha_nacimiento: '',
                 email: "",
-                avatar: null
+                avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             }
         }
     },
@@ -104,7 +103,6 @@ export default {
         },
         registrar() {
             this.check()
-            this.$emit('abrirIniciar')
             if (!this.passValido || !this.passValido || !this.userValido || !this.correoValido || !this.fechaValida) {
                 this.hayErrores = true
             }
@@ -142,6 +140,7 @@ export default {
                     const responsePost = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
                     console.log(responsePost.data);
                     this.$emit('check')
+                    this.$emit('abrirIniciar')
                 } else {
                     this.hayErrores = true
                     if(this.checkEmailServer){

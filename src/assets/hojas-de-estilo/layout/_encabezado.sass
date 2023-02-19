@@ -1,213 +1,97 @@
 
 // se añaden propiedades al encabezado de las páginas
 .encabezado
-    padding-left : 10rem
-    padding-right : 10rem
-    min-height : 3rem
-    background-color : $color_primario
-    display : grid
-    grid-template-columns : 1fr 8fr 1fr 1fr
-    align-items : center
-    font-family : $fuente_inter
-    font-size : $s
+    padding-left: 10rem
+    padding-right: 10rem
+    min-height: 3rem
+    background-color: $color_primario
+    display: grid
+    grid-template-columns: 1fr 8fr 1fr 1fr
+    align-items: center
+    font-family: $fuente_inter
+    font-size: $s
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px
     @media (max-width: 1300px)
-        padding-left : 5rem
-        padding-right : 5rem
+        padding-left: 5rem
+        padding-right: 5rem
     @media (max-width: 920px)
-        padding-left : 1rem
-        padding-right : 1rem
+        padding-left: 1rem
+        padding-right: 1rem
     @media (max-width: 920px)
-        font-size : $xxs
-        padding-left : 0.5rem
-        padding-right : 0.5rem
-    
+        font-size: $xxs
+        padding-left: 0.5rem
+        padding-right: 0.5rem
+
     &__menu
-        grid-column-start : 4
-        grid-column-end : 5
-        margin-left : 10%
+        grid-column-start: 4
+        grid-column-end: 5
+        margin-left: 10%
     &__logo
-        max-width : 45%
-        grid-column-start : 1
-        grid-column-end : 2
+        max-width: 45%
+        grid-column-start: 1
+        grid-column-end: 2
     &__buscador
-        grid-column-start : 3
-        grid-column-end : 4
-        text-align : right
-        
+        grid-column-start: 3
+        grid-column-end: 4
+        text-align: right
+
     // se añaden propiedades a la lista de elementos que tiene el encabezado
     &__lista
-        grid-column-start : 2
-        grid-column-end : 3
-        font-size : $xs
+        grid-column-start: 2
+        grid-column-end: 3
+        font-size: $xs
+        &__elemento > a
+            color: pink !important
     &__lista li
-        
-        list-style : none
-        display : inline-flex
-        padding : 1.1rem
+
+        list-style: none
+        display: inline-flex
+        padding: 1.1rem
         @media (max-width: 1700px)
-            padding : 0.7rem
+            padding: 0.7rem
         @media (max-width: 1200px)
-            padding : 0rem
+            padding: 0rem
         @media (max-width: 800px)
-            font-size : $xxs
+            font-size: $xxs
     // se añaden propiedades a los enlaces de la lista de elementos que tiene el encabezado
     &__lista__enlace
-        color : $color_oscuro !important
+        color: $color_oscuro !important
         text-decoration: none !important
-        padding : 0.5rem 1.5rem 0.5rem 1.5rem
-        border-radius : 5px
+        padding: 0.5rem 1.5rem 0.5rem 1.5rem
+        border-radius: 5px
         @media (max-width: 800px)
-            padding : 0.25rem 1rem 0.25rem 1rem
-    // se añaden propiedades a los enlaces de la lista de elementos que tiene el encabezado al pasar el ratón por encima
-    &__lista__enlace:hover
-        background-color : $color_secundario_oscuro
-        cursor : pointer
+            padding: 0.25rem 1rem 0.25rem 1rem
     // se añaden propiedades a los enlaces de la lista de elementos que tiene el encabezado al ser el actualmente pulsado, por lo que
     // no te redirige a ninguna página porque ya te encuentras en ella
     &__lista__enlace--actual
-        color : $color_secundario_claro !important
+        color: $color_secundario_claro !important
     // se añaden propiedades al logo del encabezado
 
-    
 // se define cambios en sus características según la resolución de la pantalla
 @media (max-width: 1200px)
     .encabezado--normal
-        height : 12%
-        padding : 0rem
+        height: 12%
+        padding: 0rem
         display: grid
-        grid-template-columns : 1fr 5fr
-        grid-template-rows : 1fr 1fr
-        justify-items : center
-        padding-top : 0.5rem
+        grid-template-columns: 1fr 5fr
+        grid-template-rows: 1fr 1fr
+        justify-items: center
+        padding-top: 0.5rem
         .encabezado__navegador
-            order : 2
-            grid-column-start : 1
-            grid-column-end : 3
+            order: 2
+            grid-column-start: 1
+            grid-column-end: 3
         .encabezado__navegador__lista__enlace
-            padding : 0.5rem
-            font-size : $xs
+            padding: 0.5rem
+            font-size: $xs
         .encabezado__lista
-            display : flex
-            justify-content : space-evenly
+            display: flex
+            justify-content: space-evenly
         .encabezado__lista li
-            padding : 0rem
-
-
-
-
-
-
-
-
-.p0 
-    padding: 0!important
-
-.panel-body 
-    position: relative
-    padding: 12px
-    border-top: 1px solid #ececec
-    background-color: #fff
-
-.panel 
-    -webkit-box-shadow: 0 1px 2px 1px #e1e1e1!important
-    box-shadow: 0 1px 2px 1px #e1e1e1!important
-    border-radius: 2px!important
-    margin-bottom: 12px
-    background-color: #fff
-
-a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video 
-    margin: 0
-    padding: 0
-    border: 0
-    font: inherit
-
-* 
-    box-sizing: border-box
-
-*, .grid-item 
-    -webkit-box-sizing: border-box
-
-div 
-    display: block
-
-body 
-    font-size: 16px
-    margin: 0
-    font-family: 'Asap Condensed',sans-serif
-    -webkit-font-smoothing: antialiased
-    height: 100%
-    display: -webkit-box
-    display: -ms-flexbox
+            padding: 0rem
+.encabezado__menu__lista__elemento > a
     display: flex
-    -webkit-box-orient: vertical
-    -ms-flex-direction: column
-    flex-direction: column
-
-body, input[type=text] 
-    color: #383838
-
-body 
-    line-height: 1
-    -webkit-text-size-adjust: 100%
-    -ms-text-size-adjust: none
-
-.bubble-box, .item-box-list .item, .item-column-list .item-col, .item-list>li .item-box .right-content, .last-matches .matches-box, .news-horizontal .news .news-content, .news-page .row-list-news, .panel-tab .tab .tab-img, .panel-tab .tab>a, .scroll-cards .scroll-box .news .news-content, .stat-list .stat, .team-result .info-avg-box .info-avg, .writer-info .stats>div, .writer-list .stat-box, body 
-    -webkit-box-direction: normal
-
-
-.match-list-new .match-link 
-    display: block
-    padding: 3px 0 10px
-
-a 
-    color: inherit
-
-a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video 
-    margin: 0
-    padding: 0
-    border: 0
-    font: inherit
-
-.medals-pl-tm a:hover, .mm-menu li a, .pagination li a, a 
-    text-decoration: none
-
-* 
-    box-sizing: border-box
-
-*, .grid-item 
-    -webkit-box-sizing: border-box
-
-a:-webkit-any-link 
-    color: -webkit-link
-    cursor: pointer
-    text-decoration: underline
-.match-list-new .team-name .name 
+    justify-content: center
     width: 100%
-    overflow: hidden
-    display: -webkit-box
-    -webkit-line-clamp: 2
-    -webkit-box-orient: vertical
-    padding-bottom: 2px
-    word-wrap: break-word
-.match-list-new .team-shield 
-    width: 24px
-.match-list-new .info-head .middle-info 
-    -ms-flex-preferred-size: 60%
-    flex-basis: 60%
-.match-list-new .marker 
-    width: 62px
-    text-align: center
-    font-size: 25px
-
-.match-list-new .info-head 
-    display: -webkit-box
-    display: -ms-flexbox
-    display: flex
-    -webkit-box-pack: justify
-    -ms-flex-pack: justify
-    justify-content: space-between
-    padding: 0 5px
-    margin-bottom: 2px
-    min-height: 12px
+    color: $color_oscuro
 

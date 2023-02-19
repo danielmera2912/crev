@@ -11,7 +11,7 @@ const router = createRouter({
       component: PartidosUnicos
     },
     {
-      path: '/perfil',
+      path: '/perfil/:id',
       name: 'perfil',
       component: () => import('../views/ProfileView.vue')
     },

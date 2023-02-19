@@ -16,11 +16,6 @@ defineProps({
 </script>
 <script>
 export default {
-  data() {
-    return {
-      search: ''
-    }
-  },
   methods: {
     handleChange(event) {
       const {value} = event.target;
@@ -28,7 +23,6 @@ export default {
       this.$emit('inputChange', event)
     },
     recibirIdUsuario(id){
-      console.log("tercer control"+id)
       this.$emit('recibirIdUsuario', id)
     }
   },
