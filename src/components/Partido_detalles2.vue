@@ -70,8 +70,8 @@ export default {
       deporte: "",
       equipo1: "Ciervo Verde",
       equipo2: "Ballenas azules",
-      imagen_equipo1: "../src/assets/imagenes/ciervoverde.png",
-      imagen_equipo2: "../src/assets/imagenes/ballenazul.png",
+      imagen_equipo1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+      imagen_equipo2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
       fecha: "",
       hora: '',
       ciudad: '',
@@ -109,8 +109,8 @@ export default {
         fecha: "",
         hora: "",
         id: '',
-        imagen_equipo1: "../src/assets/imagenes/ciervoverde.png",
-        imagen_equipo2: "../src/assets/imagenes/ballenazul.png",
+        imagen_equipo1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+        imagen_equipo2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
         imagen1: '',
         imagen2: '',
         imagen3: '',
@@ -243,7 +243,7 @@ export default {
       this.establecerPermiso()
     },
     async establecerPermiso() {
-      if (this.idUsuario) {
+      if (this.idUsuario!= 0) {
         
         const responseUsuarioPermiso = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()

@@ -102,8 +102,8 @@ export default {
       id: 1,
       crearEvento: false,
       checkForm: false,
-      equipoImagen1: "src/assets/imagenes/ciervoverde.png",
-      equipoImagen2: "src/assets/imagenes/ballenazul.png",
+      equipoImagen1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+      equipoImagen2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
       resultsCiudad: "",
       resultsDeporte: "",
       resultsFiltro: "",
@@ -225,7 +225,7 @@ export default {
         <option value="Esgrima">Esgrima</option>
         <option value="Padel">Padel</option>
       </select>
-      <a v-if="this.idUsuario" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
+      <a v-if="idUsuario!=0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
     </div>
     <div>
     </div>

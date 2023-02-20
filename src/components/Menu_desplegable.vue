@@ -32,7 +32,7 @@ export default {
         };
     },
     mounted() {
-        if (this.idUsuario != null) {
+        if (this.idUsuario != 0) {
             this.sesionIniciada = true;
         }
         else {

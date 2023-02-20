@@ -24,7 +24,7 @@ export default {
       id: '',
       API: "https://crev-server.onrender.com/api/v1/partidos",
       results: null,
-      idUsuario: localStorage.getItem('userId')
+      idUsuario: localStorage.getItem('userId') ?? 0,
       //route: this.$route.path
     }
   },

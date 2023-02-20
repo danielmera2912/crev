@@ -116,7 +116,7 @@ export default {
       this.establecerPermiso()
     },
     async establecerPermiso() {
-      if (this.idUsuario) {
+      if (this.idUsuario!=0) {
         const responseUsuarioPermiso = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.name == this.jugador1) {

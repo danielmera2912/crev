@@ -121,8 +121,8 @@ export default {
                     fecha: this.textFecha,
                     jugador1N: this.jugador1N,
                     idJugador1: this.idUsuario,
-                    imagen_equipo1: "../src/assets/imagenes/ciervoverde.png",
-                    imagen_equipo2: "../src/assets/imagenes/ballenazul.png",
+                    imagen_equipo1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+                    imagen_equipo2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
                     equipo1: "Ciervo Verde",
                     equipo2: "Ballenas azules",
                 })
