@@ -82,9 +82,7 @@ export default {
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, {
-            withCredentials: true
-          });
+          await axios.delete("https://crev-server.onrender.com/api/v1/partidos/" + this.id);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -151,7 +149,7 @@ export default {
         this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         try {
-          const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData);
+          const response = await axios.put("https://crev-server.onrender.com/api/v1/partidos/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);
