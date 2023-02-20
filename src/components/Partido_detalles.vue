@@ -151,9 +151,7 @@ export default {
         this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         try {
-          const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData, {
-            withCredentials: true
-          });
+          const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);

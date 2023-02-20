@@ -378,9 +378,7 @@ export default {
       
 
         try {
-          const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData, {
-            withCredentials: true
-          });
+          const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);

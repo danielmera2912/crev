@@ -126,9 +126,7 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          const response = await axios.post("https://crev-server.onrender.com/api/v1/autorizacion/partidos", this.formData, {
-            withCredentials: true
-          });
+          const response = await axios.post("https://crev-server.onrender.com/api/v1/autorizacion/partidos", this.formData);
           await this.$router.push('/partido_detalles/' + response.data.id);
           window.location.reload()
         } catch (error) {
