@@ -59,6 +59,7 @@ export default {
                 await axios.delete("https://crev-server.onrender.com/api/v1/sessions/" + this.idUsuario);
                 await localStorage.removeItem('userId');
                 this.$router.push('/');
+                window.location.reload()
             } catch (error) {
                 console.error(error);
             }
