@@ -10,48 +10,52 @@ export default {
       search: '',
       cargando: '',
       id: '',
-      //id: sessionStorage.getItem("sesion"),
-      API : "http://127.0.0.1:3001/api/v1/partidos",
-      results : null,
-      idUsuario : localStorage.getItem('userId'),
+      API: "https://crev-server.onrender.com/api/v1/partidos",
+      results: null,
+      idUsuario: localStorage.getItem('userId'),
+      route: this.$route.path
     }
   },
-  mounted(){
+  // watch: {
+  //   '$route.path': function () {
+  //     this.search = '';
+  //   }
+  // },
+  mounted() {
     this.llamarApi()
   },
   methods: {
     handleChange(event) {
-      const {value} = event.target;
+      const { value } = event.target;
       this.search = value;
     },
-    recibirValores(){
-      console.log("ejemplo")
+    recibirValores() {
+      //
     },
-    enviarValores(n) {
-      //sessionStorage.setItem('sesion', n);
-      //this.id = sessionStorage.getItem("sesion")
-    },
-    recibirIdUsuario(id){
+    recibirIdUsuario(id) {
       localStorage.setItem('userId', id);
-      this.idUsuario= id
+      this.idUsuario = id
     },
-    async llamarApi(){
+    async llamarApi() {
       this.cargando = false
       const response = await fetch(this.API)
-      if(response.status == 200){
+      if (response.status == 200) {
         this.cargando = true
       }
       const data = await response.json()
       this.results = data
     }
-}
+  }
 }
 </script>
 <template>
-  <Header v-if="cargando" @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
-  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" @enviarValores="enviarValores" :id="id" :results="results" :idUsuario="idUsuario" />
-  <div v-else>
-    <div>Esperando respuesta del servidor</div>
+  <Header v-if="cargando" @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario"
+    :idUsuario="idUsuario"></Header>
+  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" :id="id"
+    :results="results" :idUsuario="idUsuario" />
+  <div v-else class="servidor">
+      <img class="servidor__logo" src="./assets/imagenes/crev_logo.png"/>
+      <div class="servidor__texto">Esperando respuesta del servidor</div>
   </div>
 </template>
 

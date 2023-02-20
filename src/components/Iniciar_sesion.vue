@@ -4,6 +4,7 @@ export default {
     data() {
         return {
             textUser: '',
+            idUsuario: '',
             textPass: '',
             expresionUsuario: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
@@ -56,13 +57,11 @@ export default {
             }
         },
         recibirIdUsuario(id) {
-            console.log("primer control")
-            console.log(id)
             this.$emit('recibirIdUsuario', id)
         },
-        trasIniciar() {
+        async trasIniciar() {
             //this.$emit('check')
-            this.$router.push('/perfil')
+            await this.$router.push('/perfil/'+this.idUsuario)
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
         },
@@ -77,16 +76,14 @@ export default {
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
             this.formData.password = hash
             try {
-                const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
+                const response2 = await axios.post("https://crev-server.onrender.com/api/v1/autorizacion", this.formData, {
                     withCredentials: true
                 });
-                console.log(response2);
                 this.errorIniciar = false;
-                console.log(response2.data);
-                console.log("logueo correcto");
-                const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/emailBuscar/" + this.formData.email)
+                const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/emailBuscar/" + this.formData.email)
                 const dataUsuario = await responseUsuario.json()
                 this.resultsUsuario = dataUsuario[0].id
+                this.idUsuario = this.resultsUsuario
                 this.recibirIdUsuario(this.resultsUsuario)
                 this.trasIniciar()
 
@@ -130,8 +127,6 @@ export default {
                 mensajeError3
             }}
             </div>
-            <label className="iniciar_sesion__caja__recordar"><input type="checkbox" id="check" value="check" />
-                Recordar Cuenta</label>
             <section className="iniciar_sesion__boton">
                 <input type="submit" className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar"
                     value="Entrar" />

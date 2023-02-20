@@ -26,11 +26,12 @@ export default {
             mensajeError4: "Se necesita una fecha válida",
             hayErrores: false,
             avatar: '',
-            jugador1N: ''
+            jugador1N: '',
+            idJugador1: '',
 
         }
     },
-    mounted(){
+    mounted() {
         this.llamarApiUsuario()
     },
     methods: {
@@ -63,17 +64,14 @@ export default {
         cambiarTextoFecha(e) {
             this.textFecha = e.target.value
             if (this.textFecha) {
-                let fecha = new Date();
-                let anio = fecha.getFullYear()
-                let fechaUser = this.textFecha.substr(0, 4)
-                let tiempoRestante = anio - fechaUser
-                if (tiempoRestante <= 0) {
+                let fechaActual = new Date()
+                fechaActual.setHours(0, 0, 0, 0)
+                let fechaUsuario = new Date(this.textFecha)
+                if (fechaUsuario >= fechaActual) {
                     this.fechaValida = true
-
                 } else {
                     this.fechaValida = false
                 }
-
             } else {
                 this.fechaValida = false
             }
@@ -91,23 +89,40 @@ export default {
             }
         },
         submitPartido() {
-            this.$emit('updatePartido', {
-                deporte: this.textDeporte,
-                hora: this.textHora,
-                ciudad: this.textCiudad,
-                fecha: this.textFecha,
-                jugador1N: this.jugador1N
-            })
+            if (this.textDeporte == "Baloncesto" || this.textDeporte == "Fútbol Sala") {
+                this.$emit('updatePartido', {
+                    deporte: this.textDeporte,
+                    hora: this.textHora,
+                    ciudad: this.textCiudad,
+                    fecha: this.textFecha,
+                    jugador1N: this.jugador1N,
+                    idJugador1: this.idUsuario,
+                    imagen_equipo1: "../src/assets/imagenes/ciervoverde.png",
+                    imagen_equipo2: "../src/assets/imagenes/ballenazul.png",
+                    equipo1: "Ciervo Verde",
+                    equipo2: "Ballenas azules",
+                })
+            } else {
+                this.$emit('updatePartido', {
+                    deporte: this.textDeporte,
+                    hora: this.textHora,
+                    ciudad: this.textCiudad,
+                    fecha: this.textFecha,
+                    jugador1N: this.jugador1N,
+                    idJugador1: this.idUsuario
+                })
+            }
+
             this.$emit('realizarEvento')
         },
         async llamarApiUsuario() {
 
-            const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/"+this.idUsuario)
+            const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
             const dataUsuario = await responseUsuario.json()
             this.resultsUsuario = dataUsuario
             this.jugador1N = this.resultsUsuario.name
             this.avatar = this.resultsUsuario.avatar
-            
+
         }
     }
 }
@@ -115,7 +130,7 @@ export default {
 <template>
     <div>
         <div className="fondo" @click="$emit('cerrarTodo')"></div>
-        <form className="crear_evento">
+        <form className="crear_evento" @submit.prevent="ejecutarEvento">
             <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
                     @click="$emit('cerrarTodo')">close</span></a>
             <tittle className="crear_evento__titulo">Crear evento</tittle>
@@ -123,8 +138,11 @@ export default {
                 <div class="crear_evento__caja__deporte">
                     <select @input="cambiarTextoDeporte" class="crear_evento__caja__deporte__elemento">
                         <option value="">Elige un deporte</option>
-                        <option value="futbol">Fútbol</option>
-                        <option value="baloncesto">Baloncesto</option>
+                        <option value="Fútbol Sala">Fútbol Sala</option>
+                        <option value="Baloncesto">Baloncesto</option>
+                        <option value="Tenis">Tenis</option>
+                        <option value="Esgrima">Esgrima</option>
+                        <option value="Padel">Padel</option>
                     </select>
                 </div>
                 <div v-if="!deporteValido && hayErrores" className="crear_evento__caja__informativo1--visible">{{
@@ -152,7 +170,7 @@ export default {
 
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
-                    @click.prevent="ejecutarEvento" value="Crear evento" />
+                    value="Crear evento" />
             </section>
         </form>
     </div>

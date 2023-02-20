@@ -18,7 +18,7 @@ export default {
             correoValido: false,
             correoValidoServer: true,
             fechaValida: false,
-            mensajeError1: "Necesitas tener al menos 4 caracteres",
+            mensajeError1: "Necesitas tener más de 4 caracteres y sin espacios",
             mensajeError2: "Se necesita entre 8-16 caracteres, mínimo un dígito, mayúscula y minúscula",
             mensajeError3: "Necesitas tener un patrón correcto (ej: usuario@gmail.com)",
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
@@ -124,11 +124,11 @@ export default {
                 avatar: null
             };
             try {
-                const response = await fetch("http://127.0.0.1:3001/api/v1/users/email/" + this.formData.email)
+                const response = await fetch("https://crev-server.onrender.com/api/v1/users/email/" + this.formData.email)
                 const data = await response.json()
                 this.checkEmailServer = data
 
-                const response2 = await fetch("http://127.0.0.1:3001/api/v1/users/name/" + this.formData.name)
+                const response2 = await fetch("https://crev-server.onrender.com/api/v1/users/name/" + this.formData.name)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
@@ -137,8 +137,7 @@ export default {
                     const digest = await crypto.subtle.digest('SHA-1', data);
                     const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
                     this.formData.password = hash
-                    const responsePost = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
-                    console.log(responsePost.data);
+                    const responsePost = await axios.post("https://crev-server.onrender.com/api/v1/users", this.formData);
                     this.$emit('check')
                     this.$emit('abrirIniciar')
                 } else {

@@ -100,7 +100,55 @@ defineProps({
     imagen10: {
         type: String,
         required: false
-    }
+    },
+    equipo1: {
+        type: String,
+        required: false
+    },
+    equipo2: {
+        type: String,
+        required: false
+    },
+    idJugador1: {
+        type: String,
+        required: false
+    },
+    idJugador2: {
+        type: String,
+        required: false
+    },
+    idJugador3: {
+        type: String,
+        required: false
+    },
+    idJugador4: {
+        type: String,
+        required: false
+    },
+    idJugador5: {
+        type: String,
+        required: false
+    },
+    idJugador6: {
+        type: String,
+        required: false
+    },
+    idJugador7: {
+        type: String,
+        required: false
+    },
+    idJugador8: {
+        type: String,
+        required: false
+    },
+    idJugador9: {
+        type: String,
+        required: false
+    },
+    idJugador10: {
+        type: String,
+        required: false
+    },
 })
 </script>
 <script>
@@ -111,11 +159,11 @@ export default {
             textHora: '',
             textCiudad: '',
             textFecha: '',
-            expresionDeporte: /^[a-zA-ZÀ-ÿ\s,]{4,}$/,
+            expresionDeporte: /^[a-zA-ZÀ-ÿ][a-zA-ZÀ-ÿ0-9\s,]{3,}$/,
             deporteValido: false,
-            fechaValida: false,
-            ciudadValida: false,
-            horaValida: false,
+            fechaValida: true,
+            ciudadValida: true,
+            horaValida: true,
             mensajeError1: "Necesitas seleccionar un deporte",
             mensajeError2: "Se necesita escribir una ciudad",
             mensajeError3: "Se necesita insertar una hora",
@@ -123,6 +171,16 @@ export default {
             hayErrores: false,
             formData: {
                 id: this.id,
+                idJugador1: '',
+                idJugador2: '',
+                idJugador3: null,
+                idJugador4: null,
+                idJugador5: null,
+                idJugador6: null,
+                idJugador7: null,
+                idJugador8: null,
+                idJugador9: null,
+                idJugador10: null,
                 deporte: this.deporte,
                 equipo1: this.equipo1,
                 equipo2: this.equipo2,
@@ -148,7 +206,9 @@ export default {
                 jugador10: this.jugador10,
                 ciudad: '',
                 fecha: '',
-                hora: ''
+                hora: '',
+                equipo1: this.equipo1,
+                equipo2: this.equipo2
             },
         }
     },
@@ -208,15 +268,24 @@ export default {
             }
         },
         async updatePartido() {
+            this.formData.idJugador1=this.idJugador1
+            this.formData.idJugador2=this.idJugador2
+            this.formData.idJugador3=this.idJugador3
+            this.formData.idJugador4=this.idJugador4
+            this.formData.idJugador5=this.idJugador5
+            this.formData.idJugador6=this.idJugador6
+            this.formData.idJugador7=this.idJugador7
+            this.formData.idJugador8=this.idJugador8
+            this.formData.idJugador9=this.idJugador9
+            this.formData.idJugador10=this.idJugador10
             this.formData.ciudad = this.textCiudad
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             try {
-                const response = await axios.put("http://127.0.0.1:3001/api/v1/autorizacion/partidos/" + this.id, this.formData, {
+                const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/partidos/" + this.id, this.formData, {
                     withCredentials: true
                 });
-                console.log(response.data);
-                this.$router.push('/');
+                window.location.reload()
             } catch (error) {
                 console.error(error);
             }

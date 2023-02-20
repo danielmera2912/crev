@@ -16,10 +16,15 @@ defineProps({
 </script>
 <script>
 export default {
+  data() {
+    return {
+      searchTexto: ''
+    }
+  },
   methods: {
     handleChange(event) {
       const {value} = event.target;
-      this.search = value;
+      this.searchTexto = value;
       this.$emit('inputChange', event)
     },
     recibirIdUsuario(id){
@@ -47,7 +52,7 @@ export default {
 
             </ul>
         </nav>
-        <Buscador @inputChange="handleChange" :search="search"></Buscador>
+        <Buscador @inputChange="handleChange" :searchTexto="search"></Buscador>
         <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
     </header>
 </template>
