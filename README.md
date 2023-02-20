@@ -8,6 +8,12 @@ Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la cr
 
 [Aquí para visitar la web](https://crev.netlify.app/)
 
+## Servidor
+
+[Aquí para visitar el repositorio del servidor](https://github.com/danielmera2912/crev_server)
+
+[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos)
+
 ## Instalación
 
 This template should help get you started developing with Vue 3 in Vite.
