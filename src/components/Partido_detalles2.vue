@@ -188,7 +188,7 @@ export default {
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete(this.API_partido + "/" + this.id);
+          await axios.delete("https://crev-server.onrender.com/api/v1/partidos/" + this.id);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
