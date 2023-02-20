@@ -1,5 +1,63 @@
 <script setup>
 import axios from 'axios';
+/**
+ * @file Modificar_evento.vue - Componente modificar evento de partido detalles
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} id - Rescata la id del usuario
+ * @vue-prop {String} ciudad - Rescata la ciudad
+ * @vue-prop {String} deporte - Rescata el deporte
+ * @vue-prop {String} fecha - Rescata la fecha
+ * @vue-prop {String} hora - Rescata la hora
+ * @vue-prop {String} jugador1 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador2 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador3 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador4 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador5 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador6 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador7 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador8 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador9 - Rescata el nombre del jugador
+ * @vue-prop {String} jugador10 - Rescata el nombre del jugador
+ * @vue-prop {String} imagen1 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen2 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen3 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen4 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen5 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen6 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen7 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen8 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen9 - Rescata el imagen del jugador
+ * @vue-prop {String} imagen10 - Rescata el imagen del jugador
+ * @vue-prop {String} idJugador1 - Rescata el id del jugador
+ * @vue-prop {String} idJugador2 - Rescata el id del jugador
+ * @vue-prop {String} idJugador3 - Rescata el id del jugador
+ * @vue-prop {String} idJugador4 - Rescata el id del jugador
+ * @vue-prop {String} idJugador5 - Rescata el id del jugador
+ * @vue-prop {String} idJugador6 - Rescata el id del jugador
+ * @vue-prop {String} idJugador7 - Rescata el id del jugador
+ * @vue-prop {String} idJugador8 - Rescata el id del jugador
+ * @vue-prop {String} idJugador9 - Rescata el id del jugador
+ * @vue-prop {String} idJugador10 - Rescata el id del jugador
+ * @vue-data {String} textDeporte - Texto del deporte
+ * @vue-data {String} textHora - Texto de la hora
+ * @vue-data {String} textCiudad - Texto de la ciudad
+ * @vue-data {String} textFecha - Texto de la fecha
+ * @vue-data {String} expresionDeporte - Expresión regular del deporte
+ * @vue-data {Boolean} deporteValido - Deporte válido
+ * @vue-data {Boolean} fechaValida - Fecha válida
+ * @vue-data {Boolean} ciudadValida - Ciudad válida
+ * @vue-data {Boolean} horaValida -  Hora válida
+ * @vue-data {String} mensajeError1 - Mensaje de error 1
+ * @vue-data {String} mensajeError2 - Mensaje de error 2
+ * @vue-data {String} mensajeError3 - Mensaje de error 3
+ * @vue-data {String} mensajeError4 - Mensaje de error 4
+ * @vue-data {Boolean} hayErrores - Errores
+ * @vue-data {String} avatar - Avatar
+ * @vue-data {String} jugador1N - Nombre del jugador1
+ * @vue-data {String} idJugador1 - id del Jugador 1
+ */
 defineProps({
     id: {
         type: String,

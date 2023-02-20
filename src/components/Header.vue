@@ -1,7 +1,17 @@
 <script setup>
 import Menu from './Menu_desplegable.vue'
 import Buscador from './Buscador.vue'
-
+/**
+ * @file Header.vue - Componente del encabezado
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} search - Establece el texto del buscador
+ * @vue-prop {String} idUsuario - Establece la id del usuario
+ * @vue-data {String} searchTexto - Texto para establecer del buscador
+ * @vue-event {String} handleChange - Cambia el valor del buscador por lo que introduce el usuario
+ * @vue-event {String} recibirIdUsuario - Modifica la ID del usuario
+ */
 defineProps({
   search: {
     type: String,

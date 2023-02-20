@@ -1,5 +1,32 @@
 <script setup>
 import axios from 'axios';
+/**
+ * @file Modificar_cuenta.vue - Componente para modificar cuenta
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} nombre - Rescata el texto del nombre
+ * @vue-prop {String} correo - Rescata el texto del correo
+ * @vue-prop {String} fecha_nacimiento - Rescata el texto del fecha_nacimiento
+ * @vue-prop {String} avatar - Rescata el texto del avatar
+ * @vue-prop {String} search - Rescata el texto del search
+ * @vue-data {String} idUsuario - Texto del nombre del Usuario
+ * @vue-data {String} textPass - Texto de la contraseña
+ * @vue-data {String} textFecha - Texto de la fecha
+ * @vue-data {String} expresionUsuario - Expresión regular del usuario
+ * @vue-data {String} expresionPass - Expresión regular de la contraseña
+ * @vue-data {Boolean} userValido - Usuario válido
+ * @vue-data {Boolean} passValido -  Contraseña válida
+ * @vue-data {String} mensajeError1 - Mensaje de error 1
+ * @vue-data {String} mensajeError2 - Mensaje de error 2
+ * @vue-data {String} mensajeError3 - Mensaje de error 3
+ * @vue-data {String} mensajeError4 - Mensaje de error 4
+ * @vue-data {Boolean} hayErrores - Errores
+ * @vue-data {Boolean} errorIniciar - Error al iniciar
+ * @vue-data {String} avatar - Avatar
+ * @vue-data {String} inputType - Tipo del input
+ * @vue-data {String} icon - Icono para el input
+ */
 defineProps({
     nombre: {
         type: String,
@@ -136,13 +163,14 @@ export default {
     <div>
         <div className="fondo" @click="$emit('cerrar')"></div>
         <form className="modificar" @submit.prevent="modificar">
-            <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar" @click="$emit('cerrar')">close</span></a>
+            <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
+                    @click="$emit('cerrar')">close</span></a>
             <tittle className="modificar__titulo">Modificar</tittle>
             <section className="modificar__caja">
                 <div className="modificar__avatar">
                     <img className="modificar__avatar__imagen" v-bind:src="avatar" />
                     <!-- <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
-                            accept="image/png, image/jpeg"> -->
+                                accept="image/png, image/jpeg"> -->
                 </div>
 
                 <input :type="inputType" @input="cambiarTextoPass" class="modificar__caja__elemento"

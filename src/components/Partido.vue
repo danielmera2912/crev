@@ -1,5 +1,20 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+/**
+ * @file Partido.vue - Componente del partido
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} id - Rescata la id del partido
+ * @vue-prop {String} deporte - Rescata la deporte del partido
+ * @vue-prop {String} fecha - Rescata la fecha del partido
+ * @vue-prop {String} ciudad - Rescata la ciudad del partido
+ * @vue-prop {String} hora - Rescata la hora del partido
+ * @vue-prop {String} jugador1 - Rescata la jugador1 del partido
+ * @vue-prop {String} jugador2 - Rescata la jugador2 del partido
+ * @vue-prop {String} imagen1 - Rescata la imagen1 del partido
+ * @vue-prop {String} imagen2 - Rescata la imagen2 del partido
+ */
 defineProps({
   id: {
     type: String,

@@ -1,5 +1,14 @@
 <script setup>
 import Partidos from '../components/Partidos_unicos.vue'
+/**
+ * @file PartidosUnicosView.vue - Vista de los partidos únicos
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} results - Resultados rescatados
+ * @vue-prop {String} search - Buscador rescatado
+ * @vue-prop {String} idUsuario - Id del usuario rescatado
+ */
 defineProps({
   results: {
     type: Object,

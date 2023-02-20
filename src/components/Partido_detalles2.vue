@@ -1,6 +1,51 @@
 <script setup>
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
+/**
+ * @file Partido_detalles2.vue - Componente de los detalles de un partido de equipos en concreto
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Rescata la id del usuario
+ * @vue-data {String} idJugador1 - Establece la id del usuario
+ * @vue-data {String} idJugador2 - Establece la id del usuario
+ * @vue-data {String} idJugador3 - Establece la id del usuario
+ * @vue-data {String} idJugador4 - Establece la id del usuario
+ * @vue-data {String} idJugador5 - Establece la id del usuario
+ * @vue-data {String} idJugador6 - Establece la id del usuario
+ * @vue-data {String} idJugador7 - Establece la id del usuario
+ * @vue-data {String} idJugador8 - Establece la id del usuario
+ * @vue-data {String} idJugador9 - Establece la id del usuario
+ * @vue-data {String} idJugador10 - Establece la id del usuario
+ * @vue-data {String} deporte - Texto del deporte
+ * @vue-data {String} hora - Texto de la hora
+ * @vue-data {String} ciudad - Texto de la ciudad
+ * @vue-data {String} fecha - Texto de la fecha
+ * @vue-data {String} imagen1 - imagen1
+ * @vue-data {String} jugador1 - Nombre del jugador
+ * @vue-data {String} jugador2 - Nombre del jugador
+ * @vue-data {String} jugador3 - Nombre del jugador
+ * @vue-data {String} jugador4 - Nombre del jugador
+ * @vue-data {String} jugador5 - Nombre del jugador
+ * @vue-data {String} jugador6- Nombre del jugador
+ * @vue-data {String} jugador7 - Nombre del jugador
+ * @vue-data {String} jugador8 - Nombre del jugador
+ * @vue-data {String} jugador9 - Nombre del jugador
+ * @vue-data {String} jugador10 - Nombre del jugador
+ * @vue-data {String} imagen1 - Imagen del jugador
+ * @vue-data {String} imagen2 - Imagen del jugador
+ * @vue-data {String} imagen3 - Imagen del jugador
+ * @vue-data {String} imagen4 - Imagen del jugador
+ * @vue-data {String} imagen5 - Imagen del jugador
+ * @vue-data {String} imagen6 - Imagen del jugador
+ * @vue-data {String} imagen7 - Imagen del jugador
+ * @vue-data {String} imagen8 - Imagen del jugador
+ * @vue-data {String} imagen9 - Imagen del jugador
+ * @vue-data {String} imagen10 - Imagen del jugador
+ * @vue-data {Boolean} permisos - Permisos de edición y borrado
+ * @vue-data {Boolean} permisoParticipar - Permisos de participaje
+ * @vue-data {String} API_partido - Texto de la API
+ */
 defineProps({
   idUsuario: {
     type: String,

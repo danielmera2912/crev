@@ -1,6 +1,25 @@
 <script setup>
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
+/**
+ * @file Partido_detalles.vue - Componente de los detalles de un partido de 1vs1 individual en concreto
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Rescata la id del usuario
+ * @vue-data {String} idJugador1 - Establece la id del usuario
+ * @vue-data {String} idJugador2 - Establece la id del usuario
+ * @vue-data {String} deporte - Texto del deporte
+ * @vue-data {String} hora - Texto de la hora
+ * @vue-data {String} ciudad - Texto de la ciudad
+ * @vue-data {String} fecha - Texto de la fecha
+ * @vue-data {String} imagen1 - imagen1
+ * @vue-data {String} jugador1 - Nombre del jugador1
+ * @vue-data {String} idJugador1 - id del Jugador 1
+ * @vue-data {Boolean} permisos - Permisos de edición y borrado
+ * @vue-data {Boolean} permisoParticipar - Permisos de participaje
+ * @vue-data {String} API_partido - Texto de la API
+ */
 defineProps({
   idUsuario: {
     type: String,
@@ -9,6 +28,7 @@ defineProps({
 })
 </script>
 <script>
+
 export default {
   data() {
     return {

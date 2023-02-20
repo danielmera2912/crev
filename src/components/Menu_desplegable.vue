@@ -2,6 +2,13 @@
 import Iniciar from './Iniciar_sesion.vue'
 import Registrar from './Registrar_sesion.vue'
 import Acceso from './Acceso_cuenta.vue'
+/**
+ * @file Menu_desplegable.vue - Componente del menú desplegable
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Id del usuario
+ */
 defineProps({
     idUsuario: {
         type: String,

@@ -1,4 +1,32 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Iniciar_sesion.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Iniciar_sesion.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;script>
 import axios from 'axios';
 /**
  * @file Iniciar_sesion.vue - Componente para iniciar sesión
@@ -68,7 +96,7 @@ export default {
             }
         },
         check() {
-            if (this.passValido && this.userValido) {
+            if (this.passValido &amp;&amp; this.userValido) {
                 this.lanzarIniciarSesion()
             }
         },
@@ -123,41 +151,63 @@ export default {
         }
     }
 }
-</script>
+&lt;/script>
 
-<template>
-    <div class="fondo" @click="$emit('cerrarTodo')"></div>
-    <div className="iniciar_sesion">
-        <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
-                @click="$emit('cerrarTodo')">close</span></a>
-        <tittle className="iniciar_sesion__titulo">Iniciar sesión</tittle>
+&lt;template>
+    &lt;div class="fondo" @click="$emit('cerrarTodo')">&lt;/div>
+    &lt;div className="iniciar_sesion">
+        &lt;a href="#">&lt;span className="material-symbols-outlined iniciar_sesion__cerrar"
+                @click="$emit('cerrarTodo')">close&lt;/span>&lt;/a>
+        &lt;tittle className="iniciar_sesion__titulo">Iniciar sesión&lt;/tittle>
 
-        <form className="iniciar_sesion__caja" @submit.prevent="iniciar">
-            <input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
+        &lt;form className="iniciar_sesion__caja" @submit.prevent="iniciar">
+            &lt;input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
                 placeholder="Correo electrónico..." />
-            <label v-if="!userValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
+            &lt;label v-if="!userValido &amp;&amp; hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError1
-            }}</label>
+            }}&lt;/label>
 
-            <input :type="inputType" @input="cambiarTextoPass" class="iniciar_sesion__caja__elemento"
+            &lt;input :type="inputType" @input="cambiarTextoPass" class="iniciar_sesion__caja__elemento"
                 placeholder="Contraseña..." />
-            <span class="material-symbols-outlined" @click="toggleVisibility">{{ icon }}</span>
-            <div v-if="!passValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
+            &lt;span class="material-symbols-outlined" @click="toggleVisibility">{{ icon }}&lt;/span>
+            &lt;div v-if="!passValido &amp;&amp; hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError2
             }}
-            </div>
-            <div v-if="errorIniciar" className="iniciar_sesion__caja__informativo1--visible">{{
+            &lt;/div>
+            &lt;div v-if="errorIniciar" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError3
             }}
-            </div>
-            <section className="iniciar_sesion__boton">
-                <input type="submit" className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar"
+            &lt;/div>
+            &lt;section className="iniciar_sesion__boton">
+                &lt;input type="submit" className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--entrar"
                     value="Entrar" />
-                <p>o</p>
-                <a className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--registrar"
-                    @click="$emit('abrirRegistrar')">Regístrate</a>
-            </section>
-        </form>
+                &lt;p>o&lt;/p>
+                &lt;a className="iniciar_sesion__boton__opcion iniciar_sesion__boton__opcion--registrar"
+                    @click="$emit('abrirRegistrar')">Regístrate&lt;/a>
+            &lt;/section>
+        &lt;/form>
 
-    </div>
-</template>
+    &lt;/div>
+&lt;/template></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 07:15:28 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

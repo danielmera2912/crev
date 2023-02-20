@@ -4,6 +4,18 @@ import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
 </script>
 <script>
+/**
+ * @file App.vue - App principal
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-data {String} search - Buscador
+ * @vue-data {Boolean} cargando - Servidor activo
+ * @vue-data {String} API - API
+ * @vue-data {Boolean} checkUserServer - Check de si existe el usuario
+ * @vue-data {Object} results - Resultados
+ * @vue-data {String} idUsuario - ID del usuario
+ */
 export default {
   data() {
     return {
@@ -12,8 +24,8 @@ export default {
       id: '',
       API: "https://crev-server.onrender.com/api/v1/partidos",
       results: null,
-      idUsuario: localStorage.getItem('userId'),
-      route: this.$route.path
+      idUsuario: localStorage.getItem('userId')
+      //route: this.$route.path
     }
   },
   // watch: {

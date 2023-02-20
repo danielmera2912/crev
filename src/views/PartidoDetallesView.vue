@@ -1,6 +1,17 @@
 <script setup>
 import PartidoDetalles from '../components/Partido_detalles.vue'
 import PartidoDetalles2 from '../components/Partido_detalles2.vue'
+/**
+ * @file PartidoDetallesView.vue - Vista del detalle de los partidos
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Texto del nombre del Usuario
+ * @vue-data {Boolean} equipos - Es equipo o no
+ * @vue-data {Object} results2 - Objeto de los resultados
+ * @vue-data {String} API_partido - Texto de la API
+ * @vue-data {String} id - ID del partido
+ */
 defineProps({
   idUsuario : {
     type: String,

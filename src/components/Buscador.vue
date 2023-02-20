@@ -1,4 +1,11 @@
 <script setup>
+/**
+ * @file Buscador.vue - Componente buscador del encabezado
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} search - Establece el texto del buscador
+ */
 defineProps({
   search: {
     type: String,

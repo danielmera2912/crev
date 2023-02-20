@@ -1,4 +1,32 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Registrar_sesion.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Registrar_sesion.vue</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;script>
 import axios from 'axios';
 /**
  * @file Registrar_sesion.vue - Componente para registrar sesión
@@ -68,7 +96,7 @@ export default {
                 password: "",
                 fecha_nacimiento: '',
                 email: "",
-                avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+                avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600"
             }
         }
     },
@@ -117,7 +145,7 @@ export default {
                 let anio = fecha.getFullYear()
                 let fechaUser = this.textFecha.substr(0, 4)
                 let edadUsuario = anio - fechaUser
-                if (edadUsuario > 13 && edadUsuario <= 120) {
+                if (edadUsuario > 13 &amp;&amp; edadUsuario &lt;= 120) {
                     this.fechaValida = true
                 } else {
                     this.fechaValida = false
@@ -128,7 +156,7 @@ export default {
             }
         },
         check() {
-            if (this.passValido && this.passValido2 && this.userValido && this.fechaValida && this.correoValido) {
+            if (this.passValido &amp;&amp; this.passValido2 &amp;&amp; this.userValido &amp;&amp; this.fechaValida &amp;&amp; this.correoValido) {
                 this.crearUsuario()
             }
         },
@@ -162,7 +190,7 @@ export default {
                 const response2 = await fetch("https://crev-server.onrender.com/api/v1/users/name/" + this.formData.name)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
-                if (!this.checkEmailServer && !this.checkUserServer) {
+                if (!this.checkEmailServer &amp;&amp; !this.checkUserServer) {
                     const encoder = new TextEncoder();
                     const data = encoder.encode(this.formData.password);
                     const digest = await crypto.subtle.digest('SHA-1', data);
@@ -193,55 +221,77 @@ export default {
         }
     }
 }
-</script>
-<template>
-    <div>
-        <div className="fondo" @click="$emit('cerrarTodo')"></div>
-        <form className="registrar">
-            <a href="#"><span className="material-symbols-outlined iniciar_sesion__cerrar"
-                    @click="$emit('cerrarTodo')">close</span></a>
-            <tittle className="registrar__titulo">Registrar</tittle>
-            <section className="registrar__caja">
-                <input v-on:input="cambiarTextoUsuario" className="registrar__caja__elemento" type="text"
+&lt;/script>
+&lt;template>
+    &lt;div>
+        &lt;div className="fondo" @click="$emit('cerrarTodo')">&lt;/div>
+        &lt;form className="registrar">
+            &lt;a href="#">&lt;span className="material-symbols-outlined iniciar_sesion__cerrar"
+                    @click="$emit('cerrarTodo')">close&lt;/span>&lt;/a>
+            &lt;tittle className="registrar__titulo">Registrar&lt;/tittle>
+            &lt;section className="registrar__caja">
+                &lt;input v-on:input="cambiarTextoUsuario" className="registrar__caja__elemento" type="text"
                     placeholder="Usuario..." />
-                <div v-if="!userValido && hayErrores" className="registrar__caja__informativo1--visible">{{
+                &lt;div v-if="!userValido &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError1
-                }}</div>
-                <div v-else-if="!userValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
+                }}&lt;/div>
+                &lt;div v-else-if="!userValidoServer &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError6
-                }}</div>
-                <input v-on:input="cambiarTextoCorreo" className="registrar__caja__elemento" type="email"
+                }}&lt;/div>
+                &lt;input v-on:input="cambiarTextoCorreo" className="registrar__caja__elemento" type="email"
                     placeholder="Correo electrónico..." />
-                <div v-if="!correoValido && hayErrores" className="registrar__caja__informativo1--visible">{{
+                &lt;div v-if="!correoValido &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError3
-                }}</div>
-                <div v-else-if="!correoValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
+                }}&lt;/div>
+                &lt;div v-else-if="!correoValidoServer &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError7
-                }}</div>
-                <input :type="inputType" @input="cambiarTextoPass" class="registrar__caja__elemento"
+                }}&lt;/div>
+                &lt;input :type="inputType" @input="cambiarTextoPass" class="registrar__caja__elemento"
                     placeholder="Contraseña..." />
-                <span class="material-symbols-outlined icon1" @click="toggleVisibility">{{ icon }}</span>
-                <div v-if="!passValido && hayErrores" className="registrar__caja__informativo1--visible">{{
+                &lt;span class="material-symbols-outlined icon1" @click="toggleVisibility">{{ icon }}&lt;/span>
+                &lt;div v-if="!passValido &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError2
-                }}</div>
-                <input :type="inputType2" @input="cambiarTextoPass2" className="registrar__caja__elemento"
+                }}&lt;/div>
+                &lt;input :type="inputType2" @input="cambiarTextoPass2" className="registrar__caja__elemento"
                     placeholder="Repite la contraseña..." />
-                <span class="material-symbols-outlined icon2" @click="toggleVisibility2">{{ icon2 }}</span>
-                <div v-if="!passValido2 && hayErrores" className="registrar__caja__informativo1--visible">{{
+                &lt;span class="material-symbols-outlined icon2" @click="toggleVisibility2">{{ icon2 }}&lt;/span>
+                &lt;div v-if="!passValido2 &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError5
-                }}</div>
-                <input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date" />
-                <div v-if="!fechaValida && hayErrores" className="registrar__caja__informativo1--visible">{{
+                }}&lt;/div>
+                &lt;input v-on:input="cambiarTextoFecha" className="registrar__caja__elemento" type="date" />
+                &lt;div v-if="!fechaValida &amp;&amp; hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError4
-                }}</div>
-            </section>
-            <section className="registrar__boton">
-                <input type="submit" className="registrar__boton__opcion registrar__boton__opcion--registrar"
+                }}&lt;/div>
+            &lt;/section>
+            &lt;section className="registrar__boton">
+                &lt;input type="submit" className="registrar__boton__opcion registrar__boton__opcion--registrar"
                     @click.prevent="registrar" value="Registrar" readonly />
-                <div class="registrar__boton__condicion">o</div>
-                <a className="registrar__boton__opcion registrar__boton__opcion--iniciar"
-                    @click="$emit('abrirIniciarSinRegistrar')">Identíficate aquí</a>
-            </section>
-        </form>
-    </div>
-</template>
+                &lt;div class="registrar__boton__condicion">o&lt;/div>
+                &lt;a className="registrar__boton__opcion registrar__boton__opcion--iniciar"
+                    @click="$emit('abrirIniciarSinRegistrar')">Identíficate aquí&lt;/a>
+            &lt;/section>
+        &lt;/form>
+    &lt;/div>
+&lt;/template></code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 07:15:28 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

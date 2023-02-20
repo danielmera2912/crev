@@ -1,4 +1,28 @@
 <script setup>
+/**
+ * @file Crear_evento.vue - Componente crear evento de los partidos únicos
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Establece la id del usuario
+ * @vue-data {String} textDeporte - Texto del deporte
+ * @vue-data {String} textHora - Texto de la hora
+ * @vue-data {String} textCiudad - Texto de la ciudad
+ * @vue-data {String} textFecha - Texto de la fecha
+ * @vue-data {String} expresionDeporte - Expresión regular del deporte
+ * @vue-data {Boolean} deporteValido - Deporte válido
+ * @vue-data {Boolean} fechaValida - Fecha válida
+ * @vue-data {Boolean} ciudadValida - Ciudad válida
+ * @vue-data {Boolean} horaValida -  Hora válida
+ * @vue-data {String} mensajeError1 - Mensaje de error 1
+ * @vue-data {String} mensajeError2 - Mensaje de error 2
+ * @vue-data {String} mensajeError3 - Mensaje de error 3
+ * @vue-data {String} mensajeError4 - Mensaje de error 4
+ * @vue-data {Boolean} hayErrores - Errores
+ * @vue-data {String} avatar - Avatar
+ * @vue-data {String} jugador1N - Nombre del jugador1
+ * @vue-data {String} idJugador1 - id del Jugador 1
+ */
 defineProps({
 
     idUsuario: {

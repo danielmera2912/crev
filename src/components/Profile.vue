@@ -1,5 +1,16 @@
 <script setup>
 import Modificar from './Modificar_cuenta.vue'
+/**
+ * @file Iniciar_sesion.vue - Componente para iniciar sesión
+ * @author Daniel Mera Sachse
+ */
+/**
+ * @vue-prop {String} idUsuario - Id del usuario
+ * @vue-data {String} nombre - Texto del nombre
+ * @vue-data {String} fecha_nacimiento - Texto de la fecha
+ * @vue-data {String} avatar - Avatar de la fecha
+ * @vue-data {String} idUsuarioActual - Id del usuario actual
+ */
 defineProps({
     idUsuario: {
         type: String,
