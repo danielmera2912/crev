@@ -1,4 +1,4 @@
-# crev
+# CREV
 
 ## Información
 
@@ -7,6 +7,15 @@ Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la cr
 ## Despliegue
 
 [Aquí para visitar la web](https://crev.netlify.app/)
+
+## Servidor
+
+
+AVISO IMPORTANTE: Si se instala el cliente localmente no funcionará debido a la política de CORS, ya que en el servidor permite solo de origen: "https://crev.netlify.app/", para solucionar eso se necesitaría instalar el servidor localmente y modificar en index.js la línea 19 para cambiar dicho enlace por la ruta local donde está desplegado el servidor "localhost:3001", además habría que cambiar todas las llamadas a al API cambiando el enlace "https://crev-server.onrender.com/api/v1/" por "http://127.0.0.1:3001/api/v1/".
+
+[Aquí para visitar el repositorio del servidor](https://github.com/danielmera2912/crev_server)
+
+[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos)
 
 ## Instalación
 
