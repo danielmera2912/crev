@@ -393,7 +393,8 @@ export default {
 
     <div class="partido-detalles__deporte">Partido de {{ deporte }}</div>
     <div class="partido-detalles__enfrentamiento">
-      <span class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
+      <span v-if="permisos" @click="eliminarPartido"
+        class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
       <div class="partido-detalles__enfrentamiento__equipo">
         <div class="partido-detalles__enfrentamiento__equipo__nombre">{{ equipo1 }}</div>
         <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo1" /></div>
