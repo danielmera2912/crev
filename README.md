@@ -6,7 +6,7 @@ Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la cr
 
 ## Despliegue
 
-[Aquí para visitar la web]()
+[Aquí para visitar la web](https://crev.netlify.app/)
 
 ## Instalación
 
