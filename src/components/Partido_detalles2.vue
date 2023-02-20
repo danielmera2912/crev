@@ -90,7 +90,7 @@ export default {
       contadorJugador: 1,
       result: false,
       permisoParticipar: false,
-      permisos: true,
+      permisos: false,
       formData: {
         deporte: "",
         equipo1: "Ciervo Verde",
@@ -243,8 +243,7 @@ export default {
       this.establecerPermiso()
     },
     async establecerPermiso() {
-      if (this.idUsuario!= 0) {
-        
+      if (this.idUsuario!=0) {
         const responseUsuarioPermiso = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.name == this.jugador1) {
@@ -453,7 +452,7 @@ export default {
     </div>
 
     <div class="partido-detalles__datos">
-      <span @click="toggleCreacion" v-if="!perfil"
+      <span @click="toggleCreacion" v-if="permisos"
         className="material-symbols-outlined partido-detalles__datos__modificar">edit</span>
       <div class="partido-detalles__datos__enunciado">Datos de la disputa</div>
       <div class="partido-detalles__datos__ciudad">
