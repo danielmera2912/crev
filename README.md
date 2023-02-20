@@ -1,5 +1,9 @@
 # CREV
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/danielmera2912/crev_server/master/crev_logo.png" />
+</p>
+
 ## Información
 
 Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la creación de eventos deportivos, tras registrarte puedes crear un evento para una ciudad y fecha concreta, puedes elegir entre varios deportes, algunos son partidos individuales y otros son partidos de equipos (Ciervos Verdes vs Ballenas Azules), también puedes participar en otros eventos deportivos de diferentes usuarios y acceder a sus perfiles para contactar con ellos y hacer grandes amigos de tus proximidades para poder jugar al deporte que más te gusta.
