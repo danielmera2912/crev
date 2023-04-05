@@ -66,12 +66,12 @@ export default {
         },
         async llamarApiUsuario() {
             this.idUsuarioActual = this.$route.params.id;
-            const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuarioActual)
+            const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuarioActual)
             const dataUsuario = await responseUsuario.json()
             this.resultsUsuario = dataUsuario
-            this.nombre = this.resultsUsuario.name
-            this.correo = this.resultsUsuario.email
-            this.fecha_nacimiento = this.resultsUsuario.fecha_nacimiento
+            this.nombre = this.resultsUsuario.nombre
+            this.correo = this.resultsUsuario.correo
+            this.fecha_nacimiento = this.resultsUsuario.fechaNacimiento
 
         }
     }

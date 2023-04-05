@@ -86,7 +86,7 @@ export default {
       imagen9: '',
       imagen10: '',
       creacion: false,
-      API: "https://crev-server.onrender.com/api/v1/partidos",
+      API: "http://127.0.0.1:3001/api/v1/partidos",
       contadorJugador: 1,
       result: false,
       permisoParticipar: false,
@@ -188,7 +188,7 @@ export default {
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete("https://crev-server.onrender.com/api/v1/partidos/" + this.id);
+          await axios.delete("http://127.0.0.1:3001/api/v1/partidos/" + this.id);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -244,7 +244,7 @@ export default {
     },
     async establecerPermiso() {
       if (this.idUsuario!=0) {
-        const responseUsuarioPermiso = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
+        const responseUsuarioPermiso = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.name == this.jugador1) {
           this.permisos = true
@@ -255,7 +255,7 @@ export default {
 
     },
     async anadirJugador() {
-      const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
+      const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.name == this.jugador1 || this.resultsUsuario.name == this.jugador2 || this.resultsUsuario.name == this.jugador3 || this.resultsUsuario.name == this.jugador4
@@ -377,7 +377,7 @@ export default {
       
 
         try {
-          const response = await axios.put("https://crev-server.onrender.com/api/v1/partidos/" + this.id, this.formData);
+          const response = await axios.put("http://127.0.0.1:3001/api/v1/partidos/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);

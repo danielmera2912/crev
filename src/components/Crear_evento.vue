@@ -141,7 +141,7 @@ export default {
         },
         async llamarApiUsuario() {
 
-            const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
+            const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
             const dataUsuario = await responseUsuario.json()
             this.resultsUsuario = dataUsuario
             this.jugador1N = this.resultsUsuario.name

@@ -56,7 +56,7 @@ export default {
             this.showIniciado = false;
             this.showAcceso = false;
             try {
-                await axios.delete("https://crev-server.onrender.com/api/v1/sessions/" + this.idUsuario);
+                //await axios.delete("http://127.0.0.1:3001/api/v1/sessions/" + this.idUsuario);
                 await localStorage.removeItem('userId');
                 this.$router.push('/');
                 window.location.reload()

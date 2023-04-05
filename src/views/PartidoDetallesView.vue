@@ -26,7 +26,7 @@ export default {
     return {
       equipos: false,
       results2: null,
-      API_partido: "https://crev-server.onrender.com/api/v1/partidos",
+      API_partido: "http://127.0.0.1:8080/evento",
       id: ''
     }
   },

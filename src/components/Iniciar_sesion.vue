@@ -99,13 +99,13 @@ export default {
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
             this.formData.password = hash
             try {
-                const response2 = await axios.post("https://crev-server.onrender.com/api/v1/autorizacion", this.formData, {
-                    withCredentials: true
-                });
+                // const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
+                //     withCredentials: true
+                // });
                 this.errorIniciar = false;
-                const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/emailBuscar/" + this.formData.email)
+                const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/buscarPorCorreo/" + this.formData.email)
                 const dataUsuario = await responseUsuario.json()
-                this.resultsUsuario = dataUsuario[0].id
+                this.resultsUsuario = dataUsuario.id
                 this.idUsuario = this.resultsUsuario
                 this.recibirIdUsuario(this.resultsUsuario)
                 this.trasIniciar()

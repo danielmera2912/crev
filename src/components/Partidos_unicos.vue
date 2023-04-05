@@ -126,7 +126,7 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          const response = await axios.post("https://crev-server.onrender.com/api/v1/partidos", this.formData);
+          const response = await axios.post("http://127.0.0.1:3001/api/v1/partidos", this.formData);
           await this.$router.push('/partido_detalles/' + response.data.id);
           window.location.reload()
         } catch (error) {
@@ -174,17 +174,18 @@ export default {
       this.formData.imagen2 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
     },
     async llamarApiCiudad() {
-      const response = await fetch("https://crev-server.onrender.com/api/v1/partidos/ciudad/" + this.search)
+      const response = await fetch("http://127.0.0.1:8080/evento/busqueda?ciudad=" + this.search)
       const dataCiudad = await response.json()
+      console.log(dataCiudad)
       this.resultsCiudad = dataCiudad
     },
     async llamarApiDeporte() {
-      const response = await fetch("https://crev-server.onrender.com/api/v1/partidos/deporte/" + this.filtroSeleccionado)
+      const response = await fetch("http://127.0.0.1:8080/evento/busqueda?deporte=" + this.filtroSeleccionado)
       const dataDeporte = await response.json()
       this.resultsDeporte = dataDeporte
     },
     async llamarApiFiltros() {
-      const response = await fetch("https://crev-server.onrender.com/api/v1/partidos/filtros/ciudad=" + this.search + "/deporte=" + this.filtroSeleccionado)
+      const response = await fetch("http://127.0.0.1:8080/evento/busqueda?ciudad=" + this.search + "&deporte=" + this.filtroSeleccionado)
       const dataFiltros = await response.json()
       this.resultsFiltro = dataFiltros
     }
@@ -223,54 +224,61 @@ export default {
         <option value="Esgrima">Esgrima</option>
         <option value="Padel">Padel</option>
       </select>
-      <a v-if="idUsuario!=0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
+      <a v-if="idUsuario != 0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
     </div>
     <div>
     </div>
     <template v-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in results">
-      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte' :fecha='result.fecha'
-        :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.jugador1' :jugador2='result.jugador2'
-        :imagen1='result.imagen1' :imagen2='result.imagen2' :perfil="false" :id="result.id"></Partido>
-      <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
-        :fecha='result.fecha' :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
+        :jugador1='result.usuarios[0]?.nombre' :jugador2='result.usuarios[1]?.nombre'
+        :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar' :perfil="false" :id="result.id">
       </Partido>
+
+      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido> -->
       <div v-else>
         No hay contenido
       </div>
     </template>
     <template v-else-if="filtroSeleccionado == 'todos' && search != ''" v-for="result in resultsCiudad">
-      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte' :fecha='result.fecha'
-        :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.jugador1' :jugador2='result.jugador2'
-        :imagen1='result.imagen1' :imagen2='result.imagen2' :perfil="false" :id="result.id"></Partido>
-      <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
-        :fecha='result.fecha' :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.jugador1'
+        :jugador2='result.jugador2' :imagen1='result.imagen1' :imagen2='result.imagen2' :perfil="false" :id="result.id">
       </Partido>
+      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido> -->
       <div v-else>
         No hay contenido
       </div>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search == ''" v-for="result in resultsDeporte">
-      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte' :fecha='result.fecha'
-        :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.jugador1' :jugador2='result.jugador2'
-        :imagen1='result.imagen1' :imagen2='result.imagen2' :perfil="false" :id="result.id"></Partido>
-      <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
+      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
+        :jugador1='result.eventoUsuarios[0]?.usuario?.nombre' :jugador2='result.eventoUsuarios[1]?.usuario?.nombre'
+        :imagen1='result.eventoUsuarios[0]?.usuario?.avatar' :imagen2='result.eventoUsuarios[1]?.usuario?.avatar' :perfil="false" :id="result.id"></Partido>
+      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
         :fecha='result.fecha' :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.equipo1'
         :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido>
+      </Partido> -->
       <div v-else>
         No hay contenido
       </div>
     </template>
+    
     <template v-else-if="filtroSeleccionado != 'todos' && search != ''" v-for="result in resultsFiltro">
-      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte' :fecha='result.fecha'
-        :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.jugador1' :jugador2='result.jugador2'
-        :imagen1='result.imagen1' :imagen2='result.imagen2' :perfil="false" :id="result.id"></Partido>
-      <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
+      <Partido v-if="!result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
+        :jugador1='result.eventoUsuarios[0]?.usuario?.nombre' :jugador2='result.eventoUsuarios[1]?.usuario?.nombre'
+        :imagen1='result.eventoUsuarios[0]?.usuario?.avatar' :imagen2='result.eventoUsuarios[1]?.usuario?.avatar' :perfil="false" :id="result.id"></Partido>
+      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte'
         :fecha='result.fecha' :ciudad='result.ciudad' :hora='result.hora' :jugador1='result.equipo1'
         :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido>
+      </Partido> -->
       <div v-else>
         No hay contenido
       </div>

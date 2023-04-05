@@ -144,7 +144,7 @@ export default {
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
             this.formData.password = hash
             try {
-                const response = await axios.put("https://crev-server.onrender.com/api/v1/autorizacion/users/" + this.formData.id, this.formData, {
+                const response = await axios.put("http://127.0.0.1:3001/api/v1/autorizacion/users/" + this.formData.id, this.formData, {
                     withCredentials: true
                 });
                 window.location.reload()

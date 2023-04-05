@@ -22,17 +22,11 @@ export default {
       search: '',
       cargando: '',
       id: '',
-      API: "https://crev-server.onrender.com/api/v1/partidos",
+      API: "http://127.0.0.1:8080/evento",
       results: null,
-      idUsuario: localStorage.getItem('userId') ?? 0,
-      //route: this.$route.path
+      idUsuario: localStorage.getItem('userId') ?? 0
     }
   },
-  // watch: {
-  //   '$route.path': function () {
-  //     this.search = '';
-  //   }
-  // },
   mounted() {
     this.llamarApi()
   },

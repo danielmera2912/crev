@@ -41,7 +41,7 @@ export default {
       imagen1: 'https://cdn.resfu.com/img_data/players/medium/1004380.jpg?size=120x&lossy=1',
       imagen2: 'https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1',
       creacion: false,
-      API_partido: "https://crev-server.onrender.com/api/v1/partidos",
+      API_partido: "http://127.0.0.1:8080/evento",
       results2: null,
       permisos: false,
       permisoParticipar: false,
@@ -77,12 +77,11 @@ export default {
       const response = await fetch(this.API_partido + "/" + this.id)
       const data = await response.json()
       this.results2 = data
-
     },
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete("https://crev-server.onrender.com/api/v1/partidos/" + this.id);
+          await axios.delete("http://127.0.0.1:8080/evento/" + this.id);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -101,21 +100,21 @@ export default {
 
     },
     establecerValores() {
-      this.deporte = this.results2.deporte
-      this.jugador1 = this.results2.jugador1
-      this.jugador2 = this.results2.jugador2
-      this.ciudad = this.results2.ciudad
+      this.deporte = this.results2.deporte.nombre
+      this.jugador1 = this.results2.usuarios[0]?.nombre
+      this.jugador2 = this.results2.usuarios[1]?.nombre
+      this.ciudad = this.results2.ciudad.nombre
       this.fecha = this.results2.fecha
       this.hora = this.results2.hora
       this.imagen1 = this.results2.imagen1
       this.imagen2 = this.results2.imagen2
-      this.idJugador1 = this.results2.idJugador1
-      this.idJugador2 = this.results2.idJugador2
+      this.idJugador1 = this.results2.usuarios[0]?.id
+      this.idJugador2 = this.results2.usuarios[1]?.id
       this.establecerPermiso()
     },
     async establecerPermiso() {
       if (this.idUsuario!=0) {
-        const responseUsuarioPermiso = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
+        const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.name == this.jugador1) {
           this.permisos = true
@@ -126,7 +125,7 @@ export default {
 
     },
     async anadirJugador() {
-      const responseUsuario = await fetch("https://crev-server.onrender.com/api/v1/users/" + this.idUsuario)
+      const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.name == this.jugador1) {
@@ -149,7 +148,7 @@ export default {
         this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         try {
-          const response = await axios.put("https://crev-server.onrender.com/api/v1/partidos/" + this.id, this.formData);
+          const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);
