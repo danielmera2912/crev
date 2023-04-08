@@ -86,7 +86,7 @@ export default {
       imagen9: '',
       imagen10: '',
       creacion: false,
-      API: "http://127.0.0.1:3001/api/v1/partidos",
+      API: "http://127.0.0.1:8080/evento",
       contadorJugador: 1,
       result: false,
       permisoParticipar: false,
@@ -188,7 +188,7 @@ export default {
     async eliminarPartido() {
       if (this.permisos) {
         try {
-          await axios.delete("http://127.0.0.1:3001/api/v1/partidos/" + this.id);
+          await axios.delete("http://127.0.0.1:8080/evento/" + this.id);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -377,7 +377,7 @@ export default {
       
 
         try {
-          const response = await axios.put("http://127.0.0.1:3001/api/v1/partidos/" + this.id, this.formData);
+          const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
           window.location.reload()
         } catch (error) {
           console.error(error);

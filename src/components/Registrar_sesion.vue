@@ -155,19 +155,18 @@ export default {
                 avatar: "default.png"
             };
             try {
-                const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.email)
+                const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.correo)
                 const data = await response.json()
                 this.checkEmailServer = data
-
-                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?nombre=" + this.formData.name)
+                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?nombre=" + this.formData.nombre)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
                     const encoder = new TextEncoder();
-                    const data = encoder.encode(this.formData.password);
+                    const data = encoder.encode(this.formData.clave);
                     const digest = await crypto.subtle.digest('SHA-1', data);
                     const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-                    this.formData.password = hash
+                    this.formData.clave = hash
                     const responsePost = await axios.post("http://127.0.0.1:8080/usuario", this.formData);
                     this.$emit('check')
                     this.$emit('abrirIniciar')

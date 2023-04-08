@@ -169,8 +169,8 @@ export default {
             <section className="modificar__caja">
                 <div className="modificar__avatar">
                     <img className="modificar__avatar__imagen" v-bind:src="avatar" />
-                    <!-- <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
-                                accept="image/png, image/jpeg"> -->
+                    <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
+                                accept="image/png, image/jpeg">
                 </div>
 
                 <input :type="inputType" @input="cambiarTextoPass" class="modificar__caja__elemento"

@@ -42,8 +42,8 @@ export default {
             icon: "visibility",
             resultsUsuario: '',
             formData: {
-                password: "",
-                email: ""
+                clave: "",
+                correo: ""
             }
 
         }
@@ -84,34 +84,46 @@ export default {
         },
         async trasIniciar() {
             //this.$emit('check')
-            await this.$router.push('/perfil/'+this.idUsuario)
+            await this.$router.push('/perfil/' + this.idUsuario)
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
         },
         async lanzarIniciarSesion() {
             this.formData = {
-                email: this.textUser,
-                password: this.textPass
+                correo: this.textUser,
+                clave: this.textPass
             };
             const encoder = new TextEncoder();
-            const data = encoder.encode(this.formData.password);
+            const data = encoder.encode(this.formData.clave);
             const digest = await crypto.subtle.digest('SHA-1', data);
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            this.formData.password = hash
+            this.formData.clave = hash
             try {
                 // const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
                 //     withCredentials: true
                 // });
                 this.errorIniciar = false;
-                const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/buscarPorCorreo/" + this.formData.email)
+                const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/buscarPorCorreo/" + this.formData.correo)
                 const dataUsuario = await responseUsuario.json()
-                this.resultsUsuario = dataUsuario.id
-                this.idUsuario = this.resultsUsuario
-                this.recibirIdUsuario(this.resultsUsuario)
-                this.trasIniciar()
+                let usuarioEncontrado = true;
+                if (dataUsuario.estado === "NOT_FOUND") {
+                    usuarioEncontrado = false;
+                    this.errorIniciar= true;
+                }
+                if (usuarioEncontrado) {
+                    this.resultsUsuario = dataUsuario.id
+                    this.idUsuario = this.resultsUsuario
+                    this.recibirIdUsuario(this.resultsUsuario)
+                    if(dataUsuario.clave==this.formData.clave) {
+                        this.trasIniciar()
+                    }
+                    else{
+                        this.errorIniciar=true;
+                    }
+                }
+
 
             } catch (error) {
-                console.error(error)
                 this.errorIniciar = true;
             }
         },

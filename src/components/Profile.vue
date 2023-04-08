@@ -1,5 +1,6 @@
 <script setup>
 import Modificar from './Modificar_cuenta.vue'
+import Partido from './Partido.vue'
 /**
  * @file Iniciar_sesion.vue - Componente para iniciar sesión
  * @author Daniel Mera Sachse
@@ -99,7 +100,7 @@ export default {
             <div class="cuerpo--perfil__fecha__pregunta">Fecha de nacimiento</div>
             <div class="cuerpo--perfil__fecha__respuesta">{{ fecha_nacimiento }}</div>
         </section>
-        <!-- <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar todos los partidos participados</button>
+        <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar todos los partidos participados</button>
             <div cuerpo--perfil__partidos v-if="mostrarPartidos">
                 <ul>
                     <Partido v-for="i in 5" :deporte='"Tenis"' :fecha='"20/04/2011"' :ciudad='"Pamplona"' :hora='"20:20"'
@@ -108,7 +109,7 @@ export default {
                         :imagen2='"https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1"' :perfil="true">
                     </Partido>
                 </ul>
-            </div> -->
+            </div>
         <Modificar v-if="modificar && idUsuario==idUsuarioActual" @cerrar="cambiarModificar" :modificar="modificar" @check="toggleCheck"
             :checkForm="checkForm" @modificar="guardarModificado" :correo="correo" :nombre="nombre"
             :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios"></Modificar>

@@ -22,6 +22,7 @@ export default {
       search: '',
       cargando: '',
       id: '',
+      API_iniciar: "http://127.0.0.1:8080/usuario",
       API: "http://127.0.0.1:8080/evento",
       results: null,
       idUsuario: localStorage.getItem('userId') ?? 0
@@ -45,7 +46,8 @@ export default {
     async llamarApi() {
       this.cargando = false
       const response = await fetch(this.API)
-      if (response.status == 200) {
+      const response2 = await fetch(this.API_iniciar)
+      if (response2.status == 200) {
         this.cargando = true
       }
       const data = await response.json()
