@@ -46,17 +46,24 @@ export default {
       permisos: false,
       permisoParticipar: false,
       formData: {
-        deporte: "",
-        jugador1: "",
-        jugador2: '',
-        ciudad: "",
         fecha: "",
         hora: "",
-        imagen1: "",
-        imagen2: "",
-        id: '',
-        idJugador1: "",
-        idJugador2: ""
+        ciudad: {
+          id: 1
+        },
+        deporte: {
+          id: 1
+        }
+        // deporte: "",
+        // jugador1: "",
+        // jugador2: '',
+        // ciudad: "",
+        
+        // imagen1: "",
+        // imagen2: "",
+        // id: '',
+        // idJugador1: "",
+        // idJugador2: ""
       },
     }
   },
@@ -113,10 +120,11 @@ export default {
       this.establecerPermiso()
     },
     async establecerPermiso() {
+      console.log(this.idUsuario)
       if (this.idUsuario!=0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
-        if (dataUsuarioPermiso.name == this.jugador1) {
+        if (dataUsuarioPermiso.nombre == this.jugador1) {
           this.permisos = true
         } else {
           this.permisoParticipar = true
@@ -135,18 +143,19 @@ export default {
         alert("Plazas llenas")
       }
       else {
-        this.formData.deporte = this.deporte
+        //this.formData.deporte = this.deporte
         this.formData.hora = this.hora
-        this.formData.ciudad = this.ciudad
+        //this.formData.ciudad = this.ciudad
         this.formData.fecha = this.fecha
-        this.formData.jugador1 = this.jugador1
-        this.formData.id = this.id
-        this.formData.jugador2 = this.resultsUsuario.name
-        this.formData.idJugador1 = this.idJugador1
-        this.formData.idJugador2 = this.idUsuario
+        
+        //this.formData.jugador1 = this.jugador1
+        //this.formData.id = this.id
+        //this.formData.jugador2 = this.resultsUsuario.name
+        //this.formData.idJugador1 = this.idJugador1
+        //this.formData.idJugador2 = this.idUsuario
         // esto se cambiará para el futuro cuando el usuario pueda elegir avatar para su perfil
-        this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+        //this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+        //this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         try {
           const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
           window.location.reload()

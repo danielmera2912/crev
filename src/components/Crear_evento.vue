@@ -128,12 +128,9 @@ export default {
                 })
             } else {
                 this.$emit('updatePartido', {
-                    deporte: this.textDeporte,
                     hora: this.textHora,
-                    ciudad: this.textCiudad,
                     fecha: this.textFecha,
-                    jugador1N: this.jugador1N,
-                    idJugador1: this.idUsuario
+                    
                 })
             }
 

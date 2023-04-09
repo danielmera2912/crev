@@ -70,35 +70,61 @@ export default {
     return {
       mensajeNoContentido: "No hay contenido",
       formData: {
-        deporte: "",
-        jugador1: "",
-        jugador2: 'ejemplo2',
-        jugador3: null,
-        jugador4: null,
-        jugador5: null,
-        jugador6: null,
-        jugador7: null,
-        jugador8: null,
-        jugador9: null,
-        jugador10: null,
-        ciudad: "",
+        
         fecha: "",
         hora: "",
-        imagen1: "",
-        imagen2: "",
-        imagen3: null,
-        imagen4: null,
-        imagen5: null,
-        imagen6: null,
-        imagen7: null,
-        imagen8: null,
-        imagen9: null,
-        imagen10: null,
-        idJugador1: "",
-        equipo1: null,
-        equipo2: null,
-        imagen_equipo1: null,
-        imagen_equipo2: null
+       
+        deporte: {
+          id: 1
+          // id: this.deporteId
+        },
+        ciudad: {
+          id: 1
+          //id: this.ciudadId
+        }
+         // deporte: "",
+        // jugador1: "",
+        // jugador2: 'ejemplo2',
+        // jugador3: null,
+        // jugador4: null,
+        // jugador5: null,
+        // jugador6: null,
+        // jugador7: null,
+        // jugador8: null,
+        // jugador9: null,
+        // jugador10: null,
+        // ciudad: "",
+        // imagen1: "",
+        // imagen2: "",
+        // imagen3: null,
+        // imagen4: null,
+        // imagen5: null,
+        // imagen6: null,
+        // imagen7: null,
+        // imagen8: null,
+        // imagen9: null,
+        // imagen10: null,
+        // idJugador1: "",
+        // equipo1: null,
+        // equipo2: null,
+        // imagen_equipo1: null,
+        // imagen_equipo2: null
+      },
+      formDataJugador1: {
+        usuario: {
+          id: 1
+        },
+        evento: {
+          id: 0
+        }
+      },
+      formDataJugador2: {
+        usuario: {
+          id: 2
+        },
+        evento: {
+          id: 0
+        }
       },
       id: 1,
       crearEvento: false,
@@ -127,7 +153,12 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
+          console.log(this.formData)
           const response = await axios.post("http://127.0.0.1:8080/evento", this.formData);
+          this.formDataJugador1.evento.id = response.data.id;
+          this.formDataJugador2.evento.id = response.data.id;
+          const response2 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador1);
+          const response3 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador2);
           await this.$router.push('/partido_detalles/' + response.data.id);
           window.location.reload()
         } catch (error) {
@@ -140,13 +171,14 @@ export default {
       this.checkForm = !this.checkForm
     },
     updateDatosPartido(partido) {
-      this.formData.deporte = partido.deporte
-      this.formData.hora = partido.hora
-      this.formData.ciudad = partido.ciudad
       this.formData.fecha = partido.fecha
-      this.formData.jugador1 = partido.jugador1N
-      this.formData.idJugador1 = partido.idJugador1
-      this.formData.jugador2 = "Plaza vacante"
+      this.formData.hora = partido.hora
+
+      //this.formData.ciudad = partido.ciudad
+      //this.formData.deporte = partido.deporte
+      //this.formData.jugador1 = partido.jugador1N
+      //this.formData.idJugador1 = partido.idJugador1
+      //this.formData.jugador2 = "Plaza vacante"
       if (partido.equipo1) {
         this.formData.equipo1 = partido.equipo1
         this.formData.equipo2 = partido.equipo2
@@ -171,8 +203,8 @@ export default {
         this.formData.imagen10 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
       }
       // esto se cambiará para el futuro cuando el usuario pueda elegir avatar para su perfil
-      this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-      this.formData.imagen2 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
+      //this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+      //this.formData.imagen2 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
     },
     async llamarApiCiudad() {
       const response = await fetch("http://127.0.0.1:8080/evento/busqueda?ciudad=" + this.search)
@@ -231,16 +263,16 @@ export default {
     </div>
     <div>
     </div>
-    <template v-if="results && results.estado=='NOT_FOUND'">
+    <template v-if="results && results.estado == 'NOT_FOUND'">
       <div>{{ mensajeNoContentido }}</div>
     </template>
-    <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.status==404">
+    <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.status == 404">
       <div>{{ mensajeNoContentido }}</div>
     </template>
-    <template v-else-if="filtroSeleccionado!= 'todos' && search== '' && resultsDeporte.status==404">
+    <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.status == 404">
       <div>{{ mensajeNoContentido }}</div>
     </template>
-    <template v-else-if="filtroSeleccionado!= 'todos' && search!= '' && resultsFiltro.status==404">
+    <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.status == 404">
       <div>{{ mensajeNoContentido }}</div>
     </template>
     <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in results">
@@ -250,47 +282,49 @@ export default {
         :perfil="false" :id="result.id">
       </Partido>
       <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido> -->
+          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        </Partido> -->
     </template>
 
-    <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.length > 0" v-for="result in resultsCiudad">
+    <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.length > 0"
+      v-for="result in resultsCiudad">
       <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
       <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido> -->
+          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        </Partido> -->
     </template>
-    <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0" v-for="result in resultsDeporte">
+    <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0"
+      v-for="result in resultsDeporte">
       <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
       <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido> -->
+          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        </Partido> -->
     </template>
-    <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0" v-for="result in resultsFiltro">
+    <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0"
+      v-for="result in resultsFiltro">
       <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
       <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-        :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-      </Partido> -->
+          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
+          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        </Partido> -->
     </template>
     <template v-else>
       <div>{{ mensajeNoContentido }}</div>
     </template>
 
-  </div>
-</template>
+  </div></template>

@@ -73,10 +73,10 @@ export default {
             icon: "visibility",
             formData: {
                 id: '',
-                name: '',
-                password: "",
-                fecha_nacimiento: '',
-                email: "",
+                nombre: '',
+                clave: "",
+                fechaNacimiento: '',
+                correo: "",
                 avatar: '',
             }
         }
@@ -130,23 +130,22 @@ export default {
         },
         async lanzar_modificar_cuenta() {
             this.formData = {
-                name: this.nombre,
-                password: this.textPass,
-                email: this.correo,
-                fecha_nacimiento: this.textFecha,
+                nombre: this.nombre,
+                clave: this.textPass,
+                correo: this.correo,
+                fechaNacimiento: this.textFecha,
                 avatar: this.avatar,
                 id: this.idUsuario
 
             };
             const encoder = new TextEncoder();
-            const data = encoder.encode(this.formData.password);
+            const data = encoder.encode(this.formData.clave);
             const digest = await crypto.subtle.digest('SHA-1', data);
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            this.formData.password = hash
+            this.formData.clave = hash
             try {
-                const response = await axios.put("http://127.0.0.1:3001/api/v1/autorizacion/users/" + this.formData.id, this.formData, {
-                    withCredentials: true
-                });
+                console.log(this.formData)
+                const response = await axios.put("http://127.0.0.1:8080/usuario/" + this.formData.id, this.formData);
                 window.location.reload()
             } catch (error) {
                 console.error(error);
