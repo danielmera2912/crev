@@ -75,11 +75,11 @@ export default {
         hora: "",
        
         deporte: {
-          id: 1
+          id: 0
           // id: this.deporteId
         },
         ciudad: {
-          id: 1
+          id: 0
           //id: this.ciudadId
         }
          // deporte: "",
@@ -112,7 +112,7 @@ export default {
       },
       formDataJugador1: {
         usuario: {
-          id: 1
+          id: this.idUsuario
         },
         evento: {
           id: 0
@@ -120,7 +120,7 @@ export default {
       },
       formDataJugador2: {
         usuario: {
-          id: 2
+          id: 0
         },
         evento: {
           id: 0
@@ -173,7 +173,8 @@ export default {
     updateDatosPartido(partido) {
       this.formData.fecha = partido.fecha
       this.formData.hora = partido.hora
-
+      this.formData.deporte.id = partido.deporte
+      this.formData.ciudad.id = partido.ciudad
       //this.formData.ciudad = partido.ciudad
       //this.formData.deporte = partido.deporte
       //this.formData.jugador1 = partido.jugador1N

@@ -35,7 +35,7 @@ defineProps({
 export default {
     data() {
         return {
-            textDeporte: '',
+            textDeporte: 0,
             textHora: '',
             textCiudad: '',
             textFecha: '',
@@ -52,7 +52,8 @@ export default {
             avatar: '',
             jugador1N: '',
             idJugador1: '',
-
+            dataDeporte: '',
+            dataCiudad: ''
         }
     },
     mounted() {
@@ -61,7 +62,7 @@ export default {
     methods: {
         cambiarTextoDeporte(e) {
             this.textDeporte = e.target.value
-            if (this.expresionDeporte.test(this.textDeporte)) {
+            if (this.textDeporte != "") {
                 this.deporteValido = true
             } else {
                 this.deporteValido = false
@@ -77,7 +78,7 @@ export default {
         },
         cambiarTextoCiudad(e) {
             this.textCiudad = e.target.value
-            if (this.expresionDeporte.test(this.textCiudad)) {
+            if (this.textCiudad != "") {
                 this.ciudadValida = true
             } else {
                 this.ciudadValida = false
@@ -130,7 +131,9 @@ export default {
                 this.$emit('updatePartido', {
                     hora: this.textHora,
                     fecha: this.textFecha,
-                    
+                    deporte: this.textDeporte,
+                    ciudad: this.textCiudad
+
                 })
             }
 
@@ -138,12 +141,17 @@ export default {
         },
         async llamarApiUsuario() {
 
-            const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
-            const dataUsuario = await responseUsuario.json()
-            this.resultsUsuario = dataUsuario
-            this.jugador1N = this.resultsUsuario.name
-            this.avatar = this.resultsUsuario.avatar
+            // const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
+            // const dataUsuario = await responseUsuario.json()
+            // this.resultsUsuario = dataUsuario
+            // this.jugador1N = this.resultsUsuario.name
+            // this.avatar = this.resultsUsuario.avatar
 
+            const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
+            this.dataDeporte = await responseDeporte.json()
+
+            const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
+            this.dataCiudad = await responseCiudad.json()
         }
     }
 }
@@ -159,19 +167,19 @@ export default {
                 <div class="crear_evento__caja__deporte">
                     <select @input="cambiarTextoDeporte" class="crear_evento__caja__deporte__elemento">
                         <option value="">Elige un deporte</option>
-                        <option value="Fútbol Sala">Fútbol Sala</option>
-                        <option value="Baloncesto">Baloncesto</option>
-                        <option value="Tenis">Tenis</option>
-                        <option value="Esgrima">Esgrima</option>
-                        <option value="Padel">Padel</option>
+                        <option v-for="deporte in dataDeporte" :value="deporte.id">{{ deporte.nombre }}</option>
                     </select>
                 </div>
                 <div v-if="!deporteValido && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError1
                 }}</div>
 
-                <input v-on:input="cambiarTextoCiudad" className="crear_evento__caja__elemento" type="text"
-                    placeholder="Ciudad" />
+                <div class="crear_evento__caja__deporte">
+                    <select @input="cambiarTextoCiudad" class="crear_evento__caja__deporte__elemento">
+                        <option value="">Elige una ciudad</option>
+                        <option v-for="ciudad in dataCiudad" :value="ciudad.id">{{ ciudad.nombre }}</option>
+                    </select>
+                </div>
                 <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>

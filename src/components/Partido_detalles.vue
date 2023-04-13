@@ -113,11 +113,12 @@ export default {
       this.ciudad = this.results2.ciudad.nombre
       this.fecha = this.results2.fecha
       this.hora = this.results2.hora
-      this.imagen1 = this.results2.imagen1
-      this.imagen2 = this.results2.imagen2
+      this.imagen1 = this.results2.usuarios[0]?.avatar
+      this.imagen2 = this.results2.usuarios[1]?.avatar
       this.idJugador1 = this.results2.usuarios[0]?.id
       this.idJugador2 = this.results2.usuarios[1]?.id
       this.establecerPermiso()
+      console.log(this.results2.usuarios)
     },
     async establecerPermiso() {
       console.log(this.idUsuario)

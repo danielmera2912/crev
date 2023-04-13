@@ -231,10 +231,10 @@ export default {
                 fecha: '',
                 hora: '',
                 ciudad: {
-                    id: 1
+                    id: 0
                 },
                 deporte: {
-                    id: 1
+                    id: 0
                 }
                 // id: this.id,
                 // idJugador1: '',
