@@ -153,7 +153,6 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          console.log(this.formData)
           const response = await axios.post("http://127.0.0.1:8080/evento", this.formData);
           this.formDataJugador1.evento.id = response.data.id;
           this.formDataJugador2.evento.id = response.data.id;

@@ -144,7 +144,6 @@ export default {
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
             this.formData.clave = hash
             try {
-                console.log(this.formData)
                 const response = await axios.put("http://127.0.0.1:8080/usuario/" + this.formData.id, this.formData);
                 window.location.reload()
             } catch (error) {

@@ -67,6 +67,10 @@ defineProps({
         type: String,
         required: true
     },
+    idCiudad: {
+        type: String,
+        required: true
+    },
     deporte: {
         type: String,
         required: true
@@ -213,6 +217,7 @@ defineProps({
 export default {
     data() {
         return {
+            dataCiudad: '',
             textDeporte: '',
             textHora: '',
             textCiudad: '',
@@ -280,8 +285,13 @@ export default {
         this.textCiudad = this.ciudad
         this.textFecha = this.fecha
         this.textHora = this.hora
+        this.establecerCiudades()
     },
     methods: {
+        async establecerCiudades() {
+            const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
+            this.dataCiudad = await responseCiudad.json()
+        },
         cambiarTextoHora(e) {
             this.textHora = e.target.value
             if (this.textHora.length > 0) {
@@ -292,7 +302,7 @@ export default {
         },
         cambiarTextoCiudad(e) {
             this.textCiudad = e.target.value
-            if (this.expresionDeporte.test(this.textCiudad)) {
+            if (this.textCiudad!="") {
                 this.ciudadValida = true
             } else {
                 this.ciudadValida = false
@@ -345,7 +355,9 @@ export default {
             // this.formData.ciudad = this.textCiudad
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
+            this.formData.ciudad.id = this.textCiudad
             try {
+                console.log(this.formData)
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
                 window.location.reload()
             } catch (error) {
@@ -363,8 +375,14 @@ export default {
                     @click="$emit('cerrarTodo')">close</span></a>
             <tittle className="crear_evento__titulo">Modificar evento</tittle>
             <section className="crear_evento__caja">
-                <input className="crear_evento__caja__elemento" type="text" placeholder="Ciudad" v-bind:value="textCiudad"
-                    v-on:input="cambiarTextoCiudad" />
+                <!-- <input className="crear_evento__caja__elemento" type="text" placeholder="Ciudad" v-bind:value="textCiudad"
+                        v-on:input="cambiarTextoCiudad" /> -->
+                <div class="crear_evento__caja__deporte">
+                    <select @input="cambiarTextoCiudad" class="crear_evento__caja__deporte__elemento">
+                        <option value="">Elige una ciudad</option>
+                        <option v-for="ciudad in dataCiudad" :value="ciudad.id" :selected="ciudad.id === idCiudad">{{ ciudad.nombre }}</option>
+                    </select>
+                </div>
                 <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{
                     mensajeError2
                 }}</div>

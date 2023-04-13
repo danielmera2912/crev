@@ -38,6 +38,7 @@ export default {
       fecha: "",
       hora: '',
       ciudad: '',
+      idCiudad: 0,
       imagen1: 'https://cdn.resfu.com/img_data/players/medium/1004380.jpg?size=120x&lossy=1',
       imagen2: 'https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1',
       creacion: false,
@@ -111,6 +112,7 @@ export default {
       this.jugador1 = this.results2.usuarios[0]?.nombre
       this.jugador2 = this.results2.usuarios[1]?.nombre
       this.ciudad = this.results2.ciudad.nombre
+      this.idCiudad = this.results2.ciudad.id
       this.fecha = this.results2.fecha
       this.hora = this.results2.hora
       this.imagen1 = this.results2.usuarios[0]?.avatar
@@ -118,10 +120,8 @@ export default {
       this.idJugador1 = this.results2.usuarios[0]?.id
       this.idJugador2 = this.results2.usuarios[1]?.id
       this.establecerPermiso()
-      console.log(this.results2.usuarios)
     },
     async establecerPermiso() {
-      console.log(this.idUsuario)
       if (this.idUsuario!=0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
@@ -213,7 +213,7 @@ export default {
     <Modificar_evento v-if="permisos && creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha"
       :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2" 
-      :idJugador1="idJugador1" :idJugador2="idJugador2"></Modificar_evento>
+      :idJugador1="idJugador1" :idJugador2="idJugador2" :idCiudad="idCiudad"></Modificar_evento>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
