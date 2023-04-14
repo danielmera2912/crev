@@ -228,10 +228,11 @@ export default {
             ciudadValida: true,
             horaValida: true,
             mensajeError1: "Necesitas seleccionar un deporte",
-            mensajeError2: "Se necesita escribir una ciudad",
+            mensajeError2: "Se necesita seleccionar una ciudad",
             mensajeError3: "Se necesita insertar una hora",
             mensajeError4: "Se necesita una fecha válida",
             hayErrores: false,
+            valorCiudad: '',
             formData: {
                 fecha: '',
                 hora: '',
@@ -282,9 +283,10 @@ export default {
         }
     },
     mounted() {
-        this.textCiudad = this.ciudad
+        this.textCiudad = this.idCiudad
         this.textFecha = this.fecha
         this.textHora = this.hora
+        this.valorCiudad = this.ciudad
         this.establecerCiudades()
     },
     methods: {
@@ -353,6 +355,7 @@ export default {
             // this.formData.idJugador9=this.idJugador9
             // this.formData.idJugador10=this.idJugador10
             // this.formData.ciudad = this.textCiudad
+            console.log("hola?")
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad

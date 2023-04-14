@@ -54,7 +54,7 @@ export default {
         },
         deporte: {
           id: 1
-        }
+        },
         // deporte: "",
         // jugador1: "",
         // jugador2: '',
@@ -66,6 +66,14 @@ export default {
         // idJugador1: "",
         // idJugador2: ""
       },
+      formDataEvento: {
+        usuario: {
+          id: 0
+        },
+        evento: {
+          id: 0
+        }
+      }
     }
   },
   async mounted() {
@@ -158,7 +166,11 @@ export default {
         //this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         //this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
         try {
-          const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
+          const usuarios = await fetch("http://127.0.0.1:8080/usuario_evento/evento/" + this.id)
+          const datosUsuarios = await usuarios.json()
+          this.formDataEvento.evento.id = this.id
+          this.formDataEvento.usuario.id = this.idUsuario
+          const response = await axios.put("http://127.0.0.1:8080/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento);
           window.location.reload()
         } catch (error) {
           console.error(error);
