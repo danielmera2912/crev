@@ -355,12 +355,10 @@ export default {
             // this.formData.idJugador9=this.idJugador9
             // this.formData.idJugador10=this.idJugador10
             // this.formData.ciudad = this.textCiudad
-            console.log("hola?")
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad
             try {
-                console.log(this.formData)
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
                 window.location.reload()
             } catch (error) {

@@ -114,7 +114,6 @@ export default {
             }
         },
         submitPartido() {
-            console.log("lol")
             if (this.textDeporte == "Baloncesto" || this.textDeporte == "Fútbol Sala") {
                 this.$emit('updatePartido', {
                     deporte: this.textDeporte,
