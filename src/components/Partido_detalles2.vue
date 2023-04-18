@@ -87,10 +87,15 @@ export default {
       imagen10: '',
       creacion: false,
       API: "http://127.0.0.1:8080/evento",
+      API2: "http://127.0.0.1:8080/equipo",
       contadorJugador: 1,
       result: false,
       permisoParticipar: false,
       permisos: false,
+      results2: false,
+      resultsEquipos: false,
+      resultsUsuariosEquipo1: false,
+      resultsUsuariosEquipo2: false,
       formData: {
         deporte: "",
         equipo1: "Ciervo Verde",
@@ -151,31 +156,41 @@ export default {
       const response = await fetch(this.API + "/" + this.id)
       const data = await response.json()
       this.results2 = data
-      if (this.results2.jugador2 == "Plaza vacante") {
+      const response2 = await fetch(this.API + "/"+this.id+"/equipos")
+      const data2 = await response2.json()
+      this.resultsEquipos = data2
+      
+      const response3 = await fetch(this.API2 + "/"+this.resultsEquipos[0].id+"/usuarios")
+      const data3 = await response3.json()
+      this.resultsUsuariosEquipo1 = data3
+      const response4 = await fetch(this.API2 + "/"+this.resultsEquipos[1].id+"/usuarios")
+      const data4 = await response4.json()
+      this.resultsUsuariosEquipo2 = data4
+      if (this.resultsUsuariosEquipo2[0].nombre == "Plaza vacante") {
         this.contadorJugador = 2
       }
-      else if (this.results2.jugador3 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[1].nombre == "Plaza vacante") {
         this.contadorJugador = 3
       }
-      else if (this.results2.jugador4 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[1].nombre == "Plaza vacante") {
         this.contadorJugador = 4
       }
-      else if (this.results2.jugador5 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[2].nombre == "Plaza vacante") {
         this.contadorJugador = 5
       }
-      else if (this.results2.jugador6 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[2].nombre == "Plaza vacante") {
         this.contadorJugador = 6
       }
-      else if (this.results2.jugador7 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[3].nombre == "Plaza vacante") {
         this.contadorJugador = 7
       }
-      else if (this.results2.jugador8 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[3].nombre == "Plaza vacante") {
         this.contadorJugador = 8
       }
-      else if (this.results2.jugador9 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[4].nombre == "Plaza vacante") {
         this.contadorJugador = 9
       }
-      else if (this.results2.jugador10 == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[4].nombre == "Plaza vacante") {
         this.contadorJugador = 10
       }
       else {
@@ -204,47 +219,47 @@ export default {
 
     },
     establecerValores() {
-      this.deporte = this.results2.deporte
-      this.jugador1 = this.results2.jugador1
-      this.jugador2 = this.results2.jugador2
-      this.jugador3 = this.results2.jugador3
-      this.jugador4 = this.results2.jugador4
-      this.jugador5 = this.results2.jugador5
-      this.jugador6 = this.results2.jugador6
-      this.jugador7 = this.results2.jugador7
-      this.jugador8 = this.results2.jugador8
-      this.jugador9 = this.results2.jugador9
-      this.jugador10 = this.results2.jugador10
-      this.ciudad = this.results2.ciudad
+      this.deporte = this.results2.deporte.nombre
+      this.jugador1 = this.resultsUsuariosEquipo1[0].nombre
+      this.jugador2 = this.resultsUsuariosEquipo2[0].nombre
+      this.jugador3 = this.resultsUsuariosEquipo1[1].nombre
+      this.jugador4 = this.resultsUsuariosEquipo2[1].nombre
+      this.jugador5 = this.resultsUsuariosEquipo1[2].nombre
+      this.jugador6 = this.resultsUsuariosEquipo2[2].nombre
+      this.jugador7 = this.resultsUsuariosEquipo1[3].nombre
+      this.jugador8 = this.resultsUsuariosEquipo2[3].nombre
+      this.jugador9 = this.resultsUsuariosEquipo1[4].nombre
+      this.jugador10 = this.resultsUsuariosEquipo2[4].nombre
+      this.ciudad = this.results2.ciudad.nombre
       this.fecha = this.results2.fecha
       this.hora = this.results2.hora
-      this.idJugador1 = this.results2.idJugador1
-      this.idJugador2 = this.results2.idJugador2
-      this.idJugador3 = this.results2.idJugador3
-      this.idJugador4 = this.results2.idJugador4
-      this.idJugador5 = this.results2.idJugador5
-      this.idJugador6 = this.results2.idJugador6
-      this.idJugador7 = this.results2.idJugador7
-      this.idJugador8 = this.results2.idJugador8
-      this.idJugador9 = this.results2.idJugador9
-      this.idJugador10 = this.results2.idJugador10
-      this.imagen1 = this.results2.imagen1
-      this.imagen2 = this.results2.imagen2
-      this.imagen3 = this.results2.imagen3
-      this.imagen4 = this.results2.imagen4
-      this.imagen5 = this.results2.imagen5
-      this.imagen6 = this.results2.imagen6
-      this.imagen7 = this.results2.imagen7
-      this.imagen8 = this.results2.imagen8
-      this.imagen9 = this.results2.imagen9
-      this.imagen10 = this.results2.imagen10
+      this.idJugador1 = this.resultsUsuariosEquipo1[0].id
+      this.idJugador2 = this.resultsUsuariosEquipo2[0].id
+      this.idJugador3 = this.resultsUsuariosEquipo1[1].id
+      this.idJugador4 = this.resultsUsuariosEquipo2[1].id
+      this.idJugador5 = this.resultsUsuariosEquipo1[2].id
+      this.idJugador6 = this.resultsUsuariosEquipo2[2].id
+      this.idJugador7 = this.resultsUsuariosEquipo1[3].id
+      this.idJugador8 = this.resultsUsuariosEquipo2[3].id
+      this.idJugador9 = this.resultsUsuariosEquipo1[4].id
+      this.idJugador10 = this.resultsUsuariosEquipo2[4].id
+      this.imagen1 = this.resultsUsuariosEquipo1[0].avatar
+      this.imagen2 = this.resultsUsuariosEquipo2[0].avatar
+      this.imagen3 = this.resultsUsuariosEquipo1[1].avatar
+      this.imagen4 = this.resultsUsuariosEquipo2[1].avatar
+      this.imagen5 = this.resultsUsuariosEquipo1[2].avatar
+      this.imagen6 = this.resultsUsuariosEquipo2[2].avatar
+      this.imagen7 = this.resultsUsuariosEquipo1[3].avatar
+      this.imagen8 = this.resultsUsuariosEquipo2[3].avatar
+      this.imagen9 = this.resultsUsuariosEquipo1[4].avatar
+      this.imagen10 = this.resultsUsuariosEquipo2[4].avatar
       this.equipo1 = this.results2.equipo1
       this.equipo2 = this.results2.equipo2
       this.establecerPermiso()
     },
     async establecerPermiso() {
       if (this.idUsuario!=0) {
-        const responseUsuarioPermiso = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
+        const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.name == this.jugador1) {
           this.permisos = true
@@ -255,7 +270,7 @@ export default {
 
     },
     async anadirJugador() {
-      const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
+      const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.name == this.jugador1 || this.resultsUsuario.name == this.jugador2 || this.resultsUsuario.name == this.jugador3 || this.resultsUsuario.name == this.jugador4

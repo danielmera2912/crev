@@ -70,10 +70,10 @@ export default {
     return {
       mensajeNoContentido: "No hay contenido",
       formData: {
-        
+
         fecha: "",
         hora: "",
-       
+
         deporte: {
           id: 0
           // id: this.deporteId
@@ -82,7 +82,7 @@ export default {
           id: 0
           //id: this.ciudadId
         }
-         // deporte: "",
+        // deporte: "",
         // jugador1: "",
         // jugador2: 'ejemplo2',
         // jugador3: null,
@@ -131,14 +131,23 @@ export default {
       checkForm: false,
       equipoImagen1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
       equipoImagen2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
+      equipoNombre1: "Ciervo Verde",
+      equipoNombre2: "Ballena Azul",
       resultsCiudad: "",
       resultsDeporte: "",
       resultsFiltro: "",
-      filtroSeleccionado: "todos"
+      filtroSeleccionado: "todos",
+      dataDeporte: ""
     };
   },
-
+  mounted() {
+    this.conseguirDeportes();
+  },
   methods: {
+    async conseguirDeportes() {
+      const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
+      this.dataDeporte = await responseDeporte.json()
+    },
     recibirValores() {
       this.$emit('recibirValores')
     },
@@ -253,11 +262,7 @@ export default {
     <div class="interfaz">
       <select class="interfaz__filtro" v-model="filtroSeleccionado" name="filtro">
         <option value="todos">Todos</option>
-        <option value="Fútbol Sala">Fútbol Sala</option>
-        <option value="Baloncesto">Baloncesto</option>
-        <option value="Tenis">Tenis</option>
-        <option value="Esgrima">Esgrima</option>
-        <option value="Padel">Padel</option>
+        <option v-for="deporte in dataDeporte" :value="deporte.nombre">{{ deporte.nombre }}</option>
       </select>
       <a v-if="idUsuario != 0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
     </div>
@@ -276,55 +281,56 @@ export default {
       <div>{{ mensajeNoContentido }}</div>
     </template>
     <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in results">
-      <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
-        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
+      <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
-      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-        </Partido> -->
+      <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
+        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido>
     </template>
 
     <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.length > 0"
       v-for="result in resultsCiudad">
-      <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
-        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
+      <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
-      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-        </Partido> -->
+      <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
+        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0"
       v-for="result in resultsDeporte">
-      <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
-        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
+      <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
-      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-        </Partido> -->
+      <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
+        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0"
       v-for="result in resultsFiltro">
-      <Partido @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
-        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
+      <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id">
       </Partido>
-      <!-- <Partido v-else-if="result.equipo1" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-          :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.equipo1'
-          :jugador2='result.equipo2' :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
-        </Partido> -->
+      <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
+        :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+      </Partido>
     </template>
     <template v-else>
       <div>{{ mensajeNoContentido }}</div>
     </template>
 
-  </div></template>
+  </div>
+</template>

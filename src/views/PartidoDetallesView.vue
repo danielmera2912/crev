@@ -42,7 +42,8 @@ export default {
       const response = await fetch(this.API_partido + "/" + this.id)
       const data = await response.json()
       this.results2 = data
-      if(this.results2.equipo1){
+      console.log()
+      if(this.results2.deporte.equipos){
         this.equipos= true
       }
       
