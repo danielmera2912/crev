@@ -126,6 +126,100 @@ export default {
           id: 0
         }
       },
+      formDataEquipo1: {
+        nombre: "Ciervo Verde",
+        escudo: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+        evento: {
+          id: 0
+        }
+      },
+      formDataEquipo2: {
+        nombre: "Ballena Azul",
+        escudo: "https://i.ibb.co/k9LNHCX/ballenazul.png",
+        evento: {
+          id: 0
+        }
+      },
+      inscripcionJ1: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ2: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ3: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ4: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ5: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ6: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ7: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ8: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ9: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
+      inscripcionJ10: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      },
       id: 1,
       crearEvento: false,
       checkForm: false,
@@ -137,7 +231,9 @@ export default {
       resultsDeporte: "",
       resultsFiltro: "",
       filtroSeleccionado: "todos",
-      dataDeporte: ""
+      dataDeporte: "",
+      deporteEquipo: false,
+      response: "",
     };
   },
   mounted() {
@@ -162,18 +258,56 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          const response = await axios.post("http://127.0.0.1:8080/evento", this.formData);
-          this.formDataJugador1.evento.id = response.data.id;
-          this.formDataJugador2.evento.id = response.data.id;
+          this.response = await axios.post("http://127.0.0.1:8080/evento", this.formData);
+          this.formDataJugador1.evento.id = this.response.data.id;
+          this.formDataJugador2.evento.id = this.response.data.id;
           const response2 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador1);
           const response3 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador2);
-          await this.$router.push('/partido_detalles/' + response.data.id);
-          window.location.reload()
+          if (this.deporteEquipo) {
+            this.inscribirEquipos();
+          }
+          else {
+            await this.$router.push('/partido_detalles/' + this.response.data.id);
+            window.location.reload()
+          }
+
         } catch (error) {
           console.error(error);
         }
       }
 
+    },
+    async inscribirEquipos() {
+      this.formDataEquipo1.evento.id = this.response.data.id;
+      this.formDataEquipo2.evento.id = this.response.data.id;
+      console.log(this.formDataEquipo1)
+      console.log(this.response.data)
+      const response4 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo1);
+      console.log(response4)
+      const response5 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo2);
+      this.inscripcionJ1.usuario.id = this.idUsuario;
+      this.inscripcionJ1.equipo.id = response4.data.id;
+      this.inscripcionJ2.equipo.id = response5.data.id;
+      this.inscripcionJ3.equipo.id = response4.data.id;
+      this.inscripcionJ4.equipo.id = response5.data.id;
+      this.inscripcionJ5.equipo.id = response4.data.id;
+      this.inscripcionJ6.equipo.id = response5.data.id;
+      this.inscripcionJ7.equipo.id = response4.data.id;
+      this.inscripcionJ8.equipo.id = response5.data.id;
+      this.inscripcionJ9.equipo.id = response4.data.id;
+      this.inscripcionJ10.equipo.id = response5.data.id;
+      const responseI1 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ1);
+      const responseI2 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ2);
+      const responseI3 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ3);
+      const responseI4 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ4);
+      const responseI5 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ5);
+      const responseI6 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ6);
+      const responseI7 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ7);
+      const responseI8 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ8);
+      const responseI9 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ9);
+      const responseI10 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ10);
+      await this.$router.push('/partido_detalles/' + this.response.data.id);
+      window.location.reload()
     },
     toggleCheckForm() {
       this.checkForm = !this.checkForm
@@ -188,28 +322,8 @@ export default {
       //this.formData.jugador1 = partido.jugador1N
       //this.formData.idJugador1 = partido.idJugador1
       //this.formData.jugador2 = "Plaza vacante"
-      if (partido.equipo1) {
-        this.formData.equipo1 = partido.equipo1
-        this.formData.equipo2 = partido.equipo2
-        this.formData.imagen_equipo1 = partido.imagen_equipo1
-        this.formData.imagen_equipo2 = partido.imagen_equipo2
-        this.formData.jugador2 = "Plaza vacante"
-        this.formData.jugador3 = "Plaza vacante"
-        this.formData.jugador4 = "Plaza vacante"
-        this.formData.jugador5 = "Plaza vacante"
-        this.formData.jugador6 = "Plaza vacante"
-        this.formData.jugador7 = "Plaza vacante"
-        this.formData.jugador8 = "Plaza vacante"
-        this.formData.jugador9 = "Plaza vacante"
-        this.formData.jugador10 = "Plaza vacante"
-        this.formData.imagen3 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen4 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen5 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen6 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen7 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen8 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen9 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
-        this.formData.imagen10 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
+      if (partido.deporteEquipo) {
+        this.deporteEquipo = true;
       }
       // esto se cambiará para el futuro cuando el usuario pueda elegir avatar para su perfil
       //this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"

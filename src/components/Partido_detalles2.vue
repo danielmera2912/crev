@@ -86,6 +86,7 @@ export default {
       imagen9: '',
       imagen10: '',
       creacion: false,
+      idCiudad: 0,
       API: "http://127.0.0.1:8080/evento",
       API2: "http://127.0.0.1:8080/equipo",
       contadorJugador: 1,
@@ -97,45 +98,14 @@ export default {
       resultsUsuariosEquipo1: false,
       resultsUsuariosEquipo2: false,
       formData: {
-        deporte: "",
-        equipo1: "Ciervo Verde",
-        equipo2: "Ballenas azules",
-        jugador1: "",
-        jugador2: '',
-        jugador3: '',
-        jugador4: '',
-        jugador5: '',
-        jugador6: '',
-        jugador7: '',
-        jugador8: '',
-        jugador9: '',
-        jugador10: '',
-        ciudad: "",
         fecha: "",
         hora: "",
-        id: '',
-        imagen_equipo1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
-        imagen_equipo2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
-        imagen1: '',
-        imagen2: '',
-        imagen3: '',
-        imagen4: '',
-        imagen5: '',
-        imagen6: '',
-        imagen7: '',
-        imagen8: '',
-        imagen9: '',
-        imagen10: '',
-        idJugador1: "",
-        idJugador2: "",
-        idJugador3: "",
-        idJugador4: "",
-        idJugador5: "",
-        idJugador6: "",
-        idJugador7: "",
-        idJugador8: "",
-        idJugador9: "",
-        idJugador10: ""
+        ciudad: {
+          id: 1
+        },
+        deporte: {
+          id: 1
+        }
       },
     }
   },
@@ -220,6 +190,7 @@ export default {
     },
     establecerValores() {
       this.deporte = this.results2.deporte.nombre
+      this.idCiudad = this.results2.ciudad.id
       this.jugador1 = this.resultsUsuariosEquipo1[0].nombre
       this.jugador2 = this.resultsUsuariosEquipo2[0].nombre
       this.jugador3 = this.resultsUsuariosEquipo1[1].nombre
@@ -261,7 +232,7 @@ export default {
       if (this.idUsuario!=0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
-        if (dataUsuarioPermiso.name == this.jugador1) {
+        if (dataUsuarioPermiso.nombre == this.jugador1) {
           this.permisos = true
         } else {
           this.permisoParticipar = true
@@ -492,7 +463,7 @@ export default {
       :imagen7="imagen7" :imagen8="imagen8" :imagen9="imagen9" :imagen10="imagen10" :equipo1="equipo1" :equipo2="equipo2"
       :ciudad="ciudad" :idJugador1="idJugador1" :idJugador2="idJugador2" :idJugador3="idJugador3" :idJugador4="idJugador4"
       :idJugador5="idJugador5" :idJugador6="idJugador6" :idJugador7="idJugador7" :idJugador8="idJugador8"
-      :idJugador9="idJugador9" :idJugador10="idJugador10">
+      :idJugador9="idJugador9" :idJugador10="idJugador10" :idCiudad="idCiudad">
     </Modificar_evento>
   </div>
   <div v-else>

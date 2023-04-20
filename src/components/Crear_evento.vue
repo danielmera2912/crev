@@ -53,7 +53,8 @@ export default {
             jugador1N: '',
             idJugador1: '',
             dataDeporte: '',
-            dataCiudad: ''
+            dataCiudad: '',
+            deporteEquipo: false,
         }
     },
     mounted() {
@@ -92,7 +93,9 @@ export default {
                 let fechaActual = new Date()
                 fechaActual.setHours(0, 0, 0, 0)
                 let fechaUsuario = new Date(this.textFecha)
-                if (fechaUsuario >= fechaActual) {
+                let fechaLimite = new Date()
+                fechaLimite.setFullYear(fechaLimite.getFullYear() + 100)
+                if (fechaUsuario >= fechaActual && fechaUsuario <= fechaLimite) {
                     this.fechaValida = true
                 } else {
                     this.fechaValida = false
@@ -114,29 +117,23 @@ export default {
             }
         },
         submitPartido() {
-            if (this.textDeporte == "Baloncesto" || this.textDeporte == "Fútbol Sala") {
-                this.$emit('updatePartido', {
-                    deporte: this.textDeporte,
-                    hora: this.textHora,
-                    ciudad: this.textCiudad,
-                    fecha: this.textFecha,
-                    jugador1N: this.jugador1N,
-                    idJugador1: this.idUsuario,
-                    imagen_equipo1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
-                    imagen_equipo2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
-                    equipo1: "Ciervo Verde",
-                    equipo2: "Ballenas azules",
-                })
-            } else {
-                this.$emit('updatePartido', {
-                    hora: this.textHora,
-                    fecha: this.textFecha,
-                    deporte: this.textDeporte,
-                    ciudad: this.textCiudad
 
-                })
+
+            for (var i = 0; i < this.dataDeporte.length; i++) {
+                if (this.dataDeporte[i].id == this.textDeporte) {
+                    if (this.dataDeporte[i].equipos == true)
+                        this.deporteEquipo = true;
+                }
             }
 
+            this.$emit('updatePartido', {
+                hora: this.textHora,
+                fecha: this.textFecha,
+                deporte: this.textDeporte,
+                ciudad: this.textCiudad,
+                deporteEquipo: this.deporteEquipo
+
+            })
             this.$emit('realizarEvento')
         },
         async llamarApiUsuario() {

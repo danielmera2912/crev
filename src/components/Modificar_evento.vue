@@ -315,17 +315,16 @@ export default {
         cambiarTextoFecha(e) {
             this.textFecha = e.target.value
             if (this.textFecha) {
-                let fecha = new Date();
-                let anio = fecha.getFullYear()
-                let fechaUser = this.textFecha.substr(0, 4)
-                let tiempoRestante = anio - fechaUser
-                if (tiempoRestante <= 0) {
+                let fechaActual = new Date()
+                fechaActual.setHours(0, 0, 0, 0)
+                let fechaUsuario = new Date(this.textFecha)
+                let fechaLimite = new Date()
+                fechaLimite.setFullYear(fechaLimite.getFullYear() + 100)
+                if (fechaUsuario >= fechaActual && fechaUsuario <= fechaLimite) {
                     this.fechaValida = true
-
                 } else {
                     this.fechaValida = false
                 }
-
             } else {
                 this.fechaValida = false
             }
@@ -359,6 +358,7 @@ export default {
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad
             try {
+                console.log(this.formData)
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
                 window.location.reload()
             } catch (error) {
