@@ -1,0 +1,29 @@
+
+// se añaden propiedades al pie de las páginas
+.pie
+    padding-left: 10rem
+    padding-right: 10rem
+    min-height: 2rem
+    background-color: $color_primario
+    display: flex
+    justify-content: center
+    justify-items: center
+    align-items: center
+    width: 100%
+    font-family: $fuente_inter
+    color: $color_oscuro
+    font-size: $xs
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px
+    @media (max-width: 1300px)
+        padding-left: 5rem
+        padding-right: 5rem
+    @media (max-width: 920px)
+        padding-left: 1rem
+        padding-right: 1rem
+    @media (max-width: 920px)
+        font-size: $xxs
+        padding-left: 0.5rem
+        padding-right: 0.5rem
+
+.pie .router-link-active
+    color: $color_oscuro

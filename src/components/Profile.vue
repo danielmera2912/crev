@@ -79,7 +79,7 @@ export default {
 }
 </script>
 <template>
-    <main v-if="nombre" class="cuerpo cuerpo--perfil">
+    <main v-if="nombre!=null && idUsuarioActual!=0" class="cuerpo cuerpo--perfil">
         <section class="cuerpo--perfil__avatar">
             <img class="cuerpo--perfil__avatar__imagen" v-bind:src="avatar" />
             <a v-if="idUsuario==idUsuarioActual" @click="cambiarModificar" class="cuerpo--perfil__avatar__editar">
@@ -113,6 +113,9 @@ export default {
         <Modificar v-if="modificar && idUsuario==idUsuarioActual" @cerrar="cambiarModificar" :modificar="modificar" @check="toggleCheck"
             :checkForm="checkForm" @modificar="guardarModificado" :correo="correo" :nombre="nombre"
             :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios"></Modificar>
+    </main>
+    <main v-else-if="idUsuarioActual==0">
+        "Plaza vacante" no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún falta al menos un usuario para completar el evento, ¡Y estás invitado a ser tú! ¡Solo tienes que pulsar en "Participar" tras iniciar sesión!
     </main>
     <main v-else>
         No se ha encontrado el usuario.

@@ -2,6 +2,7 @@
 import { withScopeId } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 </script>
 <script>
 /**
@@ -65,5 +66,6 @@ export default {
       <img class="servidor__logo" src="./assets/imagenes/crev_logo.png"/>
       <div class="servidor__texto">Esperando respuesta del servidor</div>
   </div>
+  <Footer></Footer>
 </template>
 

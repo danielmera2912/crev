@@ -107,6 +107,14 @@ export default {
           id: 1
         }
       },
+      formDataUsuario: {
+        usuario: {
+          id: 0
+        },
+        equipo: {
+          id: 0
+        }
+      }
     }
   },
   async mounted() {
@@ -126,14 +134,14 @@ export default {
       const response = await fetch(this.API + "/" + this.id)
       const data = await response.json()
       this.results2 = data
-      const response2 = await fetch(this.API + "/"+this.id+"/equipos")
+      const response2 = await fetch(this.API + "/" + this.id + "/equipos")
       const data2 = await response2.json()
       this.resultsEquipos = data2
-      
-      const response3 = await fetch(this.API2 + "/"+this.resultsEquipos[0].id+"/usuarios")
+
+      const response3 = await fetch(this.API2 + "/" + this.resultsEquipos[0].id + "/usuarios")
       const data3 = await response3.json()
       this.resultsUsuariosEquipo1 = data3
-      const response4 = await fetch(this.API2 + "/"+this.resultsEquipos[1].id+"/usuarios")
+      const response4 = await fetch(this.API2 + "/" + this.resultsEquipos[1].id + "/usuarios")
       const data4 = await response4.json()
       this.resultsUsuariosEquipo2 = data4
       if (this.resultsUsuariosEquipo2[0].nombre == "Plaza vacante") {
@@ -229,7 +237,7 @@ export default {
       this.establecerPermiso()
     },
     async establecerPermiso() {
-      if (this.idUsuario!=0) {
+      if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.nombre == this.jugador1) {
@@ -244,9 +252,9 @@ export default {
       const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
-      if (this.resultsUsuario.name == this.jugador1 || this.resultsUsuario.name == this.jugador2 || this.resultsUsuario.name == this.jugador3 || this.resultsUsuario.name == this.jugador4
-        || this.resultsUsuario.name == this.jugador5 || this.resultsUsuario.name == this.jugador6 || this.resultsUsuario.name == this.jugador7 || this.resultsUsuario.name == this.jugador8
-        || this.resultsUsuario.name == this.jugador9 || this.resultsUsuario.name == this.jugador10) {
+      if (this.resultsUsuario.nombre == this.jugador1 || this.resultsUsuario.nombre == this.jugador2 || this.resultsUsuario.nombre == this.jugador3 || this.resultsUsuario.nombre == this.jugador4
+        || this.resultsUsuario.nombre == this.jugador5 || this.resultsUsuario.nombre == this.jugador6 || this.resultsUsuario.nombre == this.jugador7 || this.resultsUsuario.nombre == this.jugador8
+        || this.resultsUsuario.nombre == this.jugador9 || this.resultsUsuario.nombre == this.jugador10) {
         alert("Ya estás participando")
       }
       else if (this.jugador2 != "Plaza vacante" && this.jugador3 != "Plaza vacante" && this.jugador4 != "Plaza vacante" && this.jugador5 != "Plaza vacante" &&
@@ -255,119 +263,121 @@ export default {
         alert("Plazas llenas")
       }
       else {
-        this.formData.id = this.id
-        this.formData.deporte = this.deporte
-        this.formData.hora = this.hora
-        this.formData.ciudad = this.ciudad
-        this.formData.fecha = this.fecha
-        this.formData.jugador1 = this.jugador1
-        this.formData.idJugador1 = this.idJugador1
-        this.formData.imagen1 = this.imagen1
+        const equipos = await fetch("http://127.0.0.1:8080/evento/" + this.id + "/equipos")
+        const listaEquipos = await equipos.json()
+        const componentesEquipo1 = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[0].id + "/usuarios")
+        const listaComponentesEquipo1 = await componentesEquipo1.json()
+        const componentesEquipo2 = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[1].id + "/usuarios")
+        const listaComponentesEquipo2 = await componentesEquipo2.json()
+
+        const componentesEquipo1Id = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[0].id + "/usuario-equipo-ids")
+        const listaComponentesEquipo1Id = await componentesEquipo1Id.json()
+        const componentesEquipo2Id = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[1].id + "/usuario-equipo-ids")
+        const listaComponentesEquipo2Id = await componentesEquipo2Id.json()
+
+        console.log(listaComponentesEquipo2Id)
+        console.log(listaComponentesEquipo1Id)
         if (this.contadorJugador == 2) {
-          this.formData.jugador2 = this.resultsUsuario.name
-          this.formData.idJugador2 = this.idUsuario
-          this.formData.imagen2 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[1].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario);
+           // window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
-        else {
-          this.formData.jugador2 = this.jugador2
-          this.formData.idJugador2 = this.idJugador2
-          this.formData.imagen2 = this.imagen2
-        }
+
         if (this.contadorJugador == 3) {
-          this.formData.jugador3 = this.resultsUsuario.name
-          this.formData.idJugador3 = this.idUsuario
-          this.formData.imagen3 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador3 = this.jugador3
-          this.formData.idJugador3 = this.idJugador3
-          this.formData.imagen3 = this.imagen3
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[0].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 4) {
-          this.formData.jugador4 = this.resultsUsuario.name
-          this.formData.idJugador4 = this.idUsuario
-          this.formData.imagen4 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador4 = this.jugador4
-          this.formData.idJugador4 = this.idJugador4
-          this.formData.imagen4 = this.imagen4
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[1].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario);
+           // window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 5) {
-          this.formData.jugador5 = this.resultsUsuario.name
-          this.formData.idJugador5 = this.idUsuario
-          this.formData.imagen5 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador5 = this.jugador5
-          this.formData.idJugador5 = this.idJugador5
-          this.formData.imagen5 = this.imagen5
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[0].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 6) {
-          this.formData.jugador6 = this.resultsUsuario.name
-          this.formData.idJugador6 = this.idUsuario
-          this.formData.imagen6 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador6 = this.jugador6
-          this.formData.idJugador6 = this.idJugador6
-          this.formData.imagen6 = this.imagen6
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[1].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 7) {
-          this.formData.jugador7 = this.resultsUsuario.name
-          this.formData.idJugador7 = this.idUsuario
-          this.formData.imagen7 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador7 = this.jugador7
-          this.formData.idJugador7 = this.idJugador7
-          this.formData.imagen7 = this.imagen7
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[0].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 8) {
-          this.formData.jugador8 = this.resultsUsuario.name
-          this.formData.idJugador8 = this.idUsuario
-          this.formData.imagen8 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador8 = this.jugador8
-          this.formData.idJugador8 = this.idJugador8
-          this.formData.imagen8 = this.imagen8
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[1].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 9) {
-          this.formData.jugador9 = this.resultsUsuario.name
-          this.formData.idJugador9 = this.idUsuario
-          this.formData.imagen9 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        else {
-          this.formData.jugador9 = this.jugador9
-          this.formData.idJugador9 = this.idJugador9
-          this.formData.imagen9 = this.imagen9
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[0].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario);
+            //window.location.reload()
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         if (this.contadorJugador == 10) {
-          this.formData.jugador10 = this.resultsUsuario.name
-          this.formData.idJugador10 = this.idUsuario
-          this.formData.imagen10 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
+          try {
+            this.formDataUsuario.usuario.id = this.idUsuario
+            this.formDataUsuario.equipo.id = listaEquipos[1].id
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario);
+            
+          } catch (error) {
+            console.error(error);
+          }
         }
-        else {
-          this.formData.jugador10 = this.jugador10
-          this.formData.idJugador10 = this.idJugador10
-          this.formData.imagen10 = this.imagen10
-        }
-      
 
-        try {
-          const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
-          window.location.reload()
-        } catch (error) {
-          console.error(error);
-        }
+        window.location.reload()
+
       }
     }
   }
