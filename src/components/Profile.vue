@@ -33,6 +33,11 @@ export default {
             fecha_nacimiento: "",
             idUsuarioActual: "",
             cambios: false,
+            resultsEventos: '',
+            equipoImagen1: "https://i.ibb.co/fYRFPbh/ciervoverde.png",
+            equipoImagen2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
+            equipoNombre1: "Ciervo Verde",
+            equipoNombre2: "Ballena Azul",
         }
     },
     mounted() {
@@ -47,7 +52,7 @@ export default {
     //     }
     // },
     methods: {
-        producirCambios(){
+        producirCambios() {
             this.cambios = !this.cambios
         },
         cambiarModificar() {
@@ -73,16 +78,21 @@ export default {
             this.nombre = this.resultsUsuario.nombre
             this.correo = this.resultsUsuario.correo
             this.fecha_nacimiento = this.resultsUsuario.fechaNacimiento
-
+            this.llamarEventos()
+        },
+        async llamarEventos() {
+            const responseEvento = await fetch("http://127.0.0.1:8080/usuarios/" + this.idUsuarioActual + "/eventos/")
+            const dataEvento = await responseEvento.json()
+            this.resultsEventos = dataEvento
         }
     }
 }
 </script>
 <template>
-    <main v-if="nombre!=null && idUsuarioActual!=0" class="cuerpo cuerpo--perfil">
+    <main v-if="nombre != null && idUsuarioActual != 0" class="cuerpo cuerpo--perfil">
         <section class="cuerpo--perfil__avatar">
             <img class="cuerpo--perfil__avatar__imagen" v-bind:src="avatar" />
-            <a v-if="idUsuario==idUsuarioActual" @click="cambiarModificar" class="cuerpo--perfil__avatar__editar">
+            <a v-if="idUsuario == idUsuarioActual" @click="cambiarModificar" class="cuerpo--perfil__avatar__editar">
                 Editar Perfil
             </a>
         </section>
@@ -101,21 +111,32 @@ export default {
             <div class="cuerpo--perfil__fecha__respuesta">{{ fecha_nacimiento }}</div>
         </section>
         <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar todos los partidos participados</button>
-            <div cuerpo--perfil__partidos v-if="mostrarPartidos">
-                <ul>
-                    <Partido v-for="i in 5" :deporte='"Tenis"' :fecha='"20/04/2011"' :ciudad='"Pamplona"' :hora='"20:20"'
-                        :jugador1='"Pepe"' :jugador2='"Juan"'
-                        :imagen1='"https://cdn.resfu.com/img_data/players/medium/1004380.jpg?size=120x&lossy=1"'
-                        :imagen2='"https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1"' :perfil="true">
-                    </Partido>
-                </ul>
-            </div>
-        <Modificar v-if="modificar && idUsuario==idUsuarioActual" @cerrar="cambiarModificar" :modificar="modificar" @check="toggleCheck"
-            :checkForm="checkForm" @modificar="guardarModificado" :correo="correo" :nombre="nombre"
-            :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios"></Modificar>
+        <div cuerpo--perfil__partidos v-if="mostrarPartidos">
+            <template v-if="resultsEventos.length>0" v-for="result in resultsEventos">
+                <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
+                    :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
+                    :jugador1='result.usuarios[0]?.nombre' :jugador2='result.usuarios[1]?.nombre'
+                    :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar' :perfil="false"
+                    :id="result.id">
+                </Partido>
+                <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
+                    :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
+                    :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+                </Partido>
+            </template>
+            <template v-else>
+                Aún no ha participado en ningún evento.
+            </template>
+        </div>
+        <Modificar v-if="modificar && idUsuario == idUsuarioActual" @cerrar="cambiarModificar" :modificar="modificar"
+            @check="toggleCheck" :checkForm="checkForm" @modificar="guardarModificado" :correo="correo" :nombre="nombre"
+            :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios">
+        </Modificar>
     </main>
-    <main v-else-if="idUsuarioActual==0">
-        "Plaza vacante" no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún falta al menos un usuario para completar el evento, ¡Y estás invitado a ser tú! ¡Solo tienes que pulsar en "Participar" tras iniciar sesión!
+    <main v-else-if="idUsuarioActual == 0">
+        "Plaza vacante" no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún
+        falta al menos un usuario para completar el evento, ¡Y estás invitado a ser tú! ¡Solo tienes que pulsar en
+        "Participar" tras iniciar sesión!
     </main>
     <main v-else>
         No se ha encontrado el usuario.
