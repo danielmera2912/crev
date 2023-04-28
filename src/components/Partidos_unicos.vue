@@ -280,10 +280,11 @@ export default {
     async inscribirEquipos() {
       this.formDataEquipo1.evento.id = this.response.data.id;
       this.formDataEquipo2.evento.id = this.response.data.id;
+      
       console.log(this.formDataEquipo1)
-      console.log(this.response.data)
+      console.log(this.formDataEquipo2)
       const response4 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo1);
-      console.log(response4)
+      
       const response5 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo2);
       this.inscripcionJ1.usuario.id = this.idUsuario;
       this.inscripcionJ1.equipo.id = response4.data.id;

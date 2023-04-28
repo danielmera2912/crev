@@ -152,7 +152,7 @@ export default {
                 nombre: this.textUser,
                 clave: this.textPass,
                 fechaNacimiento: this.textFecha,
-                avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             };
             try {
                 const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.correo)

@@ -141,6 +141,7 @@ export default {
       const response3 = await fetch(this.API2 + "/" + this.resultsEquipos[0].id + "/usuarios")
       const data3 = await response3.json()
       this.resultsUsuariosEquipo1 = data3
+      console.log(this.resultsEquipos)
       const response4 = await fetch(this.API2 + "/" + this.resultsEquipos[1].id + "/usuarios")
       const data4 = await response4.json()
       this.resultsUsuariosEquipo2 = data4
