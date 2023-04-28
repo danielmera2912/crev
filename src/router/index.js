@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PartidosUnicos from '../views/PartidosUnicosView.vue'
+import listaUsuarios from '../views/ListaUsuariosView.vue'
 //import Ligas from '../views/PartidosUnicosView.vue'
 
 const router = createRouter({
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: PartidosUnicos
+    },
+    {
+      path: '/busqueda_usuarios',
+      name: 'busqueda_usuarios',
+      component: listaUsuarios
     },
     {
       path: '/perfil/:id',

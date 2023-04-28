@@ -52,6 +52,9 @@ export default {
                 <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos únicos</RouterLink>
                 </li>
+                <li>
+                  <RouterLink active-class="encabezado__lista__enlace--actual" to="/busqueda_usuarios" class="encabezado__lista__enlace">Usuarios</RouterLink>
+                </li>
                 <!-- Este código es para el futuro -->
                 <!-- <li>
                     <RouterLink active-class="encabezado__lista__enlace--actual" to="/about" class="encabezado__lista__enlace">Ligas</RouterLink>
