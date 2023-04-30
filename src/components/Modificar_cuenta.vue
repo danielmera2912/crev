@@ -71,6 +71,7 @@ export default {
             hayErrores: false,
             inputType: "password",
             icon: "visibility",
+            nuevoAvatar: '',
             formData: {
                 id: '',
                 nombre: '',
@@ -129,31 +130,52 @@ export default {
             }
         },
         async lanzar_modificar_cuenta() {
-            this.formData = {
-                nombre: this.nombre,
-                clave: this.textPass,
-                correo: this.correo,
-                fechaNacimiento: this.textFecha,
-                avatar: this.avatar,
-                id: this.idUsuario
+            const formData = new FormData();
+            formData.append('file', this.formData.avatar);
 
-            };
-            const encoder = new TextEncoder();
-            const data = encoder.encode(this.formData.clave);
-            const digest = await crypto.subtle.digest('SHA-1', data);
-            const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            this.formData.clave = hash
             try {
-                const response = await axios.put("http://127.0.0.1:8080/usuario/" + this.formData.id, this.formData);
-                window.location.reload()
+                console.log(formData);
+                const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                const avatarFileName = uploadResponse.data;
+                console.log(avatarFileName)
+                const encoder = new TextEncoder();
+                const data = encoder.encode(this.formData.clave);
+                const digest = await crypto.subtle.digest('SHA-1', data);
+                const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+                const usuarioData = {
+                    nombre: this.nombre,
+                    clave: hash,
+                    correo: this.correo,
+                    fechaNacimiento: this.textFecha,
+                    avatar: avatarFileName.url,
+                    id: this.idUsuario
+                };
+
+                const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
+                window.location.reload();
             } catch (error) {
                 console.error(error);
             }
         },
+
         toggleVisibility() {
             this.inputType = this.inputType === "password" ? "text" : "password";
             this.icon = this.icon === "visibility" ? "visibility_off" : "visibility";
-        }
+        },
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            this.formData.avatar = file;
+            this.nuevoAvatar = URL.createObjectURL(file);
+            if (!this.nuevoAvatar) {
+                this.nuevoAvatar = '';
+            }
+        },
     }
 }
 </script>
@@ -166,9 +188,9 @@ export default {
             <tittle className="modificar__titulo">Modificar</tittle>
             <section className="modificar__caja">
                 <div className="modificar__avatar">
-                    <img className="modificar__avatar__imagen" v-bind:src="avatar" />
+                    <img className="modificar__avatar__imagen" :src="nuevoAvatar || avatar" />
                     <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
-                                accept="image/png, image/jpeg">
+                        accept="image/png, image/jpeg" @change="handleFileUpload" />
                 </div>
 
                 <input :type="inputType" @input="cambiarTextoPass" class="modificar__caja__elemento"

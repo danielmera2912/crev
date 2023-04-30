@@ -28,7 +28,7 @@ export default {
             checkForm: false,
             mostrarPartidos: false,
             nombre: "",
-            avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600",
+            avatar: "",
             correo: "",
             fecha_nacimiento: "",
             idUsuarioActual: "",
@@ -77,6 +77,7 @@ export default {
             this.resultsUsuario = dataUsuario
             this.nombre = this.resultsUsuario.nombre
             this.correo = this.resultsUsuario.correo
+            this.avatar = this.resultsUsuario.avatar
             this.fecha_nacimiento = this.resultsUsuario.fechaNacimiento
             this.llamarEventos()
         },
