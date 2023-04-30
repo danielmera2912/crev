@@ -13,10 +13,6 @@ import Buscador from './Buscador.vue'
  * @vue-event {String} recibirIdUsuario - Modifica la ID del usuario
  */
 defineProps({
-  search: {
-    type: String,
-    required: true
-  },
   idUsuario: {
     type: String,
     required: true
@@ -32,11 +28,6 @@ export default {
     }
   },
   methods: {
-    handleChange(event) {
-      const {value} = event.target;
-      this.searchTexto = value;
-      this.$emit('inputChange', event)
-    },
     recibirIdUsuario(id){
       this.$emit('recibirIdUsuario', id)
     }
@@ -65,7 +56,7 @@ export default {
 
             </ul>
         </nav>
-        <Buscador @inputChange="handleChange" :searchTexto="search"></Buscador>
+        
         <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
     </header>
 </template>

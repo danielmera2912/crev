@@ -10,24 +10,32 @@
 .interfaz
     margin-top: 1rem
     margin-bottom: 1rem
-    position: sticky
+    position: relative
     top: 3px
-    width: 100%
+    width: 60rem
     display: flex
-    justify-content: space-between
+    justify-content: flex-end
     padding: 0 20rem
     z-index: 99
+
     &__filtro
         position: relative
-        height: 2.6rem
+        height: 2.2rem
         border-radius: 5px
         text-align: center
         font-size: $xs
         text-align: center
         left: 0
+        width: 8rem
+        margin-right: -10rem
+        font-family : $fuente_inter
     &__registrar
-        position: relative
+        height: 2.2rem
+        position: absolute
         right: 0
+        padding-bottom: 0
+        padding-top: 0
+
 .partido
     position: relative
     font-family: $fuente_inter !important

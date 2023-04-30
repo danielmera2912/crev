@@ -141,7 +141,6 @@ export default {
       const response3 = await fetch(this.API2 + "/" + this.resultsEquipos[0].id + "/usuarios")
       const data3 = await response3.json()
       this.resultsUsuariosEquipo1 = data3
-      console.log(this.resultsEquipos)
       const response4 = await fetch(this.API2 + "/" + this.resultsEquipos[1].id + "/usuarios")
       const data4 = await response4.json()
       this.resultsUsuariosEquipo2 = data4
@@ -276,8 +275,6 @@ export default {
         const componentesEquipo2Id = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[1].id + "/usuario-equipo-ids")
         const listaComponentesEquipo2Id = await componentesEquipo2Id.json()
 
-        console.log(listaComponentesEquipo2Id)
-        console.log(listaComponentesEquipo1Id)
         if (this.contadorJugador == 2) {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario

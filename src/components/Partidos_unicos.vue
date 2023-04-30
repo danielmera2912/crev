@@ -1,6 +1,7 @@
 <script setup>
 import Partido from './Partido.vue'
 import Crear_evento from './Crear_evento.vue'
+import Buscador from '../components/Buscador.vue'
 import axios from 'axios';
 /**
  * @file Partidos_unicos.vue - Componente de los partidos únicos
@@ -69,6 +70,7 @@ export default {
   data() {
     return {
       mensajeNoContentido: "No hay contenido",
+      searchTexto: '',
       formData: {
 
         fecha: "",
@@ -280,11 +282,8 @@ export default {
     async inscribirEquipos() {
       this.formDataEquipo1.evento.id = this.response.data.id;
       this.formDataEquipo2.evento.id = this.response.data.id;
-      
-      console.log(this.formDataEquipo1)
-      console.log(this.formDataEquipo2)
       const response4 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo1);
-      
+
       const response5 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo2);
       this.inscripcionJ1.usuario.id = this.idUsuario;
       this.inscripcionJ1.equipo.id = response4.data.id;
@@ -312,6 +311,11 @@ export default {
     },
     toggleCheckForm() {
       this.checkForm = !this.checkForm
+    },
+    handleChange(event) {
+      const { value } = event.target;
+      this.searchTexto = value;
+      this.$emit('inputChange', event)
     },
     updateDatosPartido(partido) {
       this.formData.fecha = partido.fecha
@@ -370,18 +374,17 @@ export default {
 };
 </script>
 <template>
-  <Crear_evento v-if="crearEvento" @cerrarTodo="toggleCrearEvento" @realizarEvento="realizarEvento"
-    @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :idUsuario="idUsuario">
-  </Crear_evento>
+   <Crear_evento v-if="crearEvento" @cerrarTodo="toggleCrearEvento" @realizarEvento="realizarEvento"
+      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :idUsuario="idUsuario">
+    </Crear_evento>
   <div class="partidos">
     <div class="interfaz">
+      <Buscador @inputChange="handleChange" :searchTexto="search"></Buscador>
       <select class="interfaz__filtro" v-model="filtroSeleccionado" name="filtro">
         <option value="todos">Todos</option>
         <option v-for="deporte in dataDeporte" :value="deporte.nombre">{{ deporte.nombre }}</option>
       </select>
       <a v-if="idUsuario != 0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
-    </div>
-    <div>
     </div>
     <template v-if="results && results.estado == 'NOT_FOUND'">
       <div>{{ mensajeNoContentido }}</div>

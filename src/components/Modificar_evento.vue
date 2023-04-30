@@ -358,7 +358,6 @@ export default {
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad
             try {
-                console.log(this.formData)
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
                 window.location.reload()
             } catch (error) {

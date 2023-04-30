@@ -134,7 +134,6 @@ export default {
             formData.append('file', this.formData.avatar);
 
             try {
-                console.log(formData);
                 const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -142,7 +141,6 @@ export default {
                 });
 
                 const avatarFileName = uploadResponse.data;
-                console.log(avatarFileName)
                 const encoder = new TextEncoder();
                 const data = encoder.encode(this.formData.clave);
                 const digest = await crypto.subtle.digest('SHA-1', data);

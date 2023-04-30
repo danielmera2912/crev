@@ -20,7 +20,6 @@ import Footer from './components/Footer.vue'
 export default {
   data() {
     return {
-      search: '',
       cargando: '',
       id: '',
       API_iniciar: "http://127.0.0.1:8080/usuario",
@@ -33,10 +32,6 @@ export default {
     this.llamarApi()
   },
   methods: {
-    handleChange(event) {
-      const { value } = event.target;
-      this.search = value;
-    },
     recibirValores() {
       //
     },
@@ -58,7 +53,7 @@ export default {
 }
 </script>
 <template>
-  <Header v-if="cargando" @inputChange="handleChange" :search="search" @recibirIdUsuario="recibirIdUsuario"
+  <Header v-if="cargando" @recibirIdUsuario="recibirIdUsuario"
     :idUsuario="idUsuario"></Header>
   <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" :id="id"
     :results="results" :idUsuario="idUsuario" />

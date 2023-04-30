@@ -1,5 +1,6 @@
 <script setup>
 import Partidos from '../components/Partidos_unicos.vue'
+
 /**
  * @file PartidosUnicosView.vue - Vista de los partidos únicos
  * @author Daniel Mera Sachse
@@ -14,10 +15,6 @@ defineProps({
     type: Object,
     required: true
   },
-  search : {
-    type: String,
-    required: true
-  },
   idUsuario : {
     type: String,
     required: true
@@ -29,17 +26,22 @@ export default {
   data() {
     return {
       id: 1,
+      search: '',
     };
   },
   methods: {
     enviarValores(id) {
       this.$emit('enviarValores', id)
-    }
+    },
+    handleChange(event) {
+      const { value } = event.target;
+      this.search = value;
+    },
   },
 };
 </script>
 <template>
   <main>
-    <Partidos :search="search" @enviarValores="enviarValores" :results="results" :idUsuario="idUsuario"/>
+    <Partidos @inputChange="handleChange" :search="search" @enviarValores="enviarValores" :results="results" :idUsuario="idUsuario"/>
   </main>
 </template>
