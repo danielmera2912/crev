@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
+import AnadirResultado from './Anadir_resultado.vue'
 /**
  * @file Partido_detalles2.vue - Componente de los detalles de un partido de equipos en concreto
  * @author Daniel Mera Sachse
@@ -86,6 +87,10 @@ export default {
       imagen9: '',
       imagen10: '',
       creacion: false,
+      participacion: false,
+      resultadoLocal: '',
+      resultadoVisitante: '',
+      registrarResultado: false,
       idCiudad: 0,
       API: "http://127.0.0.1:8080/evento",
       API2: "http://127.0.0.1:8080/equipo",
@@ -128,6 +133,9 @@ export default {
     },
     toggleCreacion() {
       this.creacion = !this.creacion
+    },
+    toggleParticipacion() {
+      this.participacion = !this.participacion
     },
     async llamarApiPartido() {
 
@@ -199,6 +207,8 @@ export default {
     establecerValores() {
       this.deporte = this.results2.deporte.nombre
       this.idCiudad = this.results2.ciudad.id
+      this.resultadoLocal = this.results2.puntosLocal
+      this.resultadoVisitante = this.results2.puntosVisitante
       this.jugador1 = this.resultsUsuariosEquipo1[0].nombre
       this.jugador2 = this.resultsUsuariosEquipo2[0].nombre
       this.jugador3 = this.resultsUsuariosEquipo1[1].nombre
@@ -235,6 +245,9 @@ export default {
       this.equipo1 = this.results2.equipo1
       this.equipo2 = this.results2.equipo2
       this.establecerPermiso()
+    },
+    finalizarEvento() {
+      this.registrarResultado = !this.registrarResultado
     },
     async establecerPermiso() {
       if (this.idUsuario != 0) {
@@ -412,8 +425,9 @@ export default {
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador9 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
           </RouterLink>
+          
         </div>
-
+        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
       </div>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <div class="partido-detalles__enfrentamiento__equipo">
@@ -440,8 +454,9 @@ export default {
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador10 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen10" alt="Avatar del jugador 10" />
           </RouterLink>
+          
         </div>
-
+        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
       </div>
     </div>
 
@@ -462,7 +477,9 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <button v-if="permisoParticipar" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="!permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar evento</button>
+    <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
     <Modificar_evento v-if="creacion && permisos" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :deporte="deporte" :fecha="fecha" :hora="hora"
       :jugador1="jugador1" :jugador2="jugador2" :jugador3="jugador3" :jugador4="jugador4" :jugador5="jugador5"
@@ -473,6 +490,8 @@ export default {
       :idJugador5="idJugador5" :idJugador6="idJugador6" :idJugador7="idJugador7" :idJugador8="idJugador8"
       :idJugador9="idJugador9" :idJugador10="idJugador10" :idCiudad="idCiudad">
     </Modificar_evento>
+    <AnadirResultado v-if="permisos && participacion" @cerrarTodo="toggleParticipacion" @finalizarEvento="finalizarEvento"
+      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id"></AnadirResultado>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
