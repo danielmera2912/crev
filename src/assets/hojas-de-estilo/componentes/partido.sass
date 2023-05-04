@@ -28,7 +28,7 @@
         left: 0
         width: 8rem
         margin-right: -10rem
-        font-family : $fuente_inter
+        font-family: $fuente_inter
     &__registrar
         height: 2.2rem
         position: absolute
@@ -86,3 +86,45 @@
             &__hora
                 margin-top: 0.5rem
                 margin-bottom: 0.5rem
+    &__estado
+        padding: 10px
+        border-radius: 5px
+        font-weight: bold
+        text-transform: uppercase
+        text-align: center
+        display: flex
+        justify-content: center
+
+        &__encurso
+            background-color: $color_secundario_claro
+            color: $color_primario
+
+        &__finalizado
+            background-color: $color_rojo
+            color: $color_primario
+.partido__estado__resultadoLocal,
+.partido__estado__resultadoVisitante
+    font-size: 20px
+    font-weight: bold
+    margin-top: 10px
+    color: $color_oscuro
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    padding: 5px
+    border: 2px solid $color_oscuro
+    border-radius: 50%
+    width: 30px
+    height: 30px
+    line-height: 30px
+    margin-bottom: 0.35rem
+
+.partido__estado__resultadoLocal
+    background-color: $color_primario
+    color: $color_oscuro
+    margin-right: 3rem
+
+.partido__estado__resultadoVisitante
+    background-color: $color_primario
+    color: $color_oscuro
+    margin-left: 3rem

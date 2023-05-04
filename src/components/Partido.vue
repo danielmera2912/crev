@@ -51,6 +51,18 @@ defineProps({
   imagen2: {
     type: String,
     required: true
+  },
+  puntosLocal: {
+    type: String,
+    required: true
+  },
+  puntosVisitante: {
+    type: String,
+    required: true
+  },
+  estado: {
+    type: String,
+    required: true
   }
   // ,
   // perfil: {
@@ -61,14 +73,14 @@ defineProps({
 
 </script>
 <template>
-  <RouterLink :to="`/partido_detalles/${id}`"  class="partido">
+  <RouterLink :to="`/partido_detalles/${id}`" class="partido">
     <div class="partido__deporte">
       {{ deporte }}
     </div>
     <div class="partido__datos">
       <div class="partido__datos__rival">
         <div class="partido__datos__rival__nombre">{{ jugador1 }}</div>
-        <img class="partido__datos__rival__imagen" :src="imagen1"/>
+        <img class="partido__datos__rival__imagen" :src="imagen1" />
       </div>
       <div class="partido__datos__detalles">
         <div class="partido__datos__detalles__fecha">{{ fecha }}</div>
@@ -76,9 +88,15 @@ defineProps({
         <div class="partido__datos__detalles__ciudad">{{ ciudad }}</div>
       </div>
       <div class="partido__datos__rival">
-        <img class="partido__datos__rival__imagen" :src="imagen2"/>
+        <img class="partido__datos__rival__imagen" :src="imagen2" />
         <div class="partido__datos__rival__nombre">{{ jugador2 }}</div>
       </div>
+    </div>
+    <div class="partido__estado">
+      <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoLocal"> {{ puntosLocal }}</div>
+      <div v-if="estado == 'EN CURSO'" class="partido__estado partido__estado__encurso">{{ estado }}</div>
+      <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__finalizado">{{ estado }}</div>
+      <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoVisitante"> {{ puntosVisitante }}</div>
     </div>
   </RouterLink>
 </template>

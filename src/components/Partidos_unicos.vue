@@ -402,11 +402,13 @@ export default {
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id">
+        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
     </template>
 
@@ -415,11 +417,13 @@ export default {
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id">
+        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0"
@@ -427,11 +431,13 @@ export default {
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id">
+        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0"
@@ -439,11 +445,13 @@ export default {
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id">
+        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
+        :estado="result.estado">
       </Partido>
     </template>
     <template v-else>

@@ -86,6 +86,7 @@ export default {
       imagen8: '',
       imagen9: '',
       imagen10: '',
+      estado: '',
       creacion: false,
       participacion: false,
       resultadoLocal: '',
@@ -207,6 +208,7 @@ export default {
     establecerValores() {
       this.deporte = this.results2.deporte.nombre
       this.idCiudad = this.results2.ciudad.id
+      this.estado = this.results2.estado
       this.resultadoLocal = this.results2.puntosLocal
       this.resultadoVisitante = this.results2.puntosVisitante
       this.jugador1 = this.resultsUsuariosEquipo1[0].nombre
@@ -427,7 +429,7 @@ export default {
           </RouterLink>
           
         </div>
-        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
+        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
       </div>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <div class="partido-detalles__enfrentamiento__equipo">
@@ -456,7 +458,7 @@ export default {
           </RouterLink>
           
         </div>
-        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
+        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
       </div>
     </div>
 
@@ -477,9 +479,15 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <button v-if="permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
-    <button v-if="!permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar evento</button>
-    <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
+    <button v-if="permisoParticipar && estado!='FINALIZADO'
+    && (jugador2 == 'Plaza vacante' || jugador3 == 'Plaza vacante' || jugador4 == 'Plaza vacante' || jugador5 == 'Plaza vacante' ||
+        jugador6 == 'Plaza vacante' || jugador7 == 'Plaza vacante' || jugador8 == 'Plaza vacante' || jugador9 == 'Plaza vacante' ||
+        jugador10 == 'Plaza vacante')
+    " class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="!permisoParticipar && estado!='FINALIZADO' && jugador2 != 'Plaza vacante' && jugador3 != 'Plaza vacante' && jugador4 != 'Plaza vacante' && jugador5 != 'Plaza vacante' &&
+        jugador6 != 'Plaza vacante' && jugador7 != 'Plaza vacante' && jugador8 != 'Plaza vacante' && jugador9 != 'Plaza vacante' &&
+        jugador10 != 'Plaza vacante'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar</button>
+    <div v-if="estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
     <Modificar_evento v-if="creacion && permisos" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :deporte="deporte" :fecha="fecha" :hora="hora"
       :jugador1="jugador1" :jugador2="jugador2" :jugador3="jugador3" :jugador4="jugador4" :jugador5="jugador5"

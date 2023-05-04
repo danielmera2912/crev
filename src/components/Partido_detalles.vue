@@ -39,6 +39,7 @@ export default {
       fecha: "",
       hora: '',
       ciudad: '',
+      estado: '',
       resultadoLocal: '',
       resultadoVisitante: '',
       registrarResultado: false,
@@ -115,6 +116,7 @@ export default {
     },
     establecerValores() {
       this.deporte = this.results2.deporte.nombre
+      this.estado = this.results2.estado
       this.jugador1 = this.results2.usuarios[0]?.nombre
       this.jugador2 = this.results2.usuarios[1]?.nombre
       this.ciudad = this.results2.ciudad.nombre
@@ -187,19 +189,19 @@ export default {
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 1</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador1 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
-        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
+        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
       </RouterLink>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <RouterLink :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
-        <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
+        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
       </RouterLink>
     </div>
 
     <div class="partido-detalles__datos">
-      <span @click="toggleCreacion" v-if="permisos && !perfil && results2.estado!='FINALIZADO'"
+      <span @click="toggleCreacion" v-if="permisos && !perfil && estado!='FINALIZADO'"
         className="material-symbols-outlined partido-detalles__datos__modificar">edit</span>
       <div class="partido-detalles__datos__enunciado">Datos de la disputa</div>
       <div class="partido-detalles__datos__ciudad">
@@ -215,9 +217,9 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <button v-if="permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
-    <button v-if="!permisoParticipar && results2.estado!='FINALIZADO'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar evento</button>
-    <div v-if="results2.estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
+    <button v-if="permisoParticipar && estado!='FINALIZADO' && jugador2=='Plaza vacante'" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="!permisoParticipar && estado!='FINALIZADO' && jugador2!='Plaza vacante'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar</button>
+    <div v-if="estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
     <Modificar_evento v-if="permisos && creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha"
       :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2" 
