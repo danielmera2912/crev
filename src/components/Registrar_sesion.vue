@@ -148,9 +148,9 @@ export default {
         },
         async crearUsuario() {
             this.formData = {
-                correo: this.textCorreo,
-                nombre: this.textUser,
-                clave: this.textPass,
+                correo: this.textCorreo.trim(),
+                nombre: this.textUser.trim(),
+                clave: this.textPass.trim(),
                 fechaNacimiento: this.textFecha,
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             };

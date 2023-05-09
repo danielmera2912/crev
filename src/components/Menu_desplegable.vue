@@ -28,7 +28,8 @@ export default {
             showRegistrar: false,
             showAcceso: false,
             checkForm: false,
-            checkRegistro: false
+            checkRegistro: false,
+            avatarUsuario: ''
         };
     },
     mounted() {
@@ -38,8 +39,14 @@ export default {
         else {
             this.sesionIniciada = false;
         }
+        this.conseguirDatosUsuario()
     },
     methods: {
+        async conseguirDatosUsuario() {
+            const usuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
+            const dataUsuario = await usuario.json()
+            this.avatarUsuario = dataUsuario.avatar
+        },
         toggleMenu() {
 
             if (this.sesionIniciada == false) {
@@ -56,7 +63,6 @@ export default {
             this.showIniciado = false;
             this.showAcceso = false;
             try {
-                //await axios.delete("http://127.0.0.1:3001/api/v1/sessions/" + this.idUsuario);
                 await localStorage.removeItem('userId');
                 this.$router.push('/');
                 window.location.reload()
@@ -120,14 +126,19 @@ export default {
 </script>
 <template>
     <div class="encabezado__menu">
-        <a @click="toggleMenu"><span class="material-symbols-outlined encabezado__menu__icono">menu</span></a>
+        <a @click="toggleMenu" v-if="!sesionIniciada"><span
+                class="material-symbols-outlined encabezado__menu__icono">menu</span></a>
+        <a @click="toggleMenu" v-else>
+            <img :src="avatarUsuario" alt="Avatar de usuario" class="encabezado__menu__avatar">
+        </a>
+
         <ul class="encabezado__menu__lista" v-if="showMenu">
             <li @click="toggleInicio">Acceder</li>
             <li @click="toggleRegistrar">Crear cuenta</li>
         </ul>
         <ul class="encabezado__menu__lista" v-if="showIniciado">
             <li class="encabezado__menu__lista__elemento">
-                <RouterLink  :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
+                <RouterLink :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
             </li>
             <li class="encabezado__menu__lista__elemento">
                 <RouterLink to="/" @click="cerrarSesion">Cerrar sesión

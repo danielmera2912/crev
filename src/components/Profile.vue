@@ -111,7 +111,7 @@ export default {
             <div class="cuerpo--perfil__fecha__pregunta">Fecha de nacimiento</div>
             <div class="cuerpo--perfil__fecha__respuesta">{{ fecha_nacimiento }}</div>
         </section>
-        <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar todos los partidos participados</button>
+        <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar partidos</button>
         <div cuerpo--perfil__partidos v-if="mostrarPartidos">
             <template v-if="resultsEventos.length>0" v-for="result in resultsEventos">
                 <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'

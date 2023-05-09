@@ -89,11 +89,11 @@ export default {
             deporteValido: false,
             ciudadValida: true,
             horaValida: true,
-            mensajeError1: "Necesitas seleccionar un deporte",
-            mensajeError2: "Se necesita seleccionar una ciudad",
-            mensajeError3: "Se necesita insertar una hora",
+            mensajeError1: "No se pueden introducir décimales ni negativos",
             hayErrores: false,
             valorCiudad: '',
+            resultadoLocalValido: false,
+            resultadoVisitanteValido: false
         }
     },
     methods: {
@@ -101,11 +101,23 @@ export default {
             const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
             this.dataCiudad = await responseCiudad.json()
         },
-        cambiarResultado1(e) {
+        cambiarResultadoLocal(e) {
             this.resultadoLocal = e.target.value
+            if(/^\d+$/.test(this.resultadoLocal)){
+                this.resultadoLocalValido = true
+            }
+            else{
+                this.resultadoLocalValido = false
+            }
         },
-        cambiarResultado2(e) {
+        cambiarResultadoVisitante(e) {
             this.resultadoVisitante = e.target.value
+            if(/^\d+$/.test(this.resultadoVisitante)){
+                this.resultadoVisitanteValido = true
+            }
+            else{
+                this.resultadoVisitanteValido = false
+            }
         },
         check() {
             this.updatePartido()
@@ -125,7 +137,6 @@ export default {
             this.formData.fecha = data.fecha
             this.formData.deporte.id = data.deporte.id
             this.formData.ciudad.id = data.ciudad.id
-            console.log(this.formData)
             try {
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
                 window.location.reload()
@@ -147,23 +158,26 @@ export default {
                 <div className="anadir_resultado__caja__grupo">
                     <label for="resultadoLocal" className="anadir_resultado__caja__etiqueta">Local</label>
                     <div className="anadir_resultado__caja__input">
-                        <input v-on:input="cambiarResultado1" v-bind:value="resultadoLocal" id="resultadoLocal"
-                            className="anadir_resultado__caja__elemento" type="number" placeholder="Resultado local"
+                        <input v-on:input="cambiarResultadoLocal" v-bind:value="resultadoLocal" id="resultadoLocal"
+                            className="anadir_resultado__caja__elemento" type="number" step="1" placeholder="Resultado local"
                             required />
                     </div>
                 </div>
                 <div className="anadir_resultado__caja__grupo">
                     <label for="resultadoVisitante" className="anadir_resultado__caja__etiqueta">Visitante</label>
                     <div className="anadir_resultado__caja__input">
-                        <input v-on:input="cambiarResultado2" v-bind:value="resultadoVisitante" id="resultadoVisitante"
+                        <input v-on:input="cambiarResultadoVisitante" v-bind:value="resultadoVisitante" id="resultadoVisitante"
                             className="anadir_resultado__caja__elemento anadir_resultado__caja__elemento--visitante"
-                            type="number" placeholder="Resultado visitante" required />
+                            type="number" step="1" placeholder="Resultado visitante" required />
                     </div>
                 </div>
                 <div v-if="!horaValida && hayErrores" className="anadir_resultado__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
             </section>
+            <!-- <div>
+                error
+            </div> -->
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
                     @click.prevent="updatePartido" value="Guardar" />

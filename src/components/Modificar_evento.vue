@@ -242,43 +242,6 @@ export default {
                 deporte: {
                     id: 0
                 }
-                // id: this.id,
-                // idJugador1: '',
-                // idJugador2: '',
-                // idJugador3: null,
-                // idJugador4: null,
-                // idJugador5: null,
-                // idJugador6: null,
-                // idJugador7: null,
-                // idJugador8: null,
-                // idJugador9: null,
-                // idJugador10: null,
-                // deporte: this.deporte,
-                // equipo1: this.equipo1,
-                // equipo2: this.equipo2,
-                // imagen1: this.imagen1,
-                // imagen2: this.imagen2,
-                // imagen3: this.imagen3,
-                // imagen4: this.imagen4,
-                // imagen5: this.imagen5,
-                // imagen6: this.imagen6,
-                // imagen7: this.imagen7,
-                // imagen8: this.imagen8,
-                // imagen9: this.imagen9,
-                // imagen10: this.imagen10,
-                // jugador1: this.jugador1,
-                // jugador2: this.jugador2,
-                // jugador3: this.jugador3,
-                // jugador4: this.jugador4,
-                // jugador5: this.jugador5,
-                // jugador6: this.jugador6,
-                // jugador7: this.jugador7,
-                // jugador8: this.jugador8,
-                // jugador9: this.jugador9,
-                // jugador10: this.jugador10,
-                // ciudad: '',
-                // equipo1: this.equipo1,
-                // equipo2: this.equipo2
             },
         }
     },
@@ -343,17 +306,6 @@ export default {
             }
         },
         async updatePartido() {
-            // this.formData.idJugador1=this.idJugador1
-            // this.formData.idJugador2=this.idJugador2
-            // this.formData.idJugador3=this.idJugador3
-            // this.formData.idJugador4=this.idJugador4
-            // this.formData.idJugador5=this.idJugador5
-            // this.formData.idJugador6=this.idJugador6
-            // this.formData.idJugador7=this.idJugador7
-            // this.formData.idJugador8=this.idJugador8
-            // this.formData.idJugador9=this.idJugador9
-            // this.formData.idJugador10=this.idJugador10
-            // this.formData.ciudad = this.textCiudad
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad

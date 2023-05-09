@@ -75,9 +75,9 @@ export default {
             formData: {
                 id: '',
                 nombre: '',
-                clave: "",
+                clave: '',
                 fechaNacimiento: '',
-                correo: "",
+                correo: '',
                 avatar: '',
             }
         }
@@ -85,6 +85,7 @@ export default {
     methods: {
         cambiarTextoPass(e) {
             this.textPass = e.target.value
+            console.log(this.textPass)
             if (this.expresionPass.test(this.textPass)) {
                 this.passValido = true
             } else {
@@ -139,23 +140,20 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-
                 const avatarFileName = uploadResponse.data;
                 const encoder = new TextEncoder();
-                const data = encoder.encode(this.formData.clave);
+                 const data = encoder.encode(this.textPass.trim());
                 const digest = await crypto.subtle.digest('SHA-1', data);
                 const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-
                 const usuarioData = {
-                    nombre: this.nombre,
+                    nombre: this.nombre.trim(),
                     clave: hash,
                     correo: this.correo,
                     fechaNacimiento: this.textFecha,
-                    avatar: avatarFileName.url,
+                    avatar: avatarFileName,
                     id: this.idUsuario
                 };
-
-                const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
+               const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
                 window.location.reload();
             } catch (error) {
                 console.error(error);

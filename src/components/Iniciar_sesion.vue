@@ -90,8 +90,8 @@ export default {
         },
         async lanzarIniciarSesion() {
             this.formData = {
-                correo: this.textUser,
-                clave: this.textPass
+                correo: this.textUser.trim(),
+                clave: this.textPass.trim()
             };
             const encoder = new TextEncoder();
             const data = encoder.encode(this.formData.clave);
@@ -99,9 +99,6 @@ export default {
             const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
             this.formData.clave = hash
             try {
-                // const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
-                //     withCredentials: true
-                // });
                 this.errorIniciar = false;
                 const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/buscarPorCorreo/" + this.formData.correo)
                 const dataUsuario = await responseUsuario.json()
