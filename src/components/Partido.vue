@@ -70,7 +70,18 @@ defineProps({
   //   required: true
   // }
 })
-
+</script>
+<script>
+export default {
+  data() {
+    return {
+      balonFutbol: "https://images.vexels.com/media/users/3/158409/isolated/preview/b0af06a4c1a8e7a31ce379250130d26c-pelota-de-futbol-pentagono-silueta.png",
+      balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
+      balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
+      balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
+    }
+  },
+};
 </script>
 <template>
   <RouterLink :to="`/partido_detalles/${id}`" class="partido">
@@ -97,6 +108,18 @@ defineProps({
       <div v-if="estado == 'EN CURSO'" class="partido__estado partido__estado__encurso">{{ estado }}</div>
       <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__finalizado">{{ estado }}</div>
       <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoVisitante"> {{ puntosVisitante }}</div>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Fútbol Sala'">
+      <img :src="balonFutbol"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Baloncesto'">
+      <img :src="balonBaloncesto"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Padel'">
+      <img :src="balonPadel"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Tenis'">
+      <img :src="balonTenis"/>
     </div>
   </RouterLink>
 </template>

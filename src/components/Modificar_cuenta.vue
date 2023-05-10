@@ -85,7 +85,6 @@ export default {
     methods: {
         cambiarTextoPass(e) {
             this.textPass = e.target.value
-            console.log(this.textPass)
             if (this.expresionPass.test(this.textPass)) {
                 this.passValido = true
             } else {
@@ -135,14 +134,21 @@ export default {
             formData.append('file', this.formData.avatar);
 
             try {
-                const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                const avatarFileName = uploadResponse.data;
+                let avatarFileName= "";
+                if (this.nuevoAvatar) {
+                    const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                    avatarFileName = uploadResponse.data;
+                }
+                else{
+                    avatarFileName = this.avatar
+                }
+
                 const encoder = new TextEncoder();
-                 const data = encoder.encode(this.textPass.trim());
+                const data = encoder.encode(this.textPass.trim());
                 const digest = await crypto.subtle.digest('SHA-1', data);
                 const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
                 const usuarioData = {
@@ -153,7 +159,7 @@ export default {
                     avatar: avatarFileName,
                     id: this.idUsuario
                 };
-               const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
+                const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
                 window.location.reload();
             } catch (error) {
                 console.error(error);

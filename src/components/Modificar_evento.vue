@@ -355,7 +355,7 @@ export default {
 
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
-                    @click.prevent="ejecutarEvento" value="Modificar evento" />
+                    @click.prevent="ejecutarEvento" value="Modificar" />
             </section>
         </form>
     </div>

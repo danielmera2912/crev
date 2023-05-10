@@ -103,6 +103,10 @@ export default {
       resultsEquipos: false,
       resultsUsuariosEquipo1: false,
       resultsUsuariosEquipo2: false,
+      balonFutbol: "https://images.vexels.com/media/users/3/158409/isolated/preview/b0af06a4c1a8e7a31ce379250130d26c-pelota-de-futbol-pentagono-silueta.png",
+      balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
+      balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
+      balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
       formData: {
         fecha: "",
         hora: "",
@@ -295,7 +299,7 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario);
-           // window.location.reload()
+            // window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -317,7 +321,7 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario);
-           // window.location.reload()
+            // window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -383,7 +387,7 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario);
-            
+
           } catch (error) {
             console.error(error);
           }
@@ -427,9 +431,16 @@ export default {
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador9 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
           </RouterLink>
-          
+          <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Fútbol Sala'">
+            <img :src="balonFutbol" />
+          </div>
+          <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Baloncesto'">
+            <img :src="balonBaloncesto" />
+          </div>
         </div>
-        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
+
+        <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
+        }}</div>
       </div>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <div class="partido-detalles__enfrentamiento__equipo">
@@ -456,9 +467,10 @@ export default {
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador10 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen10" alt="Avatar del jugador 10" />
           </RouterLink>
-          
+
         </div>
-        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
+        <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
+          resultadoVisitante }}</div>
       </div>
     </div>
 
@@ -479,15 +491,16 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <button v-if="permisoParticipar && estado!='FINALIZADO'
-    && (jugador2 == 'Plaza vacante' || jugador3 == 'Plaza vacante' || jugador4 == 'Plaza vacante' || jugador5 == 'Plaza vacante' ||
+    <button v-if="permisoParticipar && estado != 'FINALIZADO'
+      && (jugador2 == 'Plaza vacante' || jugador3 == 'Plaza vacante' || jugador4 == 'Plaza vacante' || jugador5 == 'Plaza vacante' ||
         jugador6 == 'Plaza vacante' || jugador7 == 'Plaza vacante' || jugador8 == 'Plaza vacante' || jugador9 == 'Plaza vacante' ||
         jugador10 == 'Plaza vacante')
-    " class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
-    <button v-if="!permisoParticipar && estado!='FINALIZADO' && jugador2 != 'Plaza vacante' && jugador3 != 'Plaza vacante' && jugador4 != 'Plaza vacante' && jugador5 != 'Plaza vacante' &&
-        jugador6 != 'Plaza vacante' && jugador7 != 'Plaza vacante' && jugador8 != 'Plaza vacante' && jugador9 != 'Plaza vacante' &&
-        jugador10 != 'Plaza vacante'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar</button>
-    <div v-if="estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
+      " class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="!permisoParticipar && estado != 'FINALIZADO' && jugador2 != 'Plaza vacante' && jugador3 != 'Plaza vacante' && jugador4 != 'Plaza vacante' && jugador5 != 'Plaza vacante' &&
+      jugador6 != 'Plaza vacante' && jugador7 != 'Plaza vacante' && jugador8 != 'Plaza vacante' && jugador9 != 'Plaza vacante' &&
+      jugador10 != 'Plaza vacante'" class="partido-detalles__boton boton"
+      @click="toggleParticipacion">Finalizar</button>
+    <div v-if="estado == 'FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
     <Modificar_evento v-if="creacion && permisos" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :deporte="deporte" :fecha="fecha" :hora="hora"
       :jugador1="jugador1" :jugador2="jugador2" :jugador3="jugador3" :jugador4="jugador4" :jugador5="jugador5"
@@ -504,5 +517,4 @@ export default {
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
         pulsa aquí</RouterLink> para volver al inicio.</div>
-  </div>
-</template>
+  </div></template>

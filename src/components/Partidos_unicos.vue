@@ -235,7 +235,7 @@ export default {
       filtroSeleccionado: "todos",
       dataDeporte: "",
       deporteEquipo: false,
-      response: "",
+      response: ""
     };
   },
   mounted() {

@@ -52,6 +52,10 @@ export default {
       results2: null,
       permisos: false,
       permisoParticipar: false,
+      balonFutbol: "https://images.vexels.com/media/users/3/158409/isolated/preview/b0af06a4c1a8e7a31ce379250130d26c-pelota-de-futbol-pentagono-silueta.png",
+      balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
+      balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
+      balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
       formData: {
         fecha: "",
         hora: "",
@@ -135,7 +139,7 @@ export default {
       this.registrarResultado = !this.registrarResultado
     },
     async establecerPermiso() {
-      if (this.idUsuario!=0) {
+      if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.nombre == this.jugador1) {
@@ -189,19 +193,27 @@ export default {
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 1</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador1 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
-        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal }}</div>
+        <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
+        }}</div>
       </RouterLink>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
       <RouterLink :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
-        <div v-if="estado=='FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoVisitante }}</div>
+        <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
+          resultadoVisitante }}</div>
       </RouterLink>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Padel'">
+        <img :src="balonPadel" />
+      </div>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Tenis'">
+        <img :src="balonTenis" />
+      </div>
     </div>
 
     <div class="partido-detalles__datos">
-      <span @click="toggleCreacion" v-if="permisos && !perfil && estado!='FINALIZADO'"
+      <span @click="toggleCreacion" v-if="permisos && !perfil && estado != 'FINALIZADO'"
         className="material-symbols-outlined partido-detalles__datos__modificar">edit</span>
       <div class="partido-detalles__datos__enunciado">Datos de la disputa</div>
       <div class="partido-detalles__datos__ciudad">
@@ -217,18 +229,19 @@ export default {
         <div class="partido-detalles__datos__hora__dato">{{ hora }}</div>
       </div>
     </div>
-    <button v-if="permisoParticipar && estado!='FINALIZADO' && jugador2=='Plaza vacante'" class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
-    <button v-if="!permisoParticipar && estado!='FINALIZADO' && jugador2!='Plaza vacante'" class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar</button>
-    <div v-if="estado=='FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
+    <button v-if="permisoParticipar && estado != 'FINALIZADO' && jugador2 == 'Plaza vacante'"
+      class="partido-detalles__boton boton" @click="anadirJugador">Participar</button>
+    <button v-if="!permisoParticipar && estado != 'FINALIZADO' && jugador2 != 'Plaza vacante'"
+      class="partido-detalles__boton boton" @click="toggleParticipacion">Finalizar</button>
+    <div v-if="estado == 'FINALIZADO'" class="partido-detalles__finalizado">EVENTO FINALIZADO</div>
     <Modificar_evento v-if="permisos && creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha"
-      :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2" 
+      :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2"
       :idJugador1="idJugador1" :idJugador2="idJugador2" :idCiudad="idCiudad"></Modificar_evento>
-      <AnadirResultado v-if="permisos && participacion" @cerrarTodo="toggleParticipacion" @finalizarEvento="finalizarEvento"
+    <AnadirResultado v-if="permisos && participacion" @cerrarTodo="toggleParticipacion" @finalizarEvento="finalizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id"></AnadirResultado>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
         pulsa aquí</RouterLink> para volver al inicio.</div>
-  </div>
-</template>
+</div></template>

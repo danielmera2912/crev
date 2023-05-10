@@ -102,23 +102,25 @@ export default {
             this.dataCiudad = await responseCiudad.json()
         },
         cambiarResultadoLocal(e) {
-            this.resultadoLocal = e.target.value
-            if(/^\d+$/.test(this.resultadoLocal)){
-                this.resultadoLocalValido = true
-            }
-            else{
-                this.resultadoLocalValido = false
+            const valor = parseInt(e.target.value, 10);
+            if (valor >= 0 && Number.isInteger(valor)) {
+                this.resultadoLocal = valor;
+                this.resultadoLocalValido = true;
+            } else {
+                this.resultadoLocalValido = false;
             }
         },
+
         cambiarResultadoVisitante(e) {
-            this.resultadoVisitante = e.target.value
-            if(/^\d+$/.test(this.resultadoVisitante)){
-                this.resultadoVisitanteValido = true
-            }
-            else{
-                this.resultadoVisitanteValido = false
+            const valor = parseInt(e.target.value, 10);
+            if (valor >= 0 && Number.isInteger(valor)) {
+                this.resultadoVisitante = valor;
+                this.resultadoVisitanteValido = true;
+            } else {
+                this.resultadoVisitanteValido = false;
             }
         },
+
         check() {
             this.updatePartido()
 
@@ -128,21 +130,27 @@ export default {
             this.$emit('realizarEvento')
         },
         async updatePartido() {
-            
-            const response = await fetch(this.API_partido + "/" + this.id)
-            const data = await response.json()
-            this.formData.puntosLocal = this.resultadoLocal
-            this.formData.puntosVisitante = this.resultadoVisitante
-            this.formData.hora = data.hora
-            this.formData.fecha = data.fecha
-            this.formData.deporte.id = data.deporte.id
-            this.formData.ciudad.id = data.ciudad.id
-            try {
-                const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
-                window.location.reload()
-            } catch (error) {
-                console.error(error);
+            if (!this.resultadoLocalValido || !this.resultadoVisitanteValido) {
+                this.hayErrores = true;
             }
+            else {
+                this.hayErrores = false;
+                const response = await fetch(this.API_partido + "/" + this.id)
+                const data = await response.json()
+                this.formData.puntosLocal = this.resultadoLocal
+                this.formData.puntosVisitante = this.resultadoVisitante
+                this.formData.hora = data.hora
+                this.formData.fecha = data.fecha
+                this.formData.deporte.id = data.deporte.id
+                this.formData.ciudad.id = data.ciudad.id
+                try {
+                    const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
+                    window.location.reload()
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
         }
     }
 }
@@ -159,25 +167,23 @@ export default {
                     <label for="resultadoLocal" className="anadir_resultado__caja__etiqueta">Local</label>
                     <div className="anadir_resultado__caja__input">
                         <input v-on:input="cambiarResultadoLocal" v-bind:value="resultadoLocal" id="resultadoLocal"
-                            className="anadir_resultado__caja__elemento" type="number" step="1" placeholder="Resultado local"
-                            required />
+                            className="anadir_resultado__caja__elemento" type="number" step="1"
+                            placeholder="Resultado local" required />
                     </div>
                 </div>
                 <div className="anadir_resultado__caja__grupo">
                     <label for="resultadoVisitante" className="anadir_resultado__caja__etiqueta">Visitante</label>
                     <div className="anadir_resultado__caja__input">
-                        <input v-on:input="cambiarResultadoVisitante" v-bind:value="resultadoVisitante" id="resultadoVisitante"
+                        <input v-on:input="cambiarResultadoVisitante" v-bind:value="resultadoVisitante"
+                            id="resultadoVisitante"
                             className="anadir_resultado__caja__elemento anadir_resultado__caja__elemento--visitante"
                             type="number" step="1" placeholder="Resultado visitante" required />
                     </div>
                 </div>
-                <div v-if="!horaValida && hayErrores" className="anadir_resultado__caja__informativo1--visible">{{
-                    mensajeError3
+                <div v-if="hayErrores" className="anadir_resultado__caja__informativo1--visible">{{
+                    mensajeError1
                 }}</div>
             </section>
-            <!-- <div>
-                error
-            </div> -->
             <section className="crear_evento__boton">
                 <input type="submit" className="crear_evento__boton__opcion crear_evento__boton__opcion--iniciar"
                     @click.prevent="updatePartido" value="Guardar" />

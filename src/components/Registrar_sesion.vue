@@ -238,8 +238,8 @@ export default {
                 <input type="submit" className="registrar__boton__opcion registrar__boton__opcion--registrar"
                     @click.prevent="registrar" value="Registrar" readonly />
                 <div class="registrar__boton__condicion">o</div>
-                <a className="registrar__boton__opcion registrar__boton__opcion--iniciar"
-                    @click="$emit('abrirIniciarSinRegistrar')">Identíficate aquí</a>
+                <input className="registrar__boton__opcion registrar__boton__opcion--iniciar" value="Identíficate"
+                    @click="$emit('abrirIniciarSinRegistrar')"/>
             </section>
         </form>
     </div>
