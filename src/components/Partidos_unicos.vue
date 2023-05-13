@@ -78,39 +78,10 @@ export default {
 
         deporte: {
           id: 0
-          // id: this.deporteId
         },
         ciudad: {
           id: 0
-          //id: this.ciudadId
         }
-        // deporte: "",
-        // jugador1: "",
-        // jugador2: 'ejemplo2',
-        // jugador3: null,
-        // jugador4: null,
-        // jugador5: null,
-        // jugador6: null,
-        // jugador7: null,
-        // jugador8: null,
-        // jugador9: null,
-        // jugador10: null,
-        // ciudad: "",
-        // imagen1: "",
-        // imagen2: "",
-        // imagen3: null,
-        // imagen4: null,
-        // imagen5: null,
-        // imagen6: null,
-        // imagen7: null,
-        // imagen8: null,
-        // imagen9: null,
-        // imagen10: null,
-        // idJugador1: "",
-        // equipo1: null,
-        // equipo2: null,
-        // imagen_equipo1: null,
-        // imagen_equipo2: null
       },
       formDataJugador1: {
         usuario: {
@@ -235,13 +206,26 @@ export default {
       filtroSeleccionado: "todos",
       dataDeporte: "",
       deporteEquipo: false,
-      response: ""
+      response: "",
+      eventos: [],
+      pagina: 0
     };
   },
   mounted() {
     this.conseguirDeportes();
+    this.cargarMas();
   },
   methods: {
+    cargarMas() {
+      axios.get(`http://127.0.0.1:8080/evento?page=${this.pagina}`)
+        .then(response => {
+          this.eventos = this.eventos.concat(response.data);
+          this.pagina++;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     async conseguirDeportes() {
       const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
       this.dataDeporte = await responseDeporte.json()
@@ -322,17 +306,9 @@ export default {
       this.formData.hora = partido.hora
       this.formData.deporte.id = partido.deporte
       this.formData.ciudad.id = partido.ciudad
-      //this.formData.ciudad = partido.ciudad
-      //this.formData.deporte = partido.deporte
-      //this.formData.jugador1 = partido.jugador1N
-      //this.formData.idJugador1 = partido.idJugador1
-      //this.formData.jugador2 = "Plaza vacante"
       if (partido.deporteEquipo) {
         this.deporteEquipo = true;
       }
-      // esto se cambiará para el futuro cuando el usuario pueda elegir avatar para su perfil
-      //this.formData.imagen1 = "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-      //this.formData.imagen2 = "https://i.ibb.co/VJy4cXk/defaultimage.png"
     },
     async llamarApiCiudad() {
       const response = await fetch("http://127.0.0.1:8080/evento/busqueda?ciudad=" + this.search)
@@ -374,10 +350,10 @@ export default {
 };
 </script>
 <template>
-   <Crear_evento v-if="crearEvento" @cerrarTodo="toggleCrearEvento" @realizarEvento="realizarEvento"
-      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :idUsuario="idUsuario">
-    </Crear_evento>
-  <div class="partidos">
+  <Crear_evento v-if="crearEvento" @cerrarTodo="toggleCrearEvento" @realizarEvento="realizarEvento"
+    @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :idUsuario="idUsuario">
+  </Crear_evento>
+  <div class="partidos" v-infinite-scroll="cargarMas" infinite-scroll-distance="10">
     <div class="interfaz">
       <Buscador @inputChange="handleChange" :searchTexto="search"></Buscador>
       <select class="interfaz__filtro" v-model="filtroSeleccionado" name="filtro">
@@ -407,8 +383,8 @@ export default {
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id"
+        :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
     </template>
 
@@ -422,8 +398,8 @@ export default {
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id"
+        :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0"
@@ -436,8 +412,8 @@ export default {
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id"
+        :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0"
@@ -450,8 +426,8 @@ export default {
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
-        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :imagen1='equipoImagen1' :imagen2='equipoImagen2' :perfil="false" :id="result.id"
+        :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
     </template>
     <template v-else>
