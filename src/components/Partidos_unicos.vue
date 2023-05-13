@@ -2,6 +2,7 @@
 import Partido from './Partido.vue'
 import Crear_evento from './Crear_evento.vue'
 import Buscador from '../components/Buscador.vue'
+import Paginacion from '../components/Paginacion.vue'
 import axios from 'axios';
 /**
  * @file Partidos_unicos.vue - Componente de los partidos únicos
@@ -208,23 +209,33 @@ export default {
       deporteEquipo: false,
       response: "",
       eventos: [],
-      pagina: 0
+      paginaActual: 0,
+      totalPaginas: 0,
     };
   },
   mounted() {
     this.conseguirDeportes();
-    this.cargarMas();
+  },
+  created() {
+    this.obtenerEventos();
   },
   methods: {
-    cargarMas() {
-      axios.get(`http://127.0.0.1:8080/evento?page=${this.pagina}`)
-        .then(response => {
-          this.eventos = this.eventos.concat(response.data);
-          this.pagina++;
-        })
-        .catch(error => {
-          console.error(error);
-        });
+    async obtenerEventos() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8080/evento?page=${this.paginaActual}`);
+        this.eventos = response.data.eventos;
+        this.totalPaginas = response.data.totalPages;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    paginaSiguiente() {
+      this.paginaActual++;
+      this.obtenerEventos();
+    },
+    paginaAnterior() {
+      this.paginaActual--;
+      this.obtenerEventos();
     },
     async conseguirDeportes() {
       const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
@@ -374,7 +385,7 @@ export default {
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.status == 404">
       <div>{{ mensajeNoContentido }}</div>
     </template>
-    <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in results">
+    <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in eventos">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
         :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
@@ -430,9 +441,12 @@ export default {
         :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
     </template>
+
     <template v-else>
       <div>{{ mensajeNoContentido }}</div>
     </template>
 
   </div>
+  <Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual" :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior"
+            :paginaSiguiente="paginaSiguiente" />
 </template>

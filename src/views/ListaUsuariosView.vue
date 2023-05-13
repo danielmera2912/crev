@@ -9,16 +9,22 @@
  * @vue-prop {String} idUsuario - Id del usuario rescatado
  */
 import { ref, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import Paginacion from '../components/Paginacion.vue'
 
 const localSearch = ref('');
 const dataUsuario = ref([]);
+let paginaActual = 0;
+let totalPaginas = 0;
+const router = useRouter();
 
 onMounted(conseguirUsuarios);
 
 async function conseguirUsuarios() {
-    const responseUsuario = await fetch("http://127.0.0.1:8080/usuario");
-    const usuarios = await responseUsuario.json();
-    usuarios.shift(); // Eliminar el primer elemento del array de usuarios
+    const responseUsuario = await fetch(`http://127.0.0.1:8080/usuario?page=${paginaActual}`);
+    const arrayUsuarios = await responseUsuario.json();
+    const usuarios = arrayUsuarios.usuarios;
+    totalPaginas = arrayUsuarios.totalPages;
     dataUsuario.value = usuarios;
 }
 
@@ -33,8 +39,24 @@ async function buscarUsuariosPorNombre() {
 }
 
 watch(localSearch, buscarUsuariosPorNombre);
-</script>
 
+function paginaAnterior() {
+    if (paginaActual > 0) {
+        paginaActual--;
+        conseguirUsuarios();
+        router.push({ query: { page: paginaActual } });
+    }
+}
+
+function paginaSiguiente() {
+    if (paginaActual < totalPaginas - 1) {
+        paginaActual++;
+        conseguirUsuarios();
+        router.push({ query: { page: paginaActual } });
+    }
+}
+
+</script>
 <template>
     <main>
         <form class="buscador-usuario" @submit.prevent>
@@ -59,5 +81,9 @@ watch(localSearch, buscarUsuariosPorNombre);
                 </li>
             </ul>
         </div>
+        <Paginacion v-if="localSearch == ''" :tipo="'usuario'" :paginaActual="paginaActual" :totalPaginas="totalPaginas"
+            :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />
+
+
     </main>
 </template>
