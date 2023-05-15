@@ -162,11 +162,6 @@ export default {
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
-                    const encoder = new TextEncoder();
-                    const data = encoder.encode(this.formData.clave);
-                    const digest = await crypto.subtle.digest('SHA-1', data);
-                    const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-                    this.formData.clave = hash
                     const responsePost = await axios.post("http://127.0.0.1:8080/usuario", this.formData);
                     this.$emit('check')
                     this.$emit('abrirIniciar')

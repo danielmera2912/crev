@@ -87,43 +87,46 @@ export default {
             await this.$router.push('/perfil/' + this.idUsuario)
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
+            window.location.reload()
         },
         async lanzarIniciarSesion() {
             this.formData = {
                 correo: this.textUser.trim(),
                 clave: this.textPass.trim()
             };
-            const encoder = new TextEncoder();
-            const data = encoder.encode(this.formData.clave);
-            const digest = await crypto.subtle.digest('SHA-1', data);
-            const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            this.formData.clave = hash
+
             try {
                 this.errorIniciar = false;
-                const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/buscarPorCorreo/" + this.formData.correo)
-                const dataUsuario = await responseUsuario.json()
+
+                const responseUsuario = await fetch(`http://localhost:8080/usuario/buscarPorCorreo/${encodeURIComponent(this.formData.correo)}`);
+                const dataUsuario = await responseUsuario.json();
+
                 let usuarioEncontrado = true;
                 if (dataUsuario.estado === "NOT_FOUND") {
                     usuarioEncontrado = false;
-                    this.errorIniciar= true;
+                    this.errorIniciar = true;
                 }
+
                 if (usuarioEncontrado) {
-                    this.resultsUsuario = dataUsuario.id
-                    this.idUsuario = this.resultsUsuario
-                    this.recibirIdUsuario(this.resultsUsuario)
-                    if(dataUsuario.clave==this.formData.clave) {
-                        this.trasIniciar()
-                    }
-                    else{
-                        this.errorIniciar=true;
+                    this.resultsUsuario = dataUsuario.id;
+                    this.idUsuario = this.resultsUsuario;
+                    this.recibirIdUsuario(this.resultsUsuario);
+
+                    const responseLogin = await fetch(`http://localhost:8080/usuario/login?correo=${encodeURIComponent(this.formData.correo)}&clave=${encodeURIComponent(this.formData.clave)}`);
+                    const dataLogin = await responseLogin.json();
+
+                    if (dataLogin === true) {
+                        this.trasIniciar();
+                    } else {
+                        this.errorIniciar = true;
                     }
                 }
-
-
             } catch (error) {
                 this.errorIniciar = true;
             }
         },
+
+
 
 
         toggleVisibility() {

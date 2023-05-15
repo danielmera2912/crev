@@ -146,14 +146,9 @@ export default {
                 else{
                     avatarFileName = this.avatar
                 }
-
-                const encoder = new TextEncoder();
-                const data = encoder.encode(this.textPass.trim());
-                const digest = await crypto.subtle.digest('SHA-1', data);
-                const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
                 const usuarioData = {
                     nombre: this.nombre.trim(),
-                    clave: hash,
+                    clave: this.textPass,
                     correo: this.correo,
                     fechaNacimiento: this.textFecha,
                     avatar: avatarFileName,

@@ -191,7 +191,7 @@ export default {
         class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
       <RouterLink :to="`/perfil/${idJugador1}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 1</div>
-        <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador1 }}</div>
+        <div class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador">{{ jugador1 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
         }}</div>

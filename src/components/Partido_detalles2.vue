@@ -412,7 +412,7 @@ export default {
         <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo1" /></div>
         <div class="partido-detalles__enfrentamiento__equipo__jugadores">
           <RouterLink :to="`/perfil/${idJugador1}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
-            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador1 }}</div>
+            <div class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador ">{{ jugador1 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
           </RouterLink>
           <RouterLink :to="`/perfil/${idJugador3}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
