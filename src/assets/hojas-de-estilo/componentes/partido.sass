@@ -19,7 +19,9 @@ main
     justify-content: flex-end
     padding: 0 20rem
     z-index: 99
-
+    @media (max-width: 980px)
+        width: auto
+        padding: 0 1rem
     &__filtro
         position: relative
         height: 2.2rem
@@ -31,12 +33,21 @@ main
         width: 8rem
         margin-right: -10rem
         font-family: $fuente_inter
+        @media (max-width: 1290px)
+            margin-left: 1rem
+        @media (max-width: 980px)
+            margin-right: 1rem
+            margin-left: 1rem
+            width: 100%
+
     &__registrar
         height: 2.2rem
         position: absolute
         right: 0
         padding-bottom: 0
         padding-top: 0
+        @media (max-width: 980px)
+            position: static
 
 .partido
     position: relative
@@ -48,7 +59,11 @@ main
     margin-bottom: 1.6rem
     width: 60rem
     text-decoration: none !important
-
+    @media (max-width: 980px)
+        width: 100%
+        font-size: $xs
+    @media (max-width: 510px)
+        font-size: $xs
     &__resultado
         position: absolute
         top: 0
@@ -66,9 +81,18 @@ main
             display: flex
             padding: 1rem
             width: 12rem
+            @media (max-width: 400px)
+                padding: 0.8rem
+                width: 8rem
             &__imagen
                 width: 4.25rem
                 height: 4.25rem
+                @media (max-width: 510px)
+                    width: 3rem
+                    height: 3rem
+                @media (max-width: 400px)
+                    width: 2.1rem
+                    height: 2.1rem
             &__nombre
                 display: flex
                 height: 4rem
@@ -77,6 +101,14 @@ main
                 font-weight: bold
                 margin-left: 1rem
                 margin-right: 1rem
+                @media (max-width: 510px)
+                    margin-left: 0.5rem
+                    margin-right: 0.5rem
+                    font-size: 0.9rem
+                @media (max-width: 400px)
+                    margin-left: 0.5rem
+                    margin-right: 0.5rem
+                    font-size: 0.6rem
         &__detalles
             padding: 1rem
             margin-left: 0.5rem
@@ -85,6 +117,12 @@ main
             flex-direction: column
             align-items: center
             justify-content: center
+            @media (max-width: 510px)
+                font-size: 0.8rem
+            @media (max-width: 400px)
+                font-size: 0.5rem
+                &__fecha
+                    font-size: 0.4rem
             &__hora
                 margin-top: 0.5rem
                 margin-bottom: 0.5rem
@@ -97,6 +135,10 @@ main
         display: flex
         justify-content: center
         max-height: 60px
+        @media (max-width: 510px)
+            font-size: 0.8rem
+        @media (max-width: 400px)
+            font-size: 0.6rem
         &__encurso
             background-color: $color_secundario_claro
             color: $color_primario
@@ -136,9 +178,31 @@ main
     right: 0
     height: 5rem
     width: 5rem
+    @media (max-width: 510px)
+        display: none
 .partido__estado__imagenDeporteDetalles
     position: absolute
     bottom: 0
     right: 0
     height: 5rem
     width: 5rem
+@media (max-width: 510px)
+    .interfaz
+        display: grid
+
+        &__filtro
+            width: 8rem
+            grid-row: 2
+            grid-column: 1
+
+        &__registrar
+            width: 8rem
+            grid-row: 2
+            grid-column: 2
+
+    .buscador-encabezado
+        justify-content: center
+        margin-bottom: 0.8rem
+        width: 100%
+        grid-row: 1
+        grid-column: 1 / span 2

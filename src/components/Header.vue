@@ -46,13 +46,6 @@ export default {
                 <li>
                   <RouterLink active-class="encabezado__lista__enlace--actual" to="/busqueda_usuarios" class="encabezado__lista__enlace">Usuarios</RouterLink>
                 </li>
-                <!-- Este código es para el futuro -->
-                <!-- <li>
-                    <RouterLink active-class="encabezado__lista__enlace--actual" to="/about" class="encabezado__lista__enlace">Ligas</RouterLink>
-                </li>
-                <li>
-                    <div href="#" class="encabezado__lista__enlace">Torneos</div>
-                </li> -->
 
             </ul>
         </nav>

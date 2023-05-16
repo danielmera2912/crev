@@ -132,7 +132,18 @@ export default {
             <img :src="avatarUsuario" alt="Avatar de usuario" class="encabezado__menu__avatar">
         </a>
 
+
         <ul class="encabezado__menu__lista" v-if="showMenu">
+            <li @click="toggleInicio">Acceder</li>
+            <li @click="toggleRegistrar">Crear cuenta</li>
+        </ul>
+        <ul class="encabezado__menu__lista encabezado__menu__lista--movil" v-if="showMenu">
+            <li>
+                <RouterLink to="/">Partidos únicos</RouterLink>
+            </li>
+            <li>
+                <RouterLink to="/busqueda_usuarios">Usuarios</RouterLink>
+            </li>
             <li @click="toggleInicio">Acceder</li>
             <li @click="toggleRegistrar">Crear cuenta</li>
         </ul>
@@ -144,6 +155,22 @@ export default {
                 <RouterLink to="/" @click="cerrarSesion">Cerrar sesión
                 </RouterLink>
             </li>
+        </ul>
+        <ul class="encabezado__menu__lista encabezado__menu__lista--movil" v-if="showIniciado">
+            <li>
+                <RouterLink to="/">Partidos únicos</RouterLink>
+            </li>
+            <li>
+                <RouterLink to="/busqueda_usuarios">Usuarios</RouterLink>
+            </li>
+            <li class="encabezado__menu__lista__elemento">
+                <RouterLink :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
+            </li>
+            <li class="encabezado__menu__lista__elemento">
+                <RouterLink to="/" @click="cerrarSesion">Cerrar sesión
+                </RouterLink>
+            </li>
+            
         </ul>
     </div>
     <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" @abrirRegistrar="toggleRegistrar"
