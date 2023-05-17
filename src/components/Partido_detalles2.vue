@@ -248,8 +248,8 @@ export default {
       this.imagen8 = this.resultsUsuariosEquipo2[3].avatar
       this.imagen9 = this.resultsUsuariosEquipo1[4].avatar
       this.imagen10 = this.resultsUsuariosEquipo2[4].avatar
-      this.equipo1 = this.results2.equipo1
-      this.equipo2 = this.results2.equipo2
+      this.equipo1 = this.resultsEquipos[0].nombre
+      this.equipo2 = this.resultsEquipos[1].nombre
       this.establecerPermiso()
     },
     finalizarEvento() {
@@ -431,10 +431,10 @@ export default {
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador9 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
           </RouterLink>
-          <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Fútbol Sala'">
+          <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Fútbol Sala'">
             <img :src="balonFutbol" />
           </div>
-          <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Baloncesto'">
+          <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Baloncesto'">
             <img :src="balonBaloncesto" />
           </div>
         </div>

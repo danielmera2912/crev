@@ -28,28 +28,30 @@ export default {
     }
   },
   methods: {
-    recibirIdUsuario(id){
+    recibirIdUsuario(id) {
       this.$emit('recibirIdUsuario', id)
     }
   },
 };
 </script>
 <template>
-    <header class="encabezado">
-      <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png"/></RouterLink>
-        
-        <nav class="encabezado__navegador">
-            <ul class="encabezado__lista">
-                <li>
-                    <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos únicos</RouterLink>
-                </li>
-                <li>
-                  <RouterLink active-class="encabezado__lista__enlace--actual" to="/busqueda_usuarios" class="encabezado__lista__enlace">Usuarios</RouterLink>
-                </li>
+  <header class="encabezado">
+    <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png" /></RouterLink>
 
-            </ul>
-        </nav>
-        
-        <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
-    </header>
+    <nav class="encabezado__navegador">
+      <ul class="encabezado__lista">
+        <li>
+          <RouterLink active-class="encabezado__lista__enlace--actual" to="/" class="encabezado__lista__enlace">Partidos
+            únicos</RouterLink>
+        </li>
+        <li>
+          <RouterLink active-class="encabezado__lista__enlace--actual" to="/busqueda_usuarios"
+            class="encabezado__lista__enlace">Usuarios</RouterLink>
+        </li>
+
+      </ul>
+    </nav>
+
+    <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
+  </header>
 </template>

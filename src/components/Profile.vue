@@ -94,7 +94,7 @@ export default {
         <section class="cuerpo--perfil__avatar">
             <img class="cuerpo--perfil__avatar__imagen" v-bind:src="avatar" />
             <a v-if="idUsuario == idUsuarioActual" @click="cambiarModificar" class="cuerpo--perfil__avatar__editar">
-                Editar Perfil
+                <span class="material-symbols-outlined encabezado__menu__icono">edit</span>
             </a>
         </section>
 
@@ -113,7 +113,7 @@ export default {
         </section>
         <button @click=toggleMostrarPartidos class="boton boton--ancho">Mostrar partidos</button>
         <div cuerpo--perfil__partidos v-if="mostrarPartidos">
-            <template v-if="resultsEventos.length>0" v-for="result in resultsEventos">
+            <template v-if="resultsEventos.length > 0" v-for="result in resultsEventos">
                 <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
                     :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
                     :jugador1='result.usuarios[0]?.nombre' :jugador2='result.usuarios[1]?.nombre'

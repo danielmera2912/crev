@@ -17,7 +17,7 @@
         width: 400px
         left: 62%
     @media (max-width: 400px)
-        top: 54%
+        top: 50%
         height: 650px
         width: 320px
         left: 75%
@@ -54,6 +54,8 @@
             color: $color_rojo
             font-size: $xs
             margin-left: 2.8rem
+            @media (max-width: 400px)
+                font-size: 0.7rem
         // Se define las propiedades de los inputs del desplegable.
         &__elemento
             margin: 2rem 2rem 0 2rem
@@ -86,7 +88,7 @@
             text-align: center
 .iniciar_sesion__caja__elemento + .material-symbols-outlined
     position: absolute
-    right: 16%
-    top: 61.5%
+    right: 18%
+    top: 64.5%
     transform: translateY(-50%)
     cursor: pointer

@@ -170,7 +170,7 @@ export default {
                 <RouterLink to="/" @click="cerrarSesion">Cerrar sesión
                 </RouterLink>
             </li>
-            
+
         </ul>
     </div>
     <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" @abrirRegistrar="toggleRegistrar"

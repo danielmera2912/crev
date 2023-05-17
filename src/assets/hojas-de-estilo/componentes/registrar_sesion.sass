@@ -59,7 +59,8 @@
             color: $color_rojo
             font-size: $xs
             align-self: center
-
+            @media (max-width: 400px)
+                font-size: 0.5rem
     // Se define el botón que te redirigirá a la página de iniciar sesión, una vez que se ha registrado la cuenta.
     &__boton
         display: flex
@@ -84,14 +85,14 @@
 
 .icon1
     position: absolute
-    right: 16%
+    right: 18%
     top: 47.5%
     transform: translateY(-50%)
     cursor: pointer
 
 .registrar__caja__elemento + .icon2
     position: absolute
-    right: 16%
+    right: 18%
     top: 58.5%
     transform: translateY(-50%)
     cursor: pointer

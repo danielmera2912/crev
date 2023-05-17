@@ -4,7 +4,13 @@
     align-items: center
     justify-content: space-between
     padding: 20px
-
+    @media (max-width: 500px)
+        padding: 0
+    &__boton
+        @media (max-width: 850px)
+            margin-bottom: 1rem
+        @media (max-width: 500px)
+            margin-bottom: 2rem
 .partido-detalles__enfrentamiento
     display: flex
     flex-direction: row
@@ -16,12 +22,17 @@
     border-radius: 10px
     box-shadow: 0px 0px 10px #ccc
     position: relative
+    @media (max-width: 500px)
+        margin: 0
     &__borrar
         color: $color_secundario_oscuro
         position: absolute
         right: 0.2rem
         top: 0.2rem
         cursor: pointer
+        @media (max-width: 500px)
+            bottom: 0.2rem
+            top: auto
 
 .partido-detalles__enfrentamiento__jugador
     display: flex
@@ -36,12 +47,16 @@
     font-size: 18px
     color: $color_oscuro !important
     text-decoration: none !important
+    @media (max-width: 435px)
+        font-size: 15px
 
 .partido-detalles__enfrentamiento__jugador__nombre
     font-size: 16px
     margin-top: 20px
     color: $color_oscuro !important
     text-decoration: none
+    @media (max-width: 435px)
+        font-size: 13px
 
 .partido-detalles__enfrentamiento__jugador__nombre--creador
     text-decoration: underline
@@ -58,6 +73,11 @@
     font-weight: bold
     font-size: 36px
     margin: 20px
+    @media (max-width: 400px)
+        margin: 0px
+.partido-detalles__enfrentamiento__duelo > img
+    @media (max-width: 400px)
+        width: 40px
 .partido-detalles__datos
     display: flex
     flex-wrap: wrap
@@ -68,11 +88,15 @@
     border: 1px solid $color_claro
     border-radius: 10px
     position: relative
-
+    @media (max-width: 1200px)
+        padding: 10px
 .partido-detalles__deporte
     font-weight: bold
     margin-top: 1rem
     font-size: $l
+    @media (max-width: 660px)
+        font-size: $s
+        margin-bottom: 0.5rem
 .partido-detalles__datos__enunciado
     font-size: 18px
     font-weight: bold
