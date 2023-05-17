@@ -77,35 +77,49 @@ main
     &__datos
         display: flex
         justify-content: center
+
         &__rival
             display: flex
             padding: 1rem
             width: 12rem
-            @media (max-width: 400px)
+
+            @media (max-width: 420px)
                 padding: 0.8rem
                 width: 8rem
+                flex-direction: column
+                align-items: center
+
             &__imagen
                 width: 4.25rem
                 height: 4.25rem
+                text-align: center
                 @media (max-width: 510px)
                     width: 3rem
                     height: 3rem
-                @media (max-width: 400px)
+
+                @media (max-width: 420px)
                     width: 2.1rem
                     height: 2.1rem
+
             &__nombre
                 display: flex
-                height: 4rem
                 align-items: center
                 justify-content: center
                 font-weight: bold
                 margin-left: 1rem
                 margin-right: 1rem
+
                 @media (max-width: 510px)
                     margin-left: 0.5rem
                     margin-right: 0.5rem
                     font-size: 0.9rem
-                @media (max-width: 400px)
+
+                @media (max-width: 420px)
+                    display: none
+            &__nombre--responsivo
+                display: none
+                @media (max-width: 420px)
+                    display: flex
                     margin-left: 0.5rem
                     margin-right: 0.5rem
                     font-size: 0.6rem
@@ -119,7 +133,7 @@ main
             justify-content: center
             @media (max-width: 510px)
                 font-size: 0.8rem
-            @media (max-width: 400px)
+            @media (max-width: 420px)
                 font-size: 0.5rem
                 &__fecha
                     font-size: 0.4rem
@@ -137,7 +151,7 @@ main
         max-height: 60px
         @media (max-width: 510px)
             font-size: 0.8rem
-        @media (max-width: 400px)
+        @media (max-width: 420px)
             font-size: 0.6rem
         &__encurso
             background-color: $color_secundario_claro

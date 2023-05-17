@@ -10,7 +10,9 @@
         grid-template-columns: repeat(3, 1fr)
         gap: 20px
         margin-bottom: 1rem
-
+        @media (max-width: 660px)
+            display: flex
+            flex-direction: column
     &__grupo__info
         background-color: $color_primario
         padding: 10px

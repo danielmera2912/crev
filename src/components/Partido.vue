@@ -90,6 +90,7 @@ export default {
     </div>
     <div class="partido__datos">
       <div class="partido__datos__rival">
+        <div class="partido__datos__rival__nombre partido__datos__rival__nombre--responsivo">{{ jugador1 }}</div>
         <div class="partido__datos__rival__nombre">{{ jugador1 }}</div>
         <img class="partido__datos__rival__imagen" :src="imagen1" />
       </div>
@@ -99,6 +100,7 @@ export default {
         <div class="partido__datos__detalles__ciudad">{{ ciudad }}</div>
       </div>
       <div class="partido__datos__rival">
+        <div class="partido__datos__rival__nombre partido__datos__rival__nombre--responsivo">{{ jugador2 }}</div>
         <img class="partido__datos__rival__imagen" :src="imagen2" />
         <div class="partido__datos__rival__nombre">{{ jugador2 }}</div>
       </div>
