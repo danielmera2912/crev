@@ -387,8 +387,8 @@ export default {
     </template>
     <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in eventos">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
-        :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
         :estado="result.estado">
       </Partido>
@@ -402,8 +402,8 @@ export default {
     <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.length > 0"
       v-for="result in resultsCiudad">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
-        :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
         :estado="result.estado">
       </Partido>
@@ -416,8 +416,8 @@ export default {
     <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.length > 0"
       v-for="result in resultsDeporte">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
-        :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
         :estado="result.estado">
       </Partido>
@@ -430,8 +430,8 @@ export default {
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.length > 0"
       v-for="result in resultsFiltro">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
-        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.nombre'
-        :jugador2='result.usuarios[1]?.nombre' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
+        :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
         :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
         :estado="result.estado">
       </Partido>

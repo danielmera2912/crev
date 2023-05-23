@@ -64,6 +64,9 @@ export default {
             this.showAcceso = false;
             try {
                 await localStorage.removeItem('userId');
+                await localStorage.removeItem('tokenjwt');
+                await localStorage.removeItem('username');
+                await localStorage.removeItem('avatar');
                 this.$router.push('/');
                 window.location.reload()
             } catch (error) {

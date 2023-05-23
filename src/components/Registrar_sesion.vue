@@ -149,8 +149,8 @@ export default {
         async crearUsuario() {
             this.formData = {
                 correo: this.textCorreo.trim(),
-                nombre: this.textUser.trim(),
-                clave: this.textPass.trim(),
+                username: this.textUser.trim(),
+                password: this.textPass.trim(),
                 fechaNacimiento: this.textFecha,
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             };
@@ -158,7 +158,7 @@ export default {
                 const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.correo)
                 const data = await response.json()
                 this.checkEmailServer = data
-                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?nombre=" + this.formData.nombre)
+                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?username=" + this.formData.nombre)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {

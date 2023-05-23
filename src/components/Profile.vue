@@ -75,14 +75,14 @@ export default {
             const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuarioActual)
             const dataUsuario = await responseUsuario.json()
             this.resultsUsuario = dataUsuario
-            this.nombre = this.resultsUsuario.nombre
+            this.nombre = this.resultsUsuario.username
             this.correo = this.resultsUsuario.correo
             this.avatar = this.resultsUsuario.avatar
             this.fecha_nacimiento = this.resultsUsuario.fechaNacimiento
             this.llamarEventos()
         },
         async llamarEventos() {
-            const responseEvento = await fetch("http://127.0.0.1:8080/usuarios/" + this.idUsuarioActual + "/eventos/")
+            const responseEvento = await fetch("http://127.0.0.1:8080/usuarios/" + this.idUsuarioActual + "/eventos")
             const dataEvento = await responseEvento.json()
             this.resultsEventos = dataEvento
         }

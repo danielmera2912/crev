@@ -157,31 +157,31 @@ export default {
       const response4 = await fetch(this.API2 + "/" + this.resultsEquipos[1].id + "/usuarios")
       const data4 = await response4.json()
       this.resultsUsuariosEquipo2 = data4
-      if (this.resultsUsuariosEquipo2[0].nombre == "Plaza vacante") {
+      if (this.resultsUsuariosEquipo2[0].username == "Plaza vacante") {
         this.contadorJugador = 2
       }
-      else if (this.resultsUsuariosEquipo1[1].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[1].username == "Plaza vacante") {
         this.contadorJugador = 3
       }
-      else if (this.resultsUsuariosEquipo2[1].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[1].username == "Plaza vacante") {
         this.contadorJugador = 4
       }
-      else if (this.resultsUsuariosEquipo1[2].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[2].username == "Plaza vacante") {
         this.contadorJugador = 5
       }
-      else if (this.resultsUsuariosEquipo2[2].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[2].username == "Plaza vacante") {
         this.contadorJugador = 6
       }
-      else if (this.resultsUsuariosEquipo1[3].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[3].username == "Plaza vacante") {
         this.contadorJugador = 7
       }
-      else if (this.resultsUsuariosEquipo2[3].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[3].username == "Plaza vacante") {
         this.contadorJugador = 8
       }
-      else if (this.resultsUsuariosEquipo1[4].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo1[4].username == "Plaza vacante") {
         this.contadorJugador = 9
       }
-      else if (this.resultsUsuariosEquipo2[4].nombre == "Plaza vacante") {
+      else if (this.resultsUsuariosEquipo2[4].username == "Plaza vacante") {
         this.contadorJugador = 10
       }
       else {
@@ -215,16 +215,16 @@ export default {
       this.estado = this.results2.estado
       this.resultadoLocal = this.results2.puntosLocal
       this.resultadoVisitante = this.results2.puntosVisitante
-      this.jugador1 = this.resultsUsuariosEquipo1[0].nombre
-      this.jugador2 = this.resultsUsuariosEquipo2[0].nombre
-      this.jugador3 = this.resultsUsuariosEquipo1[1].nombre
-      this.jugador4 = this.resultsUsuariosEquipo2[1].nombre
-      this.jugador5 = this.resultsUsuariosEquipo1[2].nombre
-      this.jugador6 = this.resultsUsuariosEquipo2[2].nombre
-      this.jugador7 = this.resultsUsuariosEquipo1[3].nombre
-      this.jugador8 = this.resultsUsuariosEquipo2[3].nombre
-      this.jugador9 = this.resultsUsuariosEquipo1[4].nombre
-      this.jugador10 = this.resultsUsuariosEquipo2[4].nombre
+      this.jugador1 = this.resultsUsuariosEquipo1[0].username
+      this.jugador2 = this.resultsUsuariosEquipo2[0].username
+      this.jugador3 = this.resultsUsuariosEquipo1[1].username
+      this.jugador4 = this.resultsUsuariosEquipo2[1].username
+      this.jugador5 = this.resultsUsuariosEquipo1[2].username
+      this.jugador6 = this.resultsUsuariosEquipo2[2].username
+      this.jugador7 = this.resultsUsuariosEquipo1[3].username
+      this.jugador8 = this.resultsUsuariosEquipo2[3].username
+      this.jugador9 = this.resultsUsuariosEquipo1[4].username
+      this.jugador10 = this.resultsUsuariosEquipo2[4].username
       this.ciudad = this.results2.ciudad.nombre
       this.fecha = this.results2.fecha
       this.hora = this.results2.hora
@@ -259,7 +259,7 @@ export default {
       if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
-        if (dataUsuarioPermiso.nombre == this.jugador1) {
+        if (dataUsuarioPermiso.username == this.jugador1) {
           this.permisos = true
         } else {
           this.permisoParticipar = true
@@ -271,9 +271,9 @@ export default {
       const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
-      if (this.resultsUsuario.nombre == this.jugador1 || this.resultsUsuario.nombre == this.jugador2 || this.resultsUsuario.nombre == this.jugador3 || this.resultsUsuario.nombre == this.jugador4
-        || this.resultsUsuario.nombre == this.jugador5 || this.resultsUsuario.nombre == this.jugador6 || this.resultsUsuario.nombre == this.jugador7 || this.resultsUsuario.nombre == this.jugador8
-        || this.resultsUsuario.nombre == this.jugador9 || this.resultsUsuario.nombre == this.jugador10) {
+      if (this.resultsUsuario.username == this.jugador1 || this.resultsUsuario.username == this.jugador2 || this.resultsUsuario.username == this.jugador3 || this.resultsUsuario.username == this.jugador4
+        || this.resultsUsuario.username == this.jugador5 || this.resultsUsuario.username == this.jugador6 || this.resultsUsuario.username == this.jugador7 || this.resultsUsuario.username == this.jugador8
+        || this.resultsUsuario.username == this.jugador9 || this.resultsUsuario.username == this.jugador10) {
         alert("Ya estás participando")
       }
       else if (this.jugador2 != "Plaza vacante" && this.jugador3 != "Plaza vacante" && this.jugador4 != "Plaza vacante" && this.jugador5 != "Plaza vacante" &&

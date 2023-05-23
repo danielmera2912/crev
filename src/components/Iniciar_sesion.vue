@@ -29,13 +29,13 @@ export default {
             textUser: '',
             idUsuario: '',
             textPass: '',
-            expresionUsuario: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
+            expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             userValido: false,
             passValido: false,
-            mensajeError1: "Correo incorrecto",
+            mensajeError1: "Usuario incorrecto",
             mensajeError2: "Contraseña incorrecta",
-            mensajeError3: "Correo o contraseña incorrectos",
+            mensajeError3: "Usuario o contraseña incorrectos",
             hayErrores: false,
             errorIniciar: false,
             inputType: "password",
@@ -69,7 +69,8 @@ export default {
         },
         check() {
             if (this.passValido && this.userValido) {
-                this.lanzarIniciarSesion()
+                //this.lanzarIniciarSesion()
+                this.login()
             }
         },
         iniciar() {
@@ -79,15 +80,32 @@ export default {
                 this.hayErrores = true
             }
         },
+        async login() {
+            await axios.post("http://127.0.0.1:8080/auth/login", {
+                username: this.textUser.trim(),
+                password: this.textPass.trim()
+            }, { withCredentials: true })
+                .then(response => {
+                    localStorage.setItem('tokenjwt', response.data.token);
+                    localStorage.setItem('username', response.data.username);
+                    localStorage.setItem('avatar', response.data.avatar);
+                    localStorage.setItem('userId', response.data.id);
+                    this.trasIniciar()
+                    
+                })
+                .catch(error => {
+                    this.errorIniciar = true;
+                })
+        },
         recibirIdUsuario(id) {
             this.$emit('recibirIdUsuario', id)
         },
         async trasIniciar() {
-            //this.$emit('check')
-            await this.$router.push('/perfil/' + this.idUsuario)
+            await this.$router.push('/perfil/' + localStorage.getItem('userId'))
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
             window.location.reload()
+
         },
         async lanzarIniciarSesion() {
             this.formData = {
@@ -98,28 +116,29 @@ export default {
             try {
                 this.errorIniciar = false;
 
-                const responseUsuario = await fetch(`http://localhost:8080/usuario/buscarPorCorreo/${encodeURIComponent(this.formData.correo)}`);
+                const responseUsuario = await fetch(`http://127.0.0.1:8080/usuario/buscarPorNombre/${encodeURIComponent(this.formData.correo)}`);
                 const dataUsuario = await responseUsuario.json();
 
                 let usuarioEncontrado = true;
-                if (dataUsuario.estado === "NOT_FOUND") {
+                console.log(dataUsuario);
+                if (dataUsuario.length == 0) {
                     usuarioEncontrado = false;
                     this.errorIniciar = true;
                 }
 
                 if (usuarioEncontrado) {
-                    this.resultsUsuario = dataUsuario.id;
-                    this.idUsuario = this.resultsUsuario;
-                    this.recibirIdUsuario(this.resultsUsuario);
+                    this.resultsUsuario[0] = dataUsuario.id;
+                    this.idUsuario = this.resultsUsuario[0];
+                    this.recibirIdUsuario(this.resultsUsuario[0]);
+                    console.log("llega")
+                    // const responseLogin = await fetch(`http://localhost:8080/usuario/login?correo=${encodeURIComponent(this.formData.correo)}&clave=${encodeURIComponent(this.formData.clave)}`);
+                    // const dataLogin = await responseLogin.json();
 
-                    const responseLogin = await fetch(`http://localhost:8080/usuario/login?correo=${encodeURIComponent(this.formData.correo)}&clave=${encodeURIComponent(this.formData.clave)}`);
-                    const dataLogin = await responseLogin.json();
-
-                    if (dataLogin === true) {
-                        this.trasIniciar();
-                    } else {
-                        this.errorIniciar = true;
-                    }
+                    // if (dataLogin === true) {
+                    //     this.trasIniciar();
+                    // } else {
+                    //     this.errorIniciar = true;
+                    // }
                 }
             } catch (error) {
                 this.errorIniciar = true;
@@ -146,7 +165,7 @@ export default {
 
         <form className="iniciar_sesion__caja" @submit.prevent="iniciar">
             <input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
-                placeholder="Correo electrónico..." />
+                placeholder="Username..." />
             <label v-if="!userValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError1
             }}</label>

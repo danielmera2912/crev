@@ -121,8 +121,8 @@ export default {
     establecerValores() {
       this.deporte = this.results2.deporte.nombre
       this.estado = this.results2.estado
-      this.jugador1 = this.results2.usuarios[0]?.nombre
-      this.jugador2 = this.results2.usuarios[1]?.nombre
+      this.jugador1 = this.results2.usuarios[0]?.username
+      this.jugador2 = this.results2.usuarios[1]?.username
       this.ciudad = this.results2.ciudad.nombre
       this.idCiudad = this.results2.ciudad.id
       this.fecha = this.results2.fecha
@@ -142,7 +142,7 @@ export default {
       if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
-        if (dataUsuarioPermiso.nombre == this.jugador1) {
+        if (dataUsuarioPermiso.username == this.jugador1) {
           this.permisos = true
         } else {
           this.permisoParticipar = true

@@ -74,8 +74,8 @@ export default {
             nuevoAvatar: '',
             formData: {
                 id: '',
-                nombre: '',
-                clave: '',
+                username: '',
+                password: '',
                 fechaNacimiento: '',
                 correo: '',
                 avatar: '',
@@ -134,27 +134,39 @@ export default {
             formData.append('file', this.formData.avatar);
 
             try {
-                let avatarFileName= "";
+                const token = localStorage.getItem('tokenjwt');
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const config2 = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+
+                let avatarFileName = "";
                 if (this.nuevoAvatar) {
-                    const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    });
+                    const uploadResponse = await axios.post("http://127.0.0.1:8080/media/upload", formData, config2);
                     avatarFileName = uploadResponse.data;
                 }
-                else{
+                else {
                     avatarFileName = this.avatar
                 }
                 const usuarioData = {
-                    nombre: this.nombre.trim(),
-                    clave: this.textPass,
+                    username: this.nombre.trim(),
+                    password: this.textPass,
                     correo: this.correo,
                     fechaNacimiento: this.textFecha,
-                    avatar: avatarFileName,
-                    id: this.idUsuario
+                    avatar: avatarFileName
                 };
-                const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + usuarioData.id, usuarioData);
+
+
+                const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + this.idUsuario, usuarioData, config);
+                ;
                 window.location.reload();
             } catch (error) {
                 console.error(error);
