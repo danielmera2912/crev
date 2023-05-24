@@ -255,11 +255,18 @@ export default {
         this.crearEvento = false;
         this.checkForm = false;
         try {
-          this.response = await axios.post("http://127.0.0.1:8080/evento", this.formData);
+          const token = localStorage.getItem('tokenjwt');
+
+          const config = {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          };
+          this.response = await axios.post("http://127.0.0.1:8080/evento", this.formData, config);
           this.formDataJugador1.evento.id = this.response.data.id;
           this.formDataJugador2.evento.id = this.response.data.id;
-          const response2 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador1);
-          const response3 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador2);
+          const response2 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador1, config);
+          const response3 = await axios.post("http://127.0.0.1:8080/usuario_evento", this.formDataJugador2, config);
           if (this.deporteEquipo) {
             this.inscribirEquipos();
           }
@@ -275,11 +282,18 @@ export default {
 
     },
     async inscribirEquipos() {
+      const token = localStorage.getItem('tokenjwt');
+
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
       this.formDataEquipo1.evento.id = this.response.data.id;
       this.formDataEquipo2.evento.id = this.response.data.id;
-      const response4 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo1);
+      const response4 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo1, config);
 
-      const response5 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo2);
+      const response5 = await axios.post("http://127.0.0.1:8080/equipo", this.formDataEquipo2, config);
       this.inscripcionJ1.usuario.id = this.idUsuario;
       this.inscripcionJ1.equipo.id = response4.data.id;
       this.inscripcionJ2.equipo.id = response5.data.id;
@@ -291,16 +305,16 @@ export default {
       this.inscripcionJ8.equipo.id = response5.data.id;
       this.inscripcionJ9.equipo.id = response4.data.id;
       this.inscripcionJ10.equipo.id = response5.data.id;
-      const responseI1 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ1);
-      const responseI2 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ2);
-      const responseI3 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ3);
-      const responseI4 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ4);
-      const responseI5 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ5);
-      const responseI6 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ6);
-      const responseI7 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ7);
-      const responseI8 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ8);
-      const responseI9 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ9);
-      const responseI10 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ10);
+      const responseI1 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ1, config);
+      const responseI2 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ2, config);
+      const responseI3 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ3, config);
+      const responseI4 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ4, config);
+      const responseI5 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ5, config);
+      const responseI6 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ6, config);
+      const responseI7 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ7, config);
+      const responseI8 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ8, config);
+      const responseI9 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ9, config);
+      const responseI10 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ10, config);
       await this.$router.push('/partido_detalles/' + this.response.data.id);
       window.location.reload()
     },
@@ -388,9 +402,9 @@ export default {
     <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in eventos">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
-        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar'
+        :imagen2='result.usuarios[1]?.avatar' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal"
+        :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
@@ -403,9 +417,9 @@ export default {
       v-for="result in resultsCiudad">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
-        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar'
+        :imagen2='result.usuarios[1]?.avatar' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal"
+        :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
@@ -417,9 +431,9 @@ export default {
       v-for="result in resultsDeporte">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
-        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar'
+        :imagen2='result.usuarios[1]?.avatar' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal"
+        :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
@@ -431,9 +445,9 @@ export default {
       v-for="result in resultsFiltro">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
         :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='result.usuarios[0]?.username'
-        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar'
-        :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal" :puntosVisitante="result.puntosVisitante"
-        :estado="result.estado">
+        :jugador2='result.usuarios[1]?.username' :imagen1='result.usuarios[0]?.avatar'
+        :imagen2='result.usuarios[1]?.avatar' :perfil="false" :id="result.id" :puntosLocal="result.puntosLocal"
+        :puntosVisitante="result.puntosVisitante" :estado="result.estado">
       </Partido>
       <Partido v-else @click="enviarValores(result.id)" :deporte='result.deporte.nombre' :fecha='result.fecha'
         :ciudad='result.ciudad.nombre' :hora='result.hora' :jugador1='equipoNombre1' :jugador2='equipoNombre2'
@@ -447,6 +461,6 @@ export default {
     </template>
 
   </div>
-  <Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual" :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior"
-            :paginaSiguiente="paginaSiguiente" />
+  <Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual"
+    :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />
 </template>

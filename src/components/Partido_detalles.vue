@@ -98,9 +98,15 @@ export default {
       this.results2 = data
     },
     async eliminarPartido() {
+      const token = localStorage.getItem('tokenjwt');
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
       if (this.permisos) {
         try {
-          await axios.delete("http://127.0.0.1:8080/evento/" + this.id);
+          await axios.delete("http://127.0.0.1:8080/evento/" + this.id, config);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -151,6 +157,12 @@ export default {
 
     },
     async anadirJugador() {
+      const token = localStorage.getItem('tokenjwt');
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
       const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
@@ -168,7 +180,7 @@ export default {
           const datosUsuarios = await usuarios.json()
           this.formDataEvento.evento.id = this.id
           this.formDataEvento.usuario.id = this.idUsuario
-          const response = await axios.put("http://127.0.0.1:8080/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento);
+          const response = await axios.put("http://127.0.0.1:8080/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento, config);
           window.location.reload()
         } catch (error) {
           console.error(error);

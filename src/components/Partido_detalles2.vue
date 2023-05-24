@@ -150,7 +150,6 @@ export default {
       const response2 = await fetch(this.API + "/" + this.id + "/equipos")
       const data2 = await response2.json()
       this.resultsEquipos = data2
-
       const response3 = await fetch(this.API2 + "/" + this.resultsEquipos[0].id + "/usuarios")
       const data3 = await response3.json()
       this.resultsUsuariosEquipo1 = data3
@@ -192,9 +191,15 @@ export default {
       this.checkForm = !this.checkForm
     },
     async eliminarPartido() {
+      const token = localStorage.getItem('tokenjwt');
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
       if (this.permisos) {
         try {
-          await axios.delete("http://127.0.0.1:8080/evento/" + this.id);
+          await axios.delete("http://127.0.0.1:8080/evento/" + this.id, config);
           await this.$router.push('/');
           window.location.reload()
         } catch (error) {
@@ -268,6 +273,12 @@ export default {
 
     },
     async anadirJugador() {
+      const token = localStorage.getItem('tokenjwt');
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
       const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
@@ -298,7 +309,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario, config);
             // window.location.reload()
           } catch (error) {
             console.error(error);
@@ -309,7 +320,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -320,7 +331,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario, config);
             // window.location.reload()
           } catch (error) {
             console.error(error);
@@ -331,7 +342,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -342,7 +353,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -353,7 +364,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -364,7 +375,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -375,7 +386,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario, config);
             //window.location.reload()
           } catch (error) {
             console.error(error);
@@ -386,7 +397,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario);
+            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario, config);
 
           } catch (error) {
             console.error(error);
@@ -412,7 +423,9 @@ export default {
         <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo1" /></div>
         <div class="partido-detalles__enfrentamiento__equipo__jugadores">
           <RouterLink :to="`/perfil/${idJugador1}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
-            <div class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador ">{{ jugador1 }}</div>
+            <div
+              class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador ">
+              {{ jugador1 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
           </RouterLink>
           <RouterLink :to="`/perfil/${idJugador3}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">

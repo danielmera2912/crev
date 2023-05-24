@@ -116,7 +116,7 @@ export default {
             <template v-if="resultsEventos.length > 0" v-for="result in resultsEventos">
                 <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
                     :fecha='result.fecha' :ciudad='result.ciudad.nombre' :hora='result.hora'
-                    :jugador1='result.usuarios[0]?.nombre' :jugador2='result.usuarios[1]?.nombre'
+                    :jugador1='result.usuarios[0]?.username' :jugador2='result.usuarios[1]?.username'
                     :imagen1='result.usuarios[0]?.avatar' :imagen2='result.usuarios[1]?.avatar' :perfil="false"
                     :id="result.id">
                 </Partido>

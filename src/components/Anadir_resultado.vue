@@ -102,23 +102,11 @@ export default {
             this.dataCiudad = await responseCiudad.json()
         },
         cambiarResultadoLocal(e) {
-            const valor = parseInt(e.target.value, 10);
-            if (valor >= 0 && Number.isInteger(valor)) {
-                this.resultadoLocal = valor;
-                this.resultadoLocalValido = true;
-            } else {
-                this.resultadoLocalValido = false;
-            }
+            this.resultadoLocal = parseInt(e.target.value, 10);
         },
 
         cambiarResultadoVisitante(e) {
-            const valor = parseInt(e.target.value, 10);
-            if (valor >= 0 && Number.isInteger(valor)) {
-                this.resultadoVisitante = valor;
-                this.resultadoVisitanteValido = true;
-            } else {
-                this.resultadoVisitanteValido = false;
-            }
+            this.resultadoVisitante = parseInt(e.target.value, 10);
         },
 
         check() {
@@ -130,10 +118,27 @@ export default {
             this.$emit('realizarEvento')
         },
         async updatePartido() {
+            if (this.resultadoLocal >= 0 && Number.isInteger(this.resultadoLocal)) {
+                this.resultadoLocalValido = true;
+            } else {
+                this.resultadoLocalValido = false;
+            }
+            if (this.resultadoVisitante >= 0 && Number.isInteger(this.resultadoVisitante)) {
+                this.resultadoVisitanteValido = true;
+            } else {
+                this.resultadoVisitanteValido = false;
+            }
+
             if (!this.resultadoLocalValido || !this.resultadoVisitanteValido) {
                 this.hayErrores = true;
             }
             else {
+                const token = localStorage.getItem('tokenjwt');
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
                 this.hayErrores = false;
                 const response = await fetch(this.API_partido + "/" + this.id)
                 const data = await response.json()
@@ -144,7 +149,7 @@ export default {
                 this.formData.deporte.id = data.deporte.id
                 this.formData.ciudad.id = data.ciudad.id
                 try {
-                    const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
+                    const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
                     window.location.reload()
                 } catch (error) {
                     console.error(error);
@@ -175,9 +180,8 @@ export default {
                     <label for="resultadoVisitante" className="anadir_resultado__caja__etiqueta">Visitante</label>
                     <div className="anadir_resultado__caja__input">
                         <input v-on:input="cambiarResultadoVisitante" v-bind:value="resultadoVisitante"
-                            id="resultadoVisitante"
-                            className="anadir_resultado__caja__elemento anadir_resultado__caja__elemento--visitante"
-                            type="number" step="1" placeholder="Resultado visitante" required />
+                            id="resultadoVisitante" class="anadir_resultado__caja__elemento" type="number" step="1"
+                            placeholder="Resultado visitante" required />
                     </div>
                 </div>
                 <div v-if="hayErrores" className="anadir_resultado__caja__informativo1--visible">{{
