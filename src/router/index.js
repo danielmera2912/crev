@@ -25,6 +25,11 @@ const router = createRouter({
       path: '/partido_detalles/:id',
       name: 'partido_detalles',
       component: () => import('../views/PartidoDetallesView.vue')
+    },
+    {
+      path: '/:catchAll(.*)',  // Ruta de captura para cualquier ruta no encontrada
+      name: 'not-found',
+      component: () => import('../views/NotFoundView.vue')
     }
   ]
 })
