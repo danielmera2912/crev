@@ -1,5 +1,7 @@
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Registrar_sesion.vue - Componente para registrar sesión
  * @author Daniel Mera Sachse
@@ -163,6 +165,13 @@ export default {
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
                     const responsePost = await axios.post("http://127.0.0.1:8080/usuario", this.formData);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Perfil creado',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     this.$emit('check')
                     this.$emit('abrirIniciar')
                 } else {
@@ -234,7 +243,7 @@ export default {
                     @click.prevent="registrar" value="Registrar" readonly />
                 <div class="registrar__boton__condicion">o</div>
                 <input className="registrar__boton__opcion registrar__boton__opcion--iniciar" value="Identíficate"
-                    @click="$emit('abrirIniciarSinRegistrar')"/>
+                    @click="$emit('abrirIniciarSinRegistrar')" />
             </section>
         </form>
     </div>

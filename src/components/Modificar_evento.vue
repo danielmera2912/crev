@@ -1,5 +1,7 @@
 <script setup>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Modificar_evento.vue - Componente modificar evento de partido detalles
  * @author Daniel Mera Sachse
@@ -267,7 +269,7 @@ export default {
         },
         cambiarTextoCiudad(e) {
             this.textCiudad = e.target.value
-            if (this.textCiudad!="") {
+            if (this.textCiudad != "") {
                 this.ciudadValida = true
             } else {
                 this.ciudadValida = false
@@ -311,7 +313,15 @@ export default {
             this.formData.ciudad.id = this.textCiudad
             try {
                 const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
-                window.location.reload()
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Evento actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                //window.location.reload()
+                //TODO: arreglar
             } catch (error) {
                 console.error(error);
             }
@@ -332,7 +342,8 @@ export default {
                 <div class="crear_evento__caja__deporte">
                     <select @input="cambiarTextoCiudad" class="crear_evento__caja__deporte__elemento">
                         <option value="">Elige una ciudad</option>
-                        <option v-for="ciudad in dataCiudad" :value="ciudad.id" :selected="ciudad.id === idCiudad">{{ ciudad.nombre }}</option>
+                        <option v-for="ciudad in dataCiudad" :value="ciudad.id" :selected="ciudad.id === idCiudad">{{
+                            ciudad.nombre }}</option>
                     </select>
                 </div>
                 <div v-if="!ciudadValida && hayErrores" className="crear_evento__caja__informativo1--visible">{{

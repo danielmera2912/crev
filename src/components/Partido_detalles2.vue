@@ -2,6 +2,8 @@
 import axios from 'axios';
 import Modificar_evento from './Modificar_evento.vue'
 import AnadirResultado from './Anadir_resultado.vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Partido_detalles2.vue - Componente de los detalles de un partido de equipos en concreto
  * @author Daniel Mera Sachse
@@ -201,7 +203,15 @@ export default {
         try {
           await axios.delete("http://127.0.0.1:8080/evento/" + this.id, config);
           await this.$router.push('/');
-          window.location.reload()
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Evento borrado',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          // window.location.reload()
+          // TODO: arreglar
         } catch (error) {
           console.error(error);
         }
@@ -530,4 +540,5 @@ export default {
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
         pulsa aquí</RouterLink> para volver al inicio.</div>
-  </div></template>
+  </div>
+</template>

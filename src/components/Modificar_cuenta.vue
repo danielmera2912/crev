@@ -1,5 +1,8 @@
 <script setup>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
+import { ref } from 'vue';
 /**
  * @file Modificar_cuenta.vue - Componente para modificar cuenta
  * @author Daniel Mera Sachse
@@ -27,6 +30,8 @@ import axios from 'axios';
  * @vue-data {String} inputType - Tipo del input
  * @vue-data {String} icon - Icono para el input
  */
+
+
 defineProps({
     nombre: {
         type: String,
@@ -46,6 +51,10 @@ defineProps({
     },
     idUsuario: {
         type: String,
+        required: true
+    },
+    cambiosRealizados: {
+        type: Function,
         required: true
     }
 })
@@ -129,6 +138,9 @@ export default {
                 this.hayErrores = true
             }
         },
+        llamarCambiosRealizados(){
+            this.cambiosRealizados();
+        },
         async lanzar_modificar_cuenta() {
             const formData = new FormData();
             formData.append('file', this.formData.avatar);
@@ -166,8 +178,17 @@ export default {
 
 
                 const updateResponse = await axios.put("http://127.0.0.1:8080/usuario/" + this.idUsuario, usuarioData, config);
-                ;
-                window.location.reload();
+                localStorage.removeItem('avatar')
+                localStorage.setItem('avatar', avatarFileName);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Perfil actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.llamarCambiosRealizados()
+                //window.location.reload(); //TODO: arreglar
             } catch (error) {
                 console.error(error);
             }
@@ -184,7 +205,7 @@ export default {
             if (!this.nuevoAvatar) {
                 this.nuevoAvatar = '';
             }
-        },
+        }
     }
 }
 </script>

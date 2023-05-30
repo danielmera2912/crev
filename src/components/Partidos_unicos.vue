@@ -4,6 +4,8 @@ import Crear_evento from './Crear_evento.vue'
 import Buscador from '../components/Buscador.vue'
 import Paginacion from '../components/Paginacion.vue'
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Partidos_unicos.vue - Componente de los partidos únicos
  * @author Daniel Mera Sachse
@@ -316,7 +318,13 @@ export default {
       const responseI9 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ9, config);
       const responseI10 = await axios.post("http://127.0.0.1:8080/usuario_equipo", this.inscripcionJ10, config);
       await this.$router.push('/partido_detalles/' + this.response.data.id);
-      window.location.reload()
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Evento creado',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
     toggleCheckForm() {
       this.checkForm = !this.checkForm

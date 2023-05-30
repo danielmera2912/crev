@@ -1,5 +1,7 @@
 <script setup>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Modificar_evento.vue - Componente modificar evento de partido detalles
  * @author Daniel Mera Sachse
@@ -150,7 +152,15 @@ export default {
                 this.formData.ciudad.id = data.ciudad.id
                 try {
                     const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
-                    window.location.reload()
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Resultado añadido',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    //window.location.reload()
+                    //TODO: arreglar
                 } catch (error) {
                     console.error(error);
                 }

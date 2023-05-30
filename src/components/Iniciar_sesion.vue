@@ -1,5 +1,7 @@
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Iniciar_sesion.vue - Componente para iniciar sesión
  * @author Daniel Mera Sachse
@@ -80,6 +82,7 @@ export default {
                 this.hayErrores = true
             }
         },
+        
         async login() {
             await axios.post("http://127.0.0.1:8080/auth/login", {
                 username: this.textUser.trim(),
@@ -91,7 +94,7 @@ export default {
                     localStorage.setItem('avatar', response.data.avatar);
                     localStorage.setItem('userId', response.data.id);
                     this.trasIniciar()
-                    
+
                 })
                 .catch(error => {
                     this.errorIniciar = true;
@@ -104,8 +107,14 @@ export default {
             await this.$router.push('/perfil/' + localStorage.getItem('userId'))
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
-            window.location.reload()
-
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Sesión iniciada',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            this.recibirIdUsuario(localStorage.getItem('userId'))
         },
         async lanzarIniciarSesion() {
             this.formData = {
@@ -165,7 +174,7 @@ export default {
 
         <form className="iniciar_sesion__caja" @submit.prevent="iniciar">
             <input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
-                placeholder="Username..." />
+                placeholder="Nombre de usuario..." />
             <label v-if="!userValido && hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError1
             }}</label>

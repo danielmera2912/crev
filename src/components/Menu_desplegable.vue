@@ -29,11 +29,13 @@ export default {
             showAcceso: false,
             checkForm: false,
             checkRegistro: false,
-            avatarUsuario: ''
+            avatarUsuario: '',
+            idUsuarioActivo: 0,
         };
     },
     mounted() {
         if (this.idUsuario != 0) {
+            this.idUsuarioActivo = localStorage.getItem('userId');
             this.sesionIniciada = true;
         }
         else {
@@ -41,9 +43,21 @@ export default {
         }
         this.conseguirDatosUsuario()
     },
+    computed: {
+        avatarUsuario() {
+            return localStorage.getItem('avatar');
+        }
+    },
+    watch: {
+        idUsuario(newValue) {
+            this.idUsuarioActivo = newValue;
+        }
+    },
+
+
     methods: {
         async conseguirDatosUsuario() {
-            const usuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
+            const usuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuarioActivo)
             const dataUsuario = await usuario.json()
             this.avatarUsuario = dataUsuario.avatar
         },
@@ -152,7 +166,7 @@ export default {
         </ul>
         <ul class="encabezado__menu__lista" v-if="showIniciado">
             <li class="encabezado__menu__lista__elemento">
-                <RouterLink :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
+                <RouterLink :to="`/perfil/${idUsuarioActivo}`" @click="toggleMenu">Perfil</RouterLink>
             </li>
             <li class="encabezado__menu__lista__elemento">
                 <RouterLink to="/" @click="cerrarSesion">Cerrar sesión
@@ -167,7 +181,7 @@ export default {
                 <RouterLink to="/busqueda_usuarios">Usuarios</RouterLink>
             </li>
             <li class="encabezado__menu__lista__elemento">
-                <RouterLink :to="`/perfil/${idUsuario}`" @click="toggleMenu">Perfil</RouterLink>
+                <RouterLink :to="`/perfil/${idUsuarioActivo}`" @click="toggleMenu">Perfil</RouterLink>
             </li>
             <li class="encabezado__menu__lista__elemento">
                 <RouterLink to="/" @click="cerrarSesion">Cerrar sesión

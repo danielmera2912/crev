@@ -41,16 +41,27 @@ export default {
         }
     },
     mounted() {
-        this.llamarApiUsuario()
+        this.llamarApiUsuario();
     },
-    // watch: {
-    //     modificar() {
-    //         if(this.modificar == true) {
-    //             this.llamarApiUsuario()
-    //         }
 
-    //     }
-    // },
+    watch: {
+        '$route.params.id': {
+            immediate: true,
+            handler() {
+                this.llamarApiUsuario();
+            },
+        },
+        cambios: {
+            immediate: true,
+            handler(newVal) {
+                if (newVal) {
+                    this.llamarApiUsuario();
+                }
+            },
+        },
+    },
+
+
     methods: {
         producirCambios() {
             this.cambios = !this.cambios
@@ -85,6 +96,10 @@ export default {
             const responseEvento = await fetch("http://127.0.0.1:8080/usuarios/" + this.idUsuarioActual + "/eventos")
             const dataEvento = await responseEvento.json()
             this.resultsEventos = dataEvento
+        },
+
+        handleCambiosRealizados() {
+            this.llamarApiUsuario()
         }
     }
 }
@@ -131,8 +146,8 @@ export default {
         </div>
         <Modificar v-if="modificar && idUsuario == idUsuarioActual" @cerrar="cambiarModificar" :modificar="modificar"
             @check="toggleCheck" :checkForm="checkForm" @modificar="guardarModificado" :correo="correo" :nombre="nombre"
-            :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios">
-        </Modificar>
+            :fecha_nacimiento="fecha_nacimiento" :avatar="avatar" :idUsuario="idUsuario" @cambiar="producirCambios"
+            :cambiosRealizados="handleCambiosRealizados"></Modificar>
     </main>
     <main v-else-if="idUsuarioActual == 0">
         "Plaza vacante" no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún

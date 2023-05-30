@@ -53,13 +53,12 @@ export default {
 }
 </script>
 <template>
-  <Header v-if="cargando" @recibirIdUsuario="recibirIdUsuario"
-    :idUsuario="idUsuario"></Header>
-  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" :id="id"
-    :results="results" :idUsuario="idUsuario" />
+  <Header v-if="cargando" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
+  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" :id="id" :results="results"
+    :idUsuario="idUsuario" />
   <div v-else class="servidor">
-      <img class="servidor__logo" src="./assets/imagenes/crev_logo.png"/>
-      <div class="servidor__texto">Esperando respuesta del servidor</div>
+    <img class="servidor__logo" src="./assets/imagenes/crev_logo.png" />
+    <div class="servidor__texto">Esperando respuesta del servidor</div>
   </div>
   <Footer></Footer>
 </template>
