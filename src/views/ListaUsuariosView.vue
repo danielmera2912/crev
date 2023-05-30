@@ -67,7 +67,7 @@ function paginaSiguiente() {
             </button>
         </form>
 
-        <div class="lista_usuario">
+        <div v-if="dataUsuario.length>0" class="lista_usuario">
             <ul class="lista_usuario__grupo">
                 <li v-for="usuario in dataUsuario" :key="usuario.id">
                     <RouterLink :to="`/perfil/${usuario.id}`" class="lista_usuario__grupo__info">
@@ -80,6 +80,9 @@ function paginaSiguiente() {
                     </RouterLink>
                 </li>
             </ul>
+        </div>
+        <div v-else class="lista_usuario">
+            No hay usuarios con esta combinación de caracteres.
         </div>
         <Paginacion v-if="localSearch == ''" :tipo="'usuario'" :paginaActual="paginaActual" :totalPaginas="totalPaginas"
             :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />

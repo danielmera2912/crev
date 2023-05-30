@@ -132,7 +132,6 @@ export default {
   async mounted() {
     this.id = this.$route.params.id;
     await this.llamarApiPartido()
-    this.establecerValores()
   },
   methods: {
     recibirValores() {
@@ -188,6 +187,7 @@ export default {
       else {
         this.contadorJugador = 11
       }
+      this.establecerValores()
     },
     toggleCheckForm() {
       this.checkForm = !this.checkForm
@@ -210,8 +210,6 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          // window.location.reload()
-          // TODO: arreglar
         } catch (error) {
           console.error(error);
         }
@@ -270,6 +268,10 @@ export default {
     finalizarEvento() {
       this.registrarResultado = !this.registrarResultado
     },
+    // Cuando detexta un cambio, actualiza los campos del usuario
+    handleCambiosRealizados() {
+      this.llamarApiPartido()
+    },
     async establecerPermiso() {
       if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
@@ -295,12 +297,24 @@ export default {
       if (this.resultsUsuario.username == this.jugador1 || this.resultsUsuario.username == this.jugador2 || this.resultsUsuario.username == this.jugador3 || this.resultsUsuario.username == this.jugador4
         || this.resultsUsuario.username == this.jugador5 || this.resultsUsuario.username == this.jugador6 || this.resultsUsuario.username == this.jugador7 || this.resultsUsuario.username == this.jugador8
         || this.resultsUsuario.username == this.jugador9 || this.resultsUsuario.username == this.jugador10) {
-        alert("Ya estás participando")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '¡Ya estás participando!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       else if (this.jugador2 != "Plaza vacante" && this.jugador3 != "Plaza vacante" && this.jugador4 != "Plaza vacante" && this.jugador5 != "Plaza vacante" &&
         this.jugador6 != "Plaza vacante" && this.jugador7 != "Plaza vacante" && this.jugador8 != "Plaza vacante" && this.jugador9 != "Plaza vacante" &&
         this.jugador10 != "Plaza vacante") {
-        alert("Plazas llenas")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '¡Plazas llenas!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       else {
         const equipos = await fetch("http://127.0.0.1:8080/evento/" + this.id + "/equipos")
@@ -413,8 +427,14 @@ export default {
             console.error(error);
           }
         }
-
-        window.location.reload()
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '¡Participando en el evento!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        this.handleCambiosRealizados()
 
       }
     }
@@ -532,10 +552,10 @@ export default {
       :imagen7="imagen7" :imagen8="imagen8" :imagen9="imagen9" :imagen10="imagen10" :equipo1="equipo1" :equipo2="equipo2"
       :ciudad="ciudad" :idJugador1="idJugador1" :idJugador2="idJugador2" :idJugador3="idJugador3" :idJugador4="idJugador4"
       :idJugador5="idJugador5" :idJugador6="idJugador6" :idJugador7="idJugador7" :idJugador8="idJugador8"
-      :idJugador9="idJugador9" :idJugador10="idJugador10" :idCiudad="idCiudad">
+      :idJugador9="idJugador9" :idJugador10="idJugador10" :idCiudad="idCiudad" :cambiosRealizados="handleCambiosRealizados">
     </Modificar_evento>
     <AnadirResultado v-if="permisos && participacion" @cerrarTodo="toggleParticipacion" @finalizarEvento="finalizarEvento"
-      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id"></AnadirResultado>
+      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id" :cambiosRealizados="handleCambiosRealizados"></AnadirResultado>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">

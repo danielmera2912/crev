@@ -81,7 +81,6 @@ export default {
   async mounted() {
     this.id = this.$route.params.id;
     await this.llamarApiPartido()
-    this.establecerValores()
 
   },
   methods: {
@@ -98,6 +97,7 @@ export default {
       const response = await fetch(this.API_partido + "/" + this.id)
       const data = await response.json()
       this.results2 = data
+      this.establecerValores()
     },
     async eliminarPartido() {
       const token = localStorage.getItem('tokenjwt');
@@ -117,8 +117,6 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          // window.location.reload()
-          //TODO: arreglar
         } catch (error) {
           console.error(error);
         }
@@ -154,6 +152,9 @@ export default {
     finalizarEvento() {
       this.registrarResultado = !this.registrarResultado
     },
+    handleCambiosRealizados() {
+      this.llamarApiPartido()
+    },
     async establecerPermiso() {
       if (this.idUsuario != 0) {
         const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
@@ -177,10 +178,22 @@ export default {
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.name == this.jugador1) {
-        alert("Ya estás participando")
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '¡Ya estás participando!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       else if (this.jugador2 != "Plaza vacante") {
-        alert("Plazas llenas")
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '¡Plazas llenas!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       else {
         this.formData.hora = this.hora
@@ -191,7 +204,14 @@ export default {
           this.formDataEvento.evento.id = this.id
           this.formDataEvento.usuario.id = this.idUsuario
           const response = await axios.put("http://127.0.0.1:8080/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento, config);
-          window.location.reload()
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '¡Participando en el evento!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.handleCambiosRealizados()
         } catch (error) {
           console.error(error);
         }
@@ -213,7 +233,9 @@ export default {
         class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
       <RouterLink :to="`/perfil/${idJugador1}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 1</div>
-        <div class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador">{{ jugador1 }}</div>
+        <div
+          class="partido-detalles__enfrentamiento__jugador__nombre partido-detalles__enfrentamiento__jugador__nombre--creador">
+          {{ jugador1 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
         }}</div>
@@ -259,11 +281,14 @@ export default {
     <Modificar_evento v-if="permisos && creacion" @cerrarTodo="toggleCreacion" @realizarEvento="realizarEvento"
       @check="toggleCheckForm" :checkForm="checkForm" :id="id" :ciudad="ciudad" :deporte="deporte" :fecha="fecha"
       :hora="hora" :jugador1="jugador1" :jugador2="jugador2" :imagen1="imagen1" :imagen2="imagen2"
-      :idJugador1="idJugador1" :idJugador2="idJugador2" :idCiudad="idCiudad"></Modificar_evento>
+      :idJugador1="idJugador1" :idJugador2="idJugador2" :idCiudad="idCiudad" :cambiosRealizados="handleCambiosRealizados">
+    </Modificar_evento>
     <AnadirResultado v-if="permisos && participacion" @cerrarTodo="toggleParticipacion" @finalizarEvento="finalizarEvento"
-      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id"></AnadirResultado>
+      @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id"
+      :cambiosRealizados="handleCambiosRealizados"></AnadirResultado>
   </div>
   <div v-else>
     <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
         pulsa aquí</RouterLink> para volver al inicio.</div>
-</div></template>
+  </div>
+</template>

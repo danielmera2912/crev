@@ -61,6 +61,10 @@ defineProps({
     id: {
         type: String,
         required: true
+    },
+    cambiosRealizados: {
+        type: Function,
+        required: true
     }
 })
 </script>
@@ -106,7 +110,10 @@ export default {
         cambiarResultadoLocal(e) {
             this.resultadoLocal = parseInt(e.target.value, 10);
         },
-
+        llamarCambiosRealizados(){
+            this.$emit('cerrarTodo')
+            this.cambiosRealizados();
+        },
         cambiarResultadoVisitante(e) {
             this.resultadoVisitante = parseInt(e.target.value, 10);
         },
@@ -159,8 +166,7 @@ export default {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    //window.location.reload()
-                    //TODO: arreglar
+                    this.llamarCambiosRealizados()
                 } catch (error) {
                     console.error(error);
                 }

@@ -213,6 +213,10 @@ defineProps({
         type: String,
         required: false
     },
+    cambiosRealizados: {
+        type: Function,
+        required: true
+    }
 })
 </script>
 <script>
@@ -307,12 +311,21 @@ export default {
                 this.hayErrores = true
             }
         },
+        llamarCambiosRealizados(){
+            this.cambiosRealizados();
+        },
         async updatePartido() {
             this.formData.fecha = this.textFecha
             this.formData.hora = this.textHora
             this.formData.ciudad.id = this.textCiudad
+            const token = localStorage.getItem('tokenjwt');
+            const config = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
             try {
-                const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData);
+                const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -320,8 +333,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                //window.location.reload()
-                //TODO: arreglar
+                this.llamarCambiosRealizados()
             } catch (error) {
                 console.error(error);
             }

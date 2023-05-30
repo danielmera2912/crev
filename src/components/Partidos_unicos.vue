@@ -274,7 +274,7 @@ export default {
           }
           else {
             await this.$router.push('/partido_detalles/' + this.response.data.id);
-            window.location.reload()
+            //window.location.reload()
           }
 
         } catch (error) {

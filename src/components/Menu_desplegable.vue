@@ -82,7 +82,6 @@ export default {
                 await localStorage.removeItem('username');
                 await localStorage.removeItem('avatar');
                 this.$router.push('/');
-                window.location.reload()
             } catch (error) {
                 console.error(error);
             }

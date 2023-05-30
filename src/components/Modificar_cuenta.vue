@@ -138,7 +138,7 @@ export default {
                 this.hayErrores = true
             }
         },
-        llamarCambiosRealizados(){
+        llamarCambiosRealizados() {
             this.cambiosRealizados();
         },
         async lanzar_modificar_cuenta() {
@@ -188,7 +188,6 @@ export default {
                     timer: 1500
                 })
                 this.llamarCambiosRealizados()
-                //window.location.reload(); //TODO: arreglar
             } catch (error) {
                 console.error(error);
             }
@@ -200,6 +199,17 @@ export default {
         },
         handleFileUpload(event) {
             const file = event.target.files[0];
+            if (file.type === 'image/svg+xml') {
+                // Mostrar un mensaje de error al intentar subir un svg
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: '¡No se permiten archivos SVG como avatar!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                return;
+            }
             this.formData.avatar = file;
             this.nuevoAvatar = URL.createObjectURL(file);
             if (!this.nuevoAvatar) {
