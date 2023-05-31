@@ -1,8 +1,9 @@
+// Estilos para la lista de usuario
 .lista_usuario
     display: flex
     justify-content: center
     margin-top: 1px
-
+    // usuario
     &__grupo
         list-style-type: none
         padding: 0
@@ -13,35 +14,36 @@
         @media (max-width: 660px)
             display: flex
             flex-direction: column
-    &__grupo__info
-        background-color: $color_primario
-        padding: 10px
-        border-radius: 5px
-        display: flex
-        flex-direction: column
-        align-items: center
-        width: 200px
-        margin: 0 auto
-
-    &__grupo__info__avatar
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        margin-bottom: 10px
-
-    &__grupo__info__detalles
-        color: $color_oscuro
-        text-align: center
-
-    &__grupo__info__detalles__nombre
-        margin: 0
-        font-size: $xs
-        font-family: $fuente_oswald
-        font-weight: bold
-        text-align: center
-
-    &__grupo__info__detalles__datos
-        margin: 5px 0
-        font-size: $xs
-        font-family: $fuente_inter
-        text-align: center
+        // info del usuario
+        &__info
+            background-color: $color_primario
+            padding: 10px
+            border-radius: 5px
+            display: flex
+            flex-direction: column
+            align-items: center
+            width: 200px
+            margin: 0 auto
+            // avatar del usuario
+            &__avatar
+                width: 50px
+                height: 50px
+                border-radius: 50%
+                margin-bottom: 10px
+            // detalles del usuario
+            &__detalles
+                color: $color_oscuro
+                text-align: center
+                // nombre del usuario
+                &__nombre
+                    margin: 0
+                    font-size: $xs
+                    font-family: $fuente_oswald
+                    font-weight: bold
+                    text-align: center
+                // datos extras del usuario
+                &__datos
+                    margin: 5px 0
+                    font-size: $xs
+                    font-family: $fuente_inter
+                    text-align: center

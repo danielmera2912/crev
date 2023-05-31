@@ -1,3 +1,4 @@
+// estilos para los eventos de equipos
 .partido-detalles__enfrentamiento__equipo
     display: flex
     align-items: center
@@ -46,18 +47,19 @@
         align-items: center
         margin: 0 16px
 
-.partido-detalles__enfrentamiento__jugador__nombre
-    font-size: 16px
-    margin-bottom: 8px
-    @media (max-width: 1220px)
-        font-size: 11px
+.partido-detalles__enfrentamiento
+    &__jugador__nombre
+        font-size: 16px
+        margin-bottom: 8px
+        @media (max-width: 1220px)
+            font-size: 11px
     
-.partido-detalles__enfrentamiento__jugador__avatar
-    width: 64px
-    height: 64px
-    border-radius: 50%
+    &__jugador__avatar
+        width: 64px
+        height: 64px
+        border-radius: 50%
 
-.partido-detalles__enfrentamiento__duelo
-    font-size: 24px
-    font-weight: bold
-    margin: 0 32px
+    &__duelo
+        font-size: 24px
+        font-weight: bold
+        margin: 0 32px

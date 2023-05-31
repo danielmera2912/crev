@@ -27,6 +27,11 @@ const router = createRouter({
       component: () => import('../views/PartidoDetallesView.vue')
     },
     {
+      path: '/aviso_legal',
+      name: 'aviso_legal',
+      component: () => import('../views/AvisoLegalView.vue')
+    },
+    {
       path: '/:catchAll(.*)',  // Ruta de captura para cualquier ruta no encontrada
       name: 'not-found',
       component: () => import('../views/NotFoundView.vue')

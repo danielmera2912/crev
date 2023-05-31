@@ -10,6 +10,6 @@ import Buscador from './Buscador.vue'
 
 <template>
   <footer class="pie">
-    <RouterLink to="/">Copyright 2023. Aviso Legal.</RouterLink>
+    <RouterLink to="/aviso_legal">Copyright 2023. Aviso Legal.</RouterLink>
   </footer>
 </template>

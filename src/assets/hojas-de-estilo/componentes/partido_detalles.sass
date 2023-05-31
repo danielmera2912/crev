@@ -1,3 +1,4 @@
+// Estilos para los detalles de un evento realziado
 .partido-detalles
     display: flex
     flex-direction: column
@@ -11,97 +12,131 @@
             margin-bottom: 1rem
         @media (max-width: 500px)
             margin-bottom: 2rem
-.partido-detalles__enfrentamiento
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
-    width: 100%
-    margin: 20px 0
-    background-color: #f2f2f2
-    border-radius: 10px
-    box-shadow: 0px 0px 10px #ccc
-    position: relative
-    @media (max-width: 500px)
-        margin: 0
-    &__borrar
-        color: $color_secundario_oscuro
-        position: absolute
-        right: 0.2rem
-        top: 0.2rem
-        cursor: pointer
+    // plantilla de enfrentamiento entre 2 rivales
+    &__enfrentamiento
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        width: 100%
+        margin: 20px 0
+        background-color: #f2f2f2
+        border-radius: 10px
+        box-shadow: 0px 0px 10px #ccc
+        position: relative
         @media (max-width: 500px)
-            bottom: 0.2rem
-            top: auto
+            margin: 0
+        &__borrar
+            color: $color_secundario_oscuro
+            position: absolute
+            right: 0.2rem
+            top: 0.2rem
+            cursor: pointer
+            @media (max-width: 500px)
+                bottom: 0.2rem
+                top: auto
+        &__borrar:hover
+            color: $color_secundario_claro
+        // datos del jugador
+        &__jugador
+            display: flex
+            flex-direction: column
+            align-items: center
+            text-align: center
+            margin: 0 20px
+            width: 20%
 
-.partido-detalles__enfrentamiento__jugador
-    display: flex
-    flex-direction: column
-    align-items: center
-    text-align: center
-    margin: 0 20px
-    width: 20%
+            &__texto
+                font-weight: bold
+                font-size: 18px
+                color: $color_oscuro 
+                text-decoration: none
+                @media (max-width: 435px)
+                    font-size: 15px
 
-.partido-detalles__enfrentamiento__jugador__texto
-    font-weight: bold
-    font-size: 18px
-    color: $color_oscuro !important
-    text-decoration: none !important
-    @media (max-width: 435px)
-        font-size: 15px
+            &__nombre
+                font-size: 16px
+                margin-top: 20px
+                color: $color_oscuro
+                text-decoration: none
+                @media (max-width: 435px)
+                    font-size: 13px
 
-.partido-detalles__enfrentamiento__jugador__nombre
-    font-size: 16px
-    margin-top: 20px
-    color: $color_oscuro !important
-    text-decoration: none
-    @media (max-width: 435px)
-        font-size: 13px
+            &__nombre--creador
+                text-decoration: underline
+                font-weight: bold
 
-.partido-detalles__enfrentamiento__jugador__nombre--creador
-    text-decoration: underline
-    font-weight: bold
-
-.partido-detalles__enfrentamiento__jugador__avatar
-    width: 100px
-    height: 100px
-    border-radius: 50px
-    margin-top: 20px
-    margin-bottom: 20px
-
-.partido-detalles__enfrentamiento__duelo
-    font-weight: bold
-    font-size: 36px
-    margin: 20px
-    @media (max-width: 400px)
-        margin: 0px
-.partido-detalles__enfrentamiento__duelo > img
-    @media (max-width: 400px)
-        width: 40px
-.partido-detalles__datos
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-between
-    align-items: center
-    margin: 20px 0
-    padding: 20px
-    border: 1px solid $color_claro
-    border-radius: 10px
-    position: relative
-    @media (max-width: 1200px)
+            &__avatar
+                width: 100px
+                height: 100px
+                border-radius: 50px
+                margin-top: 20px
+                margin-bottom: 20px
+        &__duelo
+            font-weight: bold
+            font-size: 36px
+            margin: 20px
+            @media (max-width: 400px)
+                margin: 0px
+        &__duelo > img
+            @media (max-width: 400px)
+                width: 40px
+    // datos del evento
+    &__datos
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        align-items: center
+        margin: 20px 0
+        padding: 20px
+        border: 1px solid $color_claro
+        border-radius: 10px
+        position: relative
+        @media (max-width: 1200px)
+            padding: 10px
+        &__enunciado
+            font-size: 18px
+            font-weight: bold
+            margin-bottom: 20px
+    &__deporte
+        font-weight: bold
+        margin-top: 1rem
+        font-size: $l
+        @media (max-width: 660px)
+            font-size: $s
+            margin-bottom: 0.5rem
+    &__datos__modificar
+        position: absolute
+        top: 1px
+        right: 1px
+        color: $color_secundario_oscuro
+        cursor: pointer
+    &__enfrentamiento__jugador__puntuacion
+        font-size: 20px
+        font-weight: bold
+        margin-top: 10px
+        color: $color_oscuro
+        display: inline-flex
+        justify-content: center
+        align-items: center
+        padding: 5px
+        border: 2px solid $color_oscuro
+        border-radius: 50%
+        width: 30px
+        height: 30px
+        line-height: 30px
+        margin-bottom: 0.35rem
+    &__finalizado
+        background-color: $color_secundario_oscuro
+        color: $color_claro
         padding: 10px
-.partido-detalles__deporte
-    font-weight: bold
-    margin-top: 1rem
-    font-size: $l
-    @media (max-width: 660px)
-        font-size: $s
-        margin-bottom: 0.5rem
-.partido-detalles__datos__enunciado
-    font-size: 18px
-    font-weight: bold
-    margin-bottom: 20px
+        font-weight: bold
+        font-size: 18px
+        text-align: center
+        @media (max-width: 660px)
+            margin-bottom: 1.5rem
 
+// corrección de datos del evento
 .partido-detalles__datos__ciudad,
 .partido-detalles__datos__fecha,
 .partido-detalles__datos__hora
@@ -120,31 +155,4 @@
 .partido-detalles__datos__hora__dato
     font-size: 16px
     font-weight: normal
-.partido-detalles__datos__modificar
-    position: absolute
-    top: 1px
-    right: 1px
-    color: $color_secundario_oscuro
-    cursor: pointer
-.partido-detalles__enfrentamiento__jugador__puntuacion
-    font-size: 20px
-    font-weight: bold
-    margin-top: 10px
-    color: $color_oscuro
-    display: inline-flex
-    justify-content: center
-    align-items: center
-    padding: 5px
-    border: 2px solid $color_oscuro
-    border-radius: 50%
-    width: 30px
-    height: 30px
-    line-height: 30px
-    margin-bottom: 0.35rem
-.partido-detalles__finalizado
-    background-color: $color_secundario_oscuro
-    color: $color_claro
-    padding: 10px
-    font-weight: bold
-    font-size: 18px
-    text-align: center
+    

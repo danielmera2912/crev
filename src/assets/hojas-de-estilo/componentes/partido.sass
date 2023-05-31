@@ -1,3 +1,4 @@
+// estilos para la lista de eventos
 main
     padding: 1rem
 .deporte
@@ -9,6 +10,7 @@ main
     align-items: center
     flex-direction: column
     height: 100%
+// interfaz principal
 .interfaz
     margin-top: 1rem
     margin-bottom: 1rem
@@ -22,6 +24,7 @@ main
     @media (max-width: 980px)
         width: auto
         padding: 0 1rem
+    // filtro de buscar por ciudad
     &__filtro
         position: relative
         height: 2.2rem
@@ -39,7 +42,7 @@ main
             margin-right: 1rem
             margin-left: 1rem
             width: 100%
-
+    // registrar resultado
     &__registrar
         height: 2.2rem
         position: absolute
@@ -48,36 +51,39 @@ main
         padding-top: 0
         @media (max-width: 980px)
             position: static
-
+// Estilos del evento de la lista
 .partido
     position: relative
-    font-family: $fuente_inter !important
+    font-family: $fuente_inter
     background-color: $color_terciario
-    color: $color_oscuro !important
+    color: $color_oscuro 
     border-radius: 25px
     text-align: center
     margin-bottom: 1.6rem
     width: 60rem
-    text-decoration: none !important
+    text-decoration: none 
     @media (max-width: 980px)
         width: 100%
         font-size: $xs
     @media (max-width: 510px)
         font-size: $xs
+    // resultado del evento
     &__resultado
         position: absolute
         top: 0
         right: 0
         color: $color_secundario_oscuro
         cursor: pointer
+    // deporte jugado del evento
     &__deporte
         padding: 0.5rem
         font-family: $fuente_oswald
         font-weight: bold
+    // datos del evento
     &__datos
         display: flex
         justify-content: center
-
+        // rivales del evento
         &__rival
             display: flex
             padding: 1rem
@@ -88,7 +94,7 @@ main
                 width: 8rem
                 flex-direction: column
                 align-items: center
-
+            // avatar de los jugadores
             &__imagen
                 width: 4.25rem
                 height: 4.25rem
@@ -100,7 +106,7 @@ main
                 @media (max-width: 420px)
                     width: 2.1rem
                     height: 2.1rem
-
+            // nombre de los jugadores
             &__nombre
                 display: flex
                 align-items: center
@@ -123,6 +129,7 @@ main
                     margin-left: 0.5rem
                     margin-right: 0.5rem
                     font-size: 0.6rem
+        // detalles del evento
         &__detalles
             padding: 1rem
             margin-left: 0.5rem
@@ -140,6 +147,7 @@ main
             &__hora
                 margin-top: 0.5rem
                 margin-bottom: 0.5rem
+    // estado del evento: finalizado o en curso
     &__estado
         padding: 10px
         border-radius: 5px
@@ -160,56 +168,58 @@ main
         &__finalizado
             background-color: $color_rojo
             color: $color_primario
-.partido__estado__resultadoLocal,
-.partido__estado__resultadoVisitante
-    font-size: 20px
-    font-weight: bold
-    margin-top: 10px
-    color: $color_oscuro
-    display: inline-flex
-    justify-content: center
-    align-items: center
-    padding: 5px
-    border: 2px solid $color_oscuro
-    border-radius: 50%
-    width: 30px
-    height: 30px
-    line-height: 30px
-    margin-bottom: 0.35rem
+        // estilos de los resultados del evento
+        &__resultadoLocal,
+        &__resultadoVisitante
+            font-size: 20px
+            font-weight: bold
+            margin-top: 10px
+            color: $color_oscuro
+            display: inline-flex
+            justify-content: center
+            align-items: center
+            padding: 5px
+            border: 2px solid $color_oscuro
+            border-radius: 50%
+            width: 30px
+            height: 30px
+            line-height: 30px
+            margin-bottom: 0.35rem
 
-.partido__estado__resultadoLocal
-    background-color: $color_primario
-    color: $color_oscuro
-    margin-right: 3rem
+        &__resultadoLocal
+            background-color: $color_primario
+            color: $color_oscuro
+            margin-right: 3rem
 
-.partido__estado__resultadoVisitante
-    background-color: $color_primario
-    color: $color_oscuro
-    margin-left: 3rem
-.partido__estado__imagenDeporte
-    position: absolute
-    bottom: 0
-    right: 0
-    height: 5rem
-    width: 5rem
-    @media (max-width: 510px)
-        display: none
-.partido__estado__imagenDeporteDetalles
-    position: absolute
-    bottom: 0
-    right: 0
-    height: 5rem
-    width: 5rem
-    @media (max-width: 600px)
-        display: none
-.partido__estado__imagenDeporteDetalles2
-    position: absolute
-    bottom: 0
-    right: 0
-    height: 5rem
-    width: 5rem
-    @media (max-width: 1300px)
-        display: none
+        &__resultadoVisitante
+            background-color: $color_primario
+            color: $color_oscuro
+            margin-left: 3rem
+        // imagen del deporte en cuestión
+        &__imagenDeporte
+            position: absolute
+            bottom: 0
+            right: 0
+            height: 5rem
+            width: 5rem
+            @media (max-width: 510px)
+                display: none
+        &__imagenDeporteDetalles
+            position: absolute
+            bottom: 0
+            right: 0
+            height: 5rem
+            width: 5rem
+            @media (max-width: 600px)
+                display: none
+        &__imagenDeporteDetalles2
+            position: absolute
+            bottom: 0
+            right: 0
+            height: 5rem
+            width: 5rem
+            @media (max-width: 1300px)
+                display: none
 @media (max-width: 510px)
     .interfaz
         display: grid

@@ -63,8 +63,8 @@
             display: none
     // se añaden propiedades a los enlaces de la lista de elementos que tiene el encabezado
     &__lista__enlace
-        color: $color_oscuro !important
-        text-decoration: none !important
+        color: $color_oscuro 
+        text-decoration: none
         padding: 0.5rem 1.5rem 0.5rem 1.5rem
         border-radius: 5px
         text-size: $xs
@@ -72,8 +72,8 @@
             padding: 0.25rem 1rem 0.25rem 1rem
     // se añaden propiedades a los enlaces de la lista de elementos que tiene el encabezado al ser el actualmente pulsado, por lo que
     // no te redirige a ninguna página porque ya te encuentras en ella
-    &__lista__enlace--actual
-        color: $color_secundario_claro !important
+    &__lista__enlace--actual.router-link-exact-active
+        color: $color_secundario_claro
     // se añaden propiedades al logo del encabezado
 
 // se define cambios en sus características según la resolución de la pantalla
