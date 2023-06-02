@@ -58,6 +58,17 @@
             color: $color_rojo
             font-size: $xs
             align-self: center
+        &__deporte
+            display: flex
+            flex-direction: column
+            justify-content: center
+            &__elemento
+                margin: 2rem 2rem 0 2rem
+                width: 80%
+                height: 4rem
+                padding-left: 1em
+                font-size: $xs
+                align-self: center
 
     // Se define el botón que te redirigirá a la página de iniciar sesión, una vez que se ha registrado la cuenta.
     &__boton
@@ -80,16 +91,3 @@
             border: 1px solid $color_oscuro
         &__condicion
             align-self: center
-
-.crear_evento__caja__deporte
-    display: flex
-    flex-direction: column
-    justify-content: center
-
-    &__elemento
-        margin: 2rem 2rem 0 2rem
-        width: 80%
-        height: 4rem
-        padding-left: 1em
-        font-size: $xs
-        align-self: center

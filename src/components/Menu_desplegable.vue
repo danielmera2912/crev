@@ -2,6 +2,8 @@
 import Iniciar from './Iniciar_sesion.vue'
 import Registrar from './Registrar_sesion.vue'
 import Acceso from './Acceso_cuenta.vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Menu_desplegable.vue - Componente del menú desplegable
  * @author Daniel Mera Sachse
@@ -82,6 +84,13 @@ export default {
                 await localStorage.removeItem('username');
                 await localStorage.removeItem('avatar');
                 this.$router.push('/');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Sesión cerrada',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             } catch (error) {
                 console.error(error);
             }

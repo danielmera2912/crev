@@ -4,6 +4,7 @@ import Modificar_evento from './Modificar_evento.vue'
 import AnadirResultado from './Anadir_resultado.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import Alerta from './Alerta.vue';
 /**
  * @file Partido_detalles2.vue - Componente de los detalles de un partido de equipos en concreto
  * @author Daniel Mera Sachse
@@ -458,22 +459,38 @@ export default {
               {{ jugador1 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen1" alt="Avatar del jugador 1" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador3}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <RouterLink v-if="idJugador3!=0" :to="`/perfil/${idJugador3}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador3 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen3" alt="Avatar del jugador 3" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador5}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador3 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen3" alt="Avatar del jugador 3" />
+          </div>
+          <RouterLink v-if="idJugador5!=0" :to="`/perfil/${idJugador5}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador5 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen5" alt="Avatar del jugador 5" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador7}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador5 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen5" alt="Avatar del jugador 5" />
+          </div>
+          <RouterLink v-if="idJugador7!=0" :to="`/perfil/${idJugador7}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador7 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen7" alt="Avatar del jugador 7" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador9}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador7 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen7" alt="Avatar del jugador 7" />
+          </div>
+          <RouterLink v-if="idJugador9!=0" :to="`/perfil/${idJugador9}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador9 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
           </RouterLink>
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador9 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
+          </div>
           <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Fútbol Sala'">
             <img :src="balonFutbol" />
           </div>
@@ -490,26 +507,46 @@ export default {
         <div class="partido-detalles__enfrentamiento__equipo__nombre">{{ equipo2 }}</div>
         <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo2" /></div>
         <div class="partido-detalles__enfrentamiento__equipo__jugadores">
-          <RouterLink :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <RouterLink v-if="idJugador2!=0" :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador4}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
+          </div>
+          <RouterLink v-if="idJugador4!=0" :to="`/perfil/${idJugador4}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador4 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen4" alt="Avatar del jugador 4" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador6}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador4 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen4" alt="Avatar del jugador 4" />
+          </div>
+          <RouterLink v-if="idJugador6!=0" :to="`/perfil/${idJugador6}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador6 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen6" alt="Avatar del jugador 6" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador8}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador6 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen6" alt="Avatar del jugador 6" />
+          </div>
+          <RouterLink v-if="idJugador8!=0" :to="`/perfil/${idJugador8}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador8 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen8" alt="Avatar del jugador 8" />
           </RouterLink>
-          <RouterLink :to="`/perfil/${idJugador10}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador8 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen8" alt="Avatar del jugador 8" />
+          </div>
+          <RouterLink v-if="idJugador10!=0" :to="`/perfil/${idJugador10}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador10 }}</div>
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen10" alt="Avatar del jugador 10" />
           </RouterLink>
+          <div v-else class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
+            <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador10 }}</div>
+            <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen10" alt="Avatar del jugador 10" />
+          </div>
 
         </div>
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
@@ -558,7 +595,6 @@ export default {
       @check="toggleCheckForm" :checkForm="checkForm" @updatePartido="updateDatosPartido" :id="id" :cambiosRealizados="handleCambiosRealizados"></AnadirResultado>
   </div>
   <div v-else>
-    <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
-        pulsa aquí</RouterLink> para volver al inicio.</div>
+    <Alerta message="Este evento no está disponible en la actualidad. Existen dos posibilidades: es probable que haya sido eliminado o puede tratarse de un error inesperado"></Alerta>
   </div>
 </template>

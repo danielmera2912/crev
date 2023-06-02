@@ -1,6 +1,7 @@
 <script setup>
 import Modificar from './Modificar_cuenta.vue'
 import Partido from './Partido.vue'
+import Alerta from './Alerta.vue';
 /**
  * @file Iniciar_sesion.vue - Componente para iniciar sesión
  * @author Daniel Mera Sachse
@@ -150,11 +151,12 @@ export default {
             :cambiosRealizados="handleCambiosRealizados"></Modificar>
     </main>
     <main v-else-if="idUsuarioActual == 0">
-        "Plaza vacante" no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún
+        <Alerta message="'Plaza vacante' no es un usuario común y corriente, si has llegado hasta aquí desde un evento, significa que aún
         falta al menos un usuario para completar el evento, ¡Y estás invitado a ser tú! ¡Solo tienes que pulsar en
-        "Participar" tras iniciar sesión!
+        'Participar' tras iniciar sesión!"></Alerta>
+        
     </main>
     <main v-else>
-        No se ha encontrado el usuario.
+        <Alerta message="No se ha encontrado el usuario"></Alerta>
     </main>
 </template>

@@ -204,7 +204,7 @@ export default {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
-                    title: '¡No se permiten archivos SVG como avatar!',
+                    title: '¡No se permiten archivos SVG!',
                     showConfirmButton: false,
                     timer: 1500
                 })

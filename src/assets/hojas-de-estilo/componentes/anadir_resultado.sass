@@ -41,15 +41,36 @@
         display: flex
         flex-direction: column
         justify-content: center
-
+        align-items: center
         // Se define las propiedades de los inputs del desplegable.
         &__elemento
-            margin: 2rem 2rem 0 2rem
-            width: 80%
             height: 4rem
             padding-left: 1em
             font-size: $xs
             align-self: center
+            width: 5rem
+            padding: 0.5rem
+            text-align: center
+            margin: auto
+        &__deporte
+            display: flex
+            flex-direction: column
+            justify-content: center
+        &__grupo
+            display: flex
+            align-items: center
+            margin-bottom: 1rem
+
+        &__etiqueta
+            width: 100px
+            text-align: center
+            font-size: 14px
+            font-weight: bold
+            color: $color_oscuro
+
+        &__input
+            display: flex
+            align-items: center
         &__informativo1
             display: none
         &__informativo1--visible
@@ -58,7 +79,6 @@
             color: $color_rojo
             font-size: $xs
             align-self: center
-
     // Se define el botón que te redirigirá a la página de iniciar sesión, una vez que se ha registrado la cuenta.
     &__boton
         display: flex
@@ -81,43 +101,3 @@
             padding-top: 10px
         &__condicion
             align-self: center
-
-.anadir_resultado__caja__deporte
-    display: flex
-    flex-direction: column
-    justify-content: center
-
-    &__elemento
-        margin: 2rem 2rem 0 2rem
-        width: 80%
-        height: 4rem
-        padding-left: 1em
-        font-size: $xs
-        align-self: center
-.anadir_resultado__caja
-    display: flex
-    flex-direction: column
-    align-items: center
-
-    &__grupo
-        display: flex
-        align-items: center
-        margin-bottom: 1rem
-
-    &__etiqueta
-        width: 100px
-        text-align: center
-        font-size: 14px
-        font-weight: bold
-        color: $color_oscuro
-
-    &__input
-        display: flex
-        align-items: center
-
-    &__elemento
-        width: 5rem
-        padding: 0.5rem
-        text-align: center
-        font-size: 14px
-        margin: auto

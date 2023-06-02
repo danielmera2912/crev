@@ -11,7 +11,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import Paginacion from '../components/Paginacion.vue'
-
+import Alerta from '../components/Alerta.vue';
 const localSearch = ref('');
 const dataUsuario = ref([]);
 let paginaActual = 0;
@@ -82,7 +82,7 @@ function paginaSiguiente() {
             </ul>
         </div>
         <div v-else class="lista_usuario">
-            No hay usuarios con esta combinación de caracteres.
+            <Alerta message="No hay usuarios con esta combinación de caracteres"></Alerta>
         </div>
         <Paginacion v-if="localSearch == ''" :tipo="'usuario'" :paginaActual="paginaActual" :totalPaginas="totalPaginas"
             :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />

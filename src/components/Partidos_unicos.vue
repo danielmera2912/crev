@@ -1,6 +1,7 @@
 <script setup>
 import Partido from './Partido.vue'
 import Crear_evento from './Crear_evento.vue'
+import Alerta from './Alerta.vue'
 import Buscador from '../components/Buscador.vue'
 import Paginacion from '../components/Paginacion.vue'
 import axios from 'axios';
@@ -396,16 +397,24 @@ export default {
       <a v-if="idUsuario != 0" class="boton interfaz__registrar" @click="toggleCrearEvento">Registrar</a>
     </div>
     <template v-if="results && results.estado == 'NOT_FOUND'">
-      <div>{{ mensajeNoContentido }}</div>
+      <div>
+        <Alerta :message="mensajeNoContentido"></Alerta>
+      </div>
     </template>
     <template v-else-if="filtroSeleccionado == 'todos' && search != '' && resultsCiudad.status == 404">
-      <div>{{ mensajeNoContentido }}</div>
+      <div>
+        <Alerta :message="mensajeNoContentido"></Alerta>
+      </div>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search == '' && resultsDeporte.status == 404">
-      <div>{{ mensajeNoContentido }}</div>
+      <div>
+        <Alerta :message="mensajeNoContentido"></Alerta>
+      </div>
     </template>
     <template v-else-if="filtroSeleccionado != 'todos' && search != '' && resultsFiltro.status == 404">
-      <div>{{ mensajeNoContentido }}</div>
+      <div>
+        <Alerta :message="mensajeNoContentido"></Alerta>
+      </div>
     </template>
     <template v-else-if="search == '' && filtroSeleccionado == 'todos'" v-for="result in eventos">
       <Partido v-if="!result.deporte.equipos" @click="enviarValores(result.id)" :deporte='result.deporte.nombre'
@@ -465,10 +474,11 @@ export default {
     </template>
 
     <template v-else>
-      <div>{{ mensajeNoContentido }}</div>
-    </template>
+      <div>
+        <Alerta :message="mensajeNoContentido"></Alerta>
+    </div>
+  </template>
 
-  </div>
-  <Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual"
-    :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />
-</template>
+</div>
+<Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual"
+  :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" /></template>

@@ -4,6 +4,7 @@ import Modificar_evento from './Modificar_evento.vue'
 import AnadirResultado from './Anadir_resultado.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import Alerta from './Alerta.vue';
 /**
  * @file Partido_detalles.vue - Componente de los detalles de un partido de 1vs1 individual en concreto
  * @author Daniel Mera Sachse
@@ -241,13 +242,20 @@ export default {
         }}</div>
       </RouterLink>
       <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
-      <RouterLink :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__jugador">
+      <RouterLink v-if="idJugador2!=0" :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
         <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
           resultadoVisitante }}</div>
       </RouterLink>
+      <div v-else  class="partido-detalles__enfrentamiento__jugador">
+        <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
+        <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
+        <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen2" alt="Avatar del jugador 2" />
+        <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
+          resultadoVisitante }}</div>
+      </div>
       <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Padel'">
         <img :src="balonPadel" />
       </div>
@@ -288,7 +296,6 @@ export default {
       :cambiosRealizados="handleCambiosRealizados"></AnadirResultado>
   </div>
   <div v-else>
-    <div class="error">Cargando página... Si tarda mucho, puede que se trate de un error, por lo que <RouterLink to="/">
-        pulsa aquí</RouterLink> para volver al inicio.</div>
+    <Alerta message="Este evento no está disponible en la actualidad. Existen dos posibilidades: es probable que haya sido eliminado o puede tratarse de un error inesperado"></Alerta>
   </div>
 </template>
