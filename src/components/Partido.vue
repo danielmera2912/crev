@@ -79,6 +79,10 @@ export default {
       balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
       balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
       balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
+      elementoEsgrima: "https://svgsilh.com/png-1024/145454.png",
+      elementoBoxeo: "https://svgsilh.com/svg_v2/1294352.svg",
+      elementoGolf: "https://static.thenounproject.com/png/774477-200.png",
+      balonVoleibol: "https://www.svgrepo.com/show/165032/volleyball.svg",
     }
   },
 };
@@ -92,7 +96,7 @@ export default {
       <div class="partido__datos__rival">
         <div class="partido__datos__rival__nombre partido__datos__rival__nombre--responsivo">{{ jugador1 }}</div>
         <div class="partido__datos__rival__nombre">{{ jugador1 }}</div>
-        <img class="partido__datos__rival__imagen" :src="imagen1" />
+        <img class="partido__datos__rival__imagen" :src="imagen1" alt="Avatar del jugador 1"/>
       </div>
       <div class="partido__datos__detalles">
         <div class="partido__datos__detalles__fecha">{{ fecha }}</div>
@@ -101,7 +105,7 @@ export default {
       </div>
       <div class="partido__datos__rival">
         <div class="partido__datos__rival__nombre partido__datos__rival__nombre--responsivo">{{ jugador2 }}</div>
-        <img class="partido__datos__rival__imagen" :src="imagen2" />
+        <img class="partido__datos__rival__imagen" :src="imagen2" alt="Avatar del jugador 2"/>
         <div class="partido__datos__rival__nombre">{{ jugador2 }}</div>
       </div>
     </div>
@@ -109,19 +113,32 @@ export default {
       <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoLocal"> {{ puntosLocal }}</div>
       <div v-if="estado == 'EN CURSO'" class="partido__estado partido__estado__encurso">{{ estado }}</div>
       <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__finalizado">{{ estado }}</div>
-      <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoVisitante"> {{ puntosVisitante }}</div>
+      <div v-if="estado == 'FINALIZADO'" class="partido__estado partido__estado__resultadoVisitante"> {{ puntosVisitante
+      }}</div>
     </div>
-    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Fútbol Sala'">
-      <img :src="balonFutbol"/>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Fútbol Sala'">
+      <img :src="balonFutbol" alt="Balón de Fútbol"/>
     </div>
-    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Baloncesto'">
-      <img :src="balonBaloncesto"/>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Baloncesto'">
+      <img :src="balonBaloncesto" alt="Balón de Baloncesto"/>
     </div>
-    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Padel'">
-      <img :src="balonPadel"/>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Padel'">
+      <img :src="balonPadel" alt="Balón de Padel"/>
     </div>
-    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte=='Tenis'">
-      <img :src="balonTenis"/>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Tenis'">
+      <img :src="balonTenis" alt="Balón de Tenis"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Esgrima'">
+      <img :src="elementoEsgrima" alt="Espada de Esgrima"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Boxeo'">
+      <img :src="elementoBoxeo" alt="Guante de boxeo"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Golf'">
+      <img :src="elementoGolf" alt="Elemento de golf"/>
+    </div>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Voleibol'">
+      <img :src="balonVoleibol" alt="Balón de Voleibol"/>
     </div>
   </RouterLink>
 </template>

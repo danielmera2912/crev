@@ -59,6 +59,10 @@ export default {
       balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
       balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
       balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
+      elementoEsgrima: "https://svgsilh.com/png-1024/145454.png",
+      elementoBoxeo: "https://svgsilh.com/svg_v2/1294352.svg",
+      elementoGolf: "https://static.thenounproject.com/png/774477-200.png",
+      balonVoleibol: "https://www.svgrepo.com/show/165032/volleyball.svg",
       formData: {
         fecha: "",
         hora: "",
@@ -241,7 +245,7 @@ export default {
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
         }}</div>
       </RouterLink>
-      <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
+      <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" alt="Versus"/></div>
       <RouterLink v-if="idJugador2!=0" :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__jugador">
         <div class="partido-detalles__enfrentamiento__jugador__texto">Jugador 2</div>
         <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>
@@ -257,10 +261,19 @@ export default {
           resultadoVisitante }}</div>
       </div>
       <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Padel'">
-        <img :src="balonPadel" />
+        <img :src="balonPadel" alt="Balón de padel"/>
       </div>
       <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Tenis'">
-        <img :src="balonTenis" />
+        <img :src="balonTenis" alt="Balón de tenis"/>
+      </div>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Esgrima'">
+        <img :src="elementoEsgrima" alt="Espada de esgrima"/>
+      </div>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Boxeo'">
+        <img :src="elementoBoxeo" alt="Guante te boxeo"/>
+      </div>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Golf'">
+        <img :src="elementoGolf" alt="Elemento de golf"/>
       </div>
     </div>
 

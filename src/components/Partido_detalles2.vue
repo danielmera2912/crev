@@ -110,6 +110,10 @@ export default {
       balonBaloncesto: "https://images.vexels.com/media/users/3/139646/isolated/preview/c365f14205e2c1f9830d25c919f28561-silueta-de-icono-de-pelota-de-baloncesto.png",
       balonPadel: "https://images.vexels.com/media/users/3/206721/isolated/lists/194b08f6d1e2f8d6fc7dea50e01b1544-pelota-de-padel-pickleball-negra.png",
       balonTenis: "https://cdn-icons-png.flaticon.com/512/8/8331.png?w=360",
+      elementoEsgrima: "https://svgsilh.com/png-1024/145454.png",
+      elementoBoxeo: "https://svgsilh.com/svg_v2/1294352.svg",
+      elementoGolf: "https://static.thenounproject.com/png/774477-200.png",
+      balonVoleibol: "https://www.svgrepo.com/show/165032/volleyball.svg",
       formData: {
         fecha: "",
         hora: "",
@@ -451,7 +455,7 @@ export default {
         class="material-symbols-outlined partido-detalles__enfrentamiento__borrar">delete</span>
       <div class="partido-detalles__enfrentamiento__equipo">
         <div class="partido-detalles__enfrentamiento__equipo__nombre">{{ equipo1 }}</div>
-        <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo1" /></div>
+        <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo1" alt="Imagen del equipo 1"/></div>
         <div class="partido-detalles__enfrentamiento__equipo__jugadores">
           <RouterLink :to="`/perfil/${idJugador1}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div
@@ -492,20 +496,23 @@ export default {
             <img class="partido-detalles__enfrentamiento__jugador__avatar" :src="imagen9" alt="Avatar del jugador 9" />
           </div>
           <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Fútbol Sala'">
-            <img :src="balonFutbol" />
+            <img :src="balonFutbol" alt="Balón de Fútbol"/>
           </div>
           <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Baloncesto'">
-            <img :src="balonBaloncesto" />
+            <img :src="balonBaloncesto" alt="Balón de Baloncesto"/>
+          </div>
+          <div class="partido__estado partido__estado__imagenDeporteDetalles2" v-if="deporte == 'Voleibol'">
+            <img :src="balonVoleibol" alt="Balón de Voleibol"/>
           </div>
         </div>
 
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{ resultadoLocal
         }}</div>
       </div>
-      <div class="partido-detalles__enfrentamiento__duelo"><img src="../assets/imagenes/vs.png" /></div>
+      <div class="partido-detalles__enfrentamiento__duelo"><img alt="versus" src="../assets/imagenes/vs.png" /></div>
       <div class="partido-detalles__enfrentamiento__equipo">
         <div class="partido-detalles__enfrentamiento__equipo__nombre">{{ equipo2 }}</div>
-        <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo2" /></div>
+        <div class="partido-detalles__enfrentamiento__equipo__escudo"><img :src="imagen_equipo2" alt="Imagen del equipo 2"/></div>
         <div class="partido-detalles__enfrentamiento__equipo__jugadores">
           <RouterLink v-if="idJugador2!=0" :to="`/perfil/${idJugador2}`" class="partido-detalles__enfrentamiento__equipo__jugadores__jugador">
             <div class="partido-detalles__enfrentamiento__jugador__nombre">{{ jugador2 }}</div>

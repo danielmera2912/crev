@@ -36,7 +36,7 @@ export default {
 </script>
 <template>
   <header class="encabezado">
-    <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png" /></RouterLink>
+    <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png" alt="Logo de CREV"/></RouterLink>
 
     <nav class="encabezado__navegador">
       <ul class="encabezado__lista">

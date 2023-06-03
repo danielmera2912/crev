@@ -108,7 +108,7 @@ export default {
 <template>
     <main v-if="nombre != null && idUsuarioActual != 0" class="cuerpo cuerpo--perfil">
         <section class="cuerpo--perfil__avatar">
-            <img class="cuerpo--perfil__avatar__imagen" v-bind:src="avatar" />
+            <img class="cuerpo--perfil__avatar__imagen" v-bind:src="avatar" alt="avat del usuario"/>
             <a v-if="idUsuario == idUsuarioActual" @click="cambiarModificar" class="cuerpo--perfil__avatar__editar">
                 <span class="material-symbols-outlined encabezado__menu__icono">edit</span>
             </a>

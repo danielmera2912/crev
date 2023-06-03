@@ -1,7 +1,7 @@
 # CREV
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/danielmera2912/crev_server/master/crev_logo.png" />
+  <img src="https://raw.githubusercontent.com/danielmera2912/crev_server/master/crev_logo.png" alt="Logo de CREV"/>
 </p>
 
 ## Información

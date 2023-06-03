@@ -71,7 +71,7 @@ function paginaSiguiente() {
             <ul class="lista_usuario__grupo">
                 <li v-for="usuario in dataUsuario" :key="usuario.id">
                     <RouterLink :to="`/perfil/${usuario.id}`" class="lista_usuario__grupo__info">
-                        <img :src="usuario.avatar" :alt="usuario.username" class="lista_usuario__grupo__info__avatar">
+                        <img alt="avatar del usuario" :src="usuario.avatar" :alt="usuario.username" class="lista_usuario__grupo__info__avatar">
                         <div class="lista_usuario__grupo__info__detalles">
                             <div class="lista_usuario__grupo__info__detalles__nombre">{{ usuario.username }}</div>
                             <div class="lista_usuario__grupo__info__detalles__datos">{{ usuario.fechaNacimiento }}</div>

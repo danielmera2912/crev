@@ -353,7 +353,7 @@ export default {
                         v-on:input="cambiarTextoCiudad" /> -->
                 <div class="crear_evento__caja__deporte">
                     <select @input="cambiarTextoCiudad" class="crear_evento__caja__deporte__elemento">
-                        <option value="">Elige una ciudad</option>
+                        <option value="">Elige una provincia</option>
                         <option v-for="ciudad in dataCiudad" :value="ciudad.id" :selected="ciudad.id === idCiudad">{{
                             ciudad.nombre }}</option>
                     </select>

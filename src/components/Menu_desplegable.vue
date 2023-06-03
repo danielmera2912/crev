@@ -1,7 +1,6 @@
 <script setup>
 import Iniciar from './Iniciar_sesion.vue'
 import Registrar from './Registrar_sesion.vue'
-import Acceso from './Acceso_cuenta.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
 /**

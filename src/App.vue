@@ -58,7 +58,7 @@ export default {
     :idUsuario="idUsuario" />
   <Footer v-if="cargando"></Footer>
   <div v-else class="servidor">
-    <img class="servidor__logo" src="./assets/imagenes/crev_logo.png" />
+    <img class="servidor__logo" src="./assets/imagenes/crev_logo.png" alt="Logo de CREV"/>
     <div class="servidor__texto">Esperando respuesta del servidor</div>
   </div>
 </template>

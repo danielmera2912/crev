@@ -228,7 +228,7 @@ export default {
             <tittle className="modificar__titulo">Modificar</tittle>
             <section className="modificar__caja">
                 <div className="modificar__avatar">
-                    <img className="modificar__avatar__imagen" :src="nuevoAvatar || avatar" />
+                    <img alt="Avatar del usuario" className="modificar__avatar__imagen" :src="nuevoAvatar || avatar" />
                     <input class="modificar__avatar__file" type="file" id="avatar" name="avatar"
                         accept="image/png, image/jpeg" @change="handleFileUpload" />
                 </div>
