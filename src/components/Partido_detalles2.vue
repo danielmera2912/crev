@@ -339,7 +339,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario, config);
-            // window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -350,7 +349,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -361,7 +359,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario, config);
-            // window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -372,7 +369,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -383,7 +379,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -394,7 +389,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -405,7 +399,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }
@@ -416,7 +409,6 @@ export default {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
             const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario, config);
-            //window.location.reload()
           } catch (error) {
             console.error(error);
           }

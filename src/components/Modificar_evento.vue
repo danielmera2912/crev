@@ -349,8 +349,6 @@ export default {
                     @click="$emit('cerrarTodo')">close</span></a>
             <tittle className="crear_evento__titulo">Modificar evento</tittle>
             <section className="crear_evento__caja">
-                <!-- <input className="crear_evento__caja__elemento" type="text" placeholder="Ciudad" v-bind:value="textCiudad"
-                        v-on:input="cambiarTextoCiudad" /> -->
                 <div class="crear_evento__caja__deporte">
                     <select @input="cambiarTextoCiudad" class="crear_evento__caja__deporte__elemento">
                         <option value="">Elige una provincia</option>

@@ -64,11 +64,6 @@ defineProps({
     type: String,
     required: true
   }
-  // ,
-  // perfil: {
-  //   type: Boolean,
-  //   required: true
-  // }
 })
 </script>
 <script>

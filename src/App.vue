@@ -41,10 +41,18 @@ export default {
     },
     async llamarApi() {
       this.cargando = false
-      const response = await fetch(this.API)
-      const response2 = await fetch(this.API_iniciar)
-      if (response2.status == 200) {
-        this.cargando = true
+      try {
+        const response = await fetch(this.API);
+        const response2 = await fetch(this.API_iniciar);
+
+        if (response2.status == 200) {
+          this.cargando = true;
+        }
+      } catch (error) {
+        console.log(error);
+        setTimeout(() => {
+          this.llamarApi();
+        }, 5000);
       }
       const data = await response.json()
       this.results = data
@@ -58,7 +66,7 @@ export default {
     :idUsuario="idUsuario" />
   <Footer v-if="cargando"></Footer>
   <div v-else class="servidor">
-    <img class="servidor__logo" src="./assets/imagenes/crev_logo.png" alt="Logo de CREV"/>
+    <img class="servidor__logo" src="./assets/imagenes/crev_logo.png" alt="Logo de CREV" />
     <div class="servidor__texto">Esperando respuesta del servidor</div>
   </div>
 </template>

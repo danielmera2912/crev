@@ -25,8 +25,8 @@ export default {
 };
 </script>
 <template>
-    <div class="notification">
-      <div class="notification-box">
+    <div class="alerta">
+      <div class="alerta-box">
         <p>{{ message }}</p>
       </div>
     </div>

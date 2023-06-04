@@ -129,7 +129,6 @@ export default {
                 const dataUsuario = await responseUsuario.json();
 
                 let usuarioEncontrado = true;
-                console.log(dataUsuario);
                 if (dataUsuario.length == 0) {
                     usuarioEncontrado = false;
                     this.errorIniciar = true;
@@ -139,15 +138,6 @@ export default {
                     this.resultsUsuario[0] = dataUsuario.id;
                     this.idUsuario = this.resultsUsuario[0];
                     this.recibirIdUsuario(this.resultsUsuario[0]);
-                    console.log("llega")
-                    // const responseLogin = await fetch(`http://localhost:8080/usuario/login?correo=${encodeURIComponent(this.formData.correo)}&clave=${encodeURIComponent(this.formData.clave)}`);
-                    // const dataLogin = await responseLogin.json();
-
-                    // if (dataLogin === true) {
-                    //     this.trasIniciar();
-                    // } else {
-                    //     this.errorIniciar = true;
-                    // }
                 }
             } catch (error) {
                 this.errorIniciar = true;

@@ -229,7 +229,7 @@ export default {
         this.eventos = response.data.eventos;
         this.totalPaginas = response.data.totalPages;
       } catch (error) {
-        console.log(error);
+        // Ocurre un error
       }
     },
     paginaSiguiente() {
@@ -275,7 +275,6 @@ export default {
           }
           else {
             await this.$router.push('/partido_detalles/' + this.response.data.id);
-            //window.location.reload()
           }
 
         } catch (error) {
