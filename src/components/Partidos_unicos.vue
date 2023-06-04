@@ -229,7 +229,7 @@ export default {
         this.eventos = response.data.eventos;
         this.totalPaginas = response.data.totalPages;
       } catch (error) {
-        // Ocurre un error
+        console.error(error);
       }
     },
     paginaSiguiente() {
@@ -475,9 +475,10 @@ export default {
     <template v-else>
       <div>
         <Alerta :message="mensajeNoContentido"></Alerta>
-    </div>
-  </template>
+      </div>
+    </template>
 
-</div>
-<Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual"
-  :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" /></template>
+  </div>
+  <Paginacion v-if="search == '' && filtroSeleccionado == 'todos'" :tipo="'evento'" :paginaActual="paginaActual"
+    :totalPaginas="totalPaginas" :paginaAnterior="paginaAnterior" :paginaSiguiente="paginaSiguiente" />
+</template>

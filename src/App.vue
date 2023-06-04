@@ -49,7 +49,6 @@ export default {
           this.cargando = true;
         }
       } catch (error) {
-        console.log(error);
         setTimeout(() => {
           this.llamarApi();
         }, 5000);
