@@ -1,17 +1,22 @@
 <script setup>
 /**
  * @file Buscador.vue - Componente buscador del encabezado
- * @author Daniel Mera Sachse
- */
-/**
+ * @module Buscador
  * @vue-prop {String} search - Establece el texto del buscador
  */
-defineProps({
+ defineProps({
+  /**
+   * Establece el texto del buscador.
+   *
+   * @type {String}
+   * @required
+   */
   search: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
+
 </script>
 <template>
   <form :v-model="search" class="buscador-encabezado" @submit.prevent>

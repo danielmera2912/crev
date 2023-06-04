@@ -28,6 +28,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>&lt;script>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Iniciar_sesion.vue - Componente para iniciar sesión
  * @author Daniel Mera Sachse
@@ -57,21 +59,21 @@ export default {
             textUser: '',
             idUsuario: '',
             textPass: '',
-            expresionUsuario: /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
+            expresionUsuario: /^[a-zA-Z]((\.|_|-)?[a-zA-Z0-9]+){3}$/,
             expresionPass: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/,
             userValido: false,
             passValido: false,
-            mensajeError1: "Correo incorrecto",
+            mensajeError1: "Usuario incorrecto",
             mensajeError2: "Contraseña incorrecta",
-            mensajeError3: "Correo o contraseña incorrectos",
+            mensajeError3: "Usuario o contraseña incorrectos",
             hayErrores: false,
             errorIniciar: false,
             inputType: "password",
             icon: "visibility",
             resultsUsuario: '',
             formData: {
-                password: "",
-                email: ""
+                clave: "",
+                correo: ""
             }
 
         }
@@ -97,7 +99,8 @@ export default {
         },
         check() {
             if (this.passValido &amp;&amp; this.userValido) {
-                this.lanzarIniciarSesion()
+                //this.lanzarIniciarSesion()
+                this.login()
             }
         },
         iniciar() {
@@ -107,42 +110,79 @@ export default {
                 this.hayErrores = true
             }
         },
+        
+        async login() {
+            await axios.post("http://127.0.0.1:8080/auth/login", {
+                username: this.textUser.trim(),
+                password: this.textPass.trim()
+            }, { withCredentials: true })
+                .then(response => {
+                    localStorage.setItem('tokenjwt', response.data.token);
+                    localStorage.setItem('username', response.data.username);
+                    localStorage.setItem('avatar', response.data.avatar);
+                    localStorage.setItem('userId', response.data.id);
+                    this.trasIniciar()
+
+                })
+                .catch(error => {
+                    this.errorIniciar = true;
+                })
+        },
         recibirIdUsuario(id) {
             this.$emit('recibirIdUsuario', id)
         },
         async trasIniciar() {
-            //this.$emit('check')
-            await this.$router.push('/perfil/'+this.idUsuario)
+            await this.$router.push('/perfil/' + localStorage.getItem('userId'))
             this.$emit('cerrarTodo')
             this.$emit('iniciarSesion')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Sesión iniciada',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            this.recibirIdUsuario(localStorage.getItem('userId'))
         },
         async lanzarIniciarSesion() {
             this.formData = {
-                email: this.textUser,
-                password: this.textPass
+                correo: this.textUser.trim(),
+                clave: this.textPass.trim()
             };
-            const encoder = new TextEncoder();
-            const data = encoder.encode(this.formData.password);
-            const digest = await crypto.subtle.digest('SHA-1', data);
-            const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            this.formData.password = hash
-            try {
-                const response2 = await axios.post("http://127.0.0.1:3001/api/v1/autorizacion", this.formData, {
-                    withCredentials: true
-                });
-                this.errorIniciar = false;
-                const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/emailBuscar/" + this.formData.email)
-                const dataUsuario = await responseUsuario.json()
-                this.resultsUsuario = dataUsuario[0].id
-                this.idUsuario = this.resultsUsuario
-                this.recibirIdUsuario(this.resultsUsuario)
-                this.trasIniciar()
 
+            try {
+                this.errorIniciar = false;
+
+                const responseUsuario = await fetch(`http://127.0.0.1:8080/usuario/buscarPorNombre/${encodeURIComponent(this.formData.correo)}`);
+                const dataUsuario = await responseUsuario.json();
+
+                let usuarioEncontrado = true;
+                console.log(dataUsuario);
+                if (dataUsuario.length == 0) {
+                    usuarioEncontrado = false;
+                    this.errorIniciar = true;
+                }
+
+                if (usuarioEncontrado) {
+                    this.resultsUsuario[0] = dataUsuario.id;
+                    this.idUsuario = this.resultsUsuario[0];
+                    this.recibirIdUsuario(this.resultsUsuario[0]);
+                    console.log("llega")
+                    // const responseLogin = await fetch(`http://localhost:8080/usuario/login?correo=${encodeURIComponent(this.formData.correo)}&amp;clave=${encodeURIComponent(this.formData.clave)}`);
+                    // const dataLogin = await responseLogin.json();
+
+                    // if (dataLogin === true) {
+                    //     this.trasIniciar();
+                    // } else {
+                    //     this.errorIniciar = true;
+                    // }
+                }
             } catch (error) {
-                console.error(error)
                 this.errorIniciar = true;
             }
         },
+
+
 
 
         toggleVisibility() {
@@ -162,7 +202,7 @@ export default {
 
         &lt;form className="iniciar_sesion__caja" @submit.prevent="iniciar">
             &lt;input @input="cambiarTextoUsuario" className="iniciar_sesion__caja__elemento" type="text"
-                placeholder="Correo electrónico..." />
+                placeholder="Nombre de usuario..." />
             &lt;label v-if="!userValido &amp;&amp; hayErrores" className="iniciar_sesion__caja__informativo1--visible">{{
                 mensajeError1
             }}&lt;/label>
@@ -198,13 +238,13 @@ export default {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Alerta.html">Alerta</a></li><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Paginacion.html">Paginacion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul><h3>Global</h3><ul><li><a href="global.html#avatar">avatar</a></li><li><a href="global.html#ciudadValida">ciudadValida</a></li><li><a href="global.html#dataCiudad">dataCiudad</a></li><li><a href="global.html#dataDeporte">dataDeporte</a></li><li><a href="global.html#deporteEquipo">deporteEquipo</a></li><li><a href="global.html#deporteValido">deporteValido</a></li><li><a href="global.html#expresionDeporte">expresionDeporte</a></li><li><a href="global.html#fechaValida">fechaValida</a></li><li><a href="global.html#hayErrores">hayErrores</a></li><li><a href="global.html#horaValida">horaValida</a></li><li><a href="global.html#idJugador1">idJugador1</a></li><li><a href="global.html#jugador1N">jugador1N</a></li><li><a href="global.html#mensajeError1">mensajeError1</a></li><li><a href="global.html#mensajeError2">mensajeError2</a></li><li><a href="global.html#mensajeError3">mensajeError3</a></li><li><a href="global.html#mensajeError4">mensajeError4</a></li><li><a href="global.html#searchTexto">searchTexto</a></li><li><a href="global.html#textCiudad">textCiudad</a></li><li><a href="global.html#textDeporte">textDeporte</a></li><li><a href="global.html#textFecha">textFecha</a></li><li><a href="global.html#textHora">textHora</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 07:15:28 GMT+0100 (hora estándar de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jun 04 2023 23:39:00 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>

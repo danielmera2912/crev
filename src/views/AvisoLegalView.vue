@@ -1,8 +1,10 @@
 <script setup>
 /**
- * @file ProfileView.vue - Vista del perfil
+ * @file AvisoLegalView.vue - Vista del Aviso Legal
+ * @module AvisoLegalView
  * @author Daniel Mera Sachse
  */
+
 </script>
 
 <template>

@@ -3,34 +3,48 @@ import Menu from './Menu_desplegable.vue'
 import Buscador from './Buscador.vue'
 /**
  * @file Header.vue - Componente del encabezado
- * @author Daniel Mera Sachse
+ * @module Header
+ * @vue-prop {String} idUsuario - Establece la ID del usuario
+ * @vue-data {String} searchTexto - Texto para establecer en el buscador
+ * @vue-event {String} recibirIdUsuario - Evento emitido al modificar la ID del usuario
  */
-/**
- * @vue-prop {String} search - Establece el texto del buscador
- * @vue-prop {String} idUsuario - Establece la id del usuario
- * @vue-data {String} searchTexto - Texto para establecer del buscador
- * @vue-event {String} handleChange - Cambia el valor del buscador por lo que introduce el usuario
- * @vue-event {String} recibirIdUsuario - Modifica la ID del usuario
- */
-defineProps({
+ defineProps({
+  /**
+   * Establece la ID del usuario.
+   *
+   * @type {String}
+   * @required
+   */
   idUsuario: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
+
+
 
 </script>
 <script>
 export default {
   data() {
     return {
-      searchTexto: ''
-    }
+      /**
+       * Texto para establecer en el buscador.
+       *
+       * @type {String}
+       */
+      searchTexto: '',
+    };
   },
   methods: {
+    /**
+     * Modifica la ID del usuario y emite el evento correspondiente.
+     *
+     * @param {String} id - La nueva ID del usuario
+     */
     recibirIdUsuario(id) {
-      this.$emit('recibirIdUsuario', id)
-    }
+      this.$emit('recibirIdUsuario', id);
+    },
   },
 };
 </script>

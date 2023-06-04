@@ -17,6 +17,6 @@ defineProps({
 
 <template>
   <main>
-    <Profile :idUsuario="idUsuario" :search="search"/>
+    <Profile :idUsuario="idUsuario"/>
   </main>
 </template>

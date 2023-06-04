@@ -28,6 +28,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>&lt;script>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
 /**
  * @file Registrar_sesion.vue - Componente para registrar sesión
  * @author Daniel Mera Sachse
@@ -176,27 +178,28 @@ export default {
         },
         async crearUsuario() {
             this.formData = {
-                email: this.textCorreo,
-                name: this.textUser,
-                password: this.textPass,
-                fecha_nacimiento: this.textFecha,
-                avatar: null
+                correo: this.textCorreo.trim(),
+                username: this.textUser.trim(),
+                password: this.textPass.trim(),
+                fechaNacimiento: this.textFecha,
+                avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600"
             };
             try {
-                const response = await fetch("http://127.0.0.1:3001/api/v1/users/email/" + this.formData.email)
+                const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.correo)
                 const data = await response.json()
                 this.checkEmailServer = data
-
-                const response2 = await fetch("http://127.0.0.1:3001/api/v1/users/name/" + this.formData.name)
+                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?username=" + this.formData.nombre)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer &amp;&amp; !this.checkUserServer) {
-                    const encoder = new TextEncoder();
-                    const data = encoder.encode(this.formData.password);
-                    const digest = await crypto.subtle.digest('SHA-1', data);
-                    const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-                    this.formData.password = hash
-                    const responsePost = await axios.post("http://127.0.0.1:3001/api/v1/users", this.formData);
+                    const responsePost = await axios.post("http://127.0.0.1:8080/usuario", this.formData);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Perfil creado',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     this.$emit('check')
                     this.$emit('abrirIniciar')
                 } else {
@@ -267,8 +270,8 @@ export default {
                 &lt;input type="submit" className="registrar__boton__opcion registrar__boton__opcion--registrar"
                     @click.prevent="registrar" value="Registrar" readonly />
                 &lt;div class="registrar__boton__condicion">o&lt;/div>
-                &lt;a className="registrar__boton__opcion registrar__boton__opcion--iniciar"
-                    @click="$emit('abrirIniciarSinRegistrar')">Identíficate aquí&lt;/a>
+                &lt;input className="registrar__boton__opcion registrar__boton__opcion--iniciar" value="Identíficate"
+                    @click="$emit('abrirIniciarSinRegistrar')" />
             &lt;/section>
         &lt;/form>
     &lt;/div>
@@ -282,13 +285,13 @@ export default {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Alerta.html">Alerta</a></li><li><a href="module-App.html">App</a></li><li><a href="module-Iniciar_sesion.html">Iniciar_sesion</a></li><li><a href="module-Paginacion.html">Paginacion</a></li><li><a href="module-Registrar_sesion.html">Registrar_sesion</a></li></ul><h3>Global</h3><ul><li><a href="global.html#avatar">avatar</a></li><li><a href="global.html#ciudadValida">ciudadValida</a></li><li><a href="global.html#dataCiudad">dataCiudad</a></li><li><a href="global.html#dataDeporte">dataDeporte</a></li><li><a href="global.html#deporteEquipo">deporteEquipo</a></li><li><a href="global.html#deporteValido">deporteValido</a></li><li><a href="global.html#expresionDeporte">expresionDeporte</a></li><li><a href="global.html#fechaValida">fechaValida</a></li><li><a href="global.html#hayErrores">hayErrores</a></li><li><a href="global.html#horaValida">horaValida</a></li><li><a href="global.html#idJugador1">idJugador1</a></li><li><a href="global.html#jugador1N">jugador1N</a></li><li><a href="global.html#mensajeError1">mensajeError1</a></li><li><a href="global.html#mensajeError2">mensajeError2</a></li><li><a href="global.html#mensajeError3">mensajeError3</a></li><li><a href="global.html#mensajeError4">mensajeError4</a></li><li><a href="global.html#searchTexto">searchTexto</a></li><li><a href="global.html#textCiudad">textCiudad</a></li><li><a href="global.html#textDeporte">textDeporte</a></li><li><a href="global.html#textFecha">textFecha</a></li><li><a href="global.html#textHora">textHora</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 07:15:28 GMT+0100 (hora estándar de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jun 04 2023 23:39:00 GMT+0200 (hora de verano de Europa central)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,3 +1,10 @@
+<script setup>
+/**
+ * @file NotFoundView.vue - Vista de error, página no encontrada (404)
+ * @module NotFoundView
+ * @author Daniel Mera Sachse
+ */
+</script>
 <template>
     <div class="no-encontrado">
         <div class="no-encontrado__imagen"></div>

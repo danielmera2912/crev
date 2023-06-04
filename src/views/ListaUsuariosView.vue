@@ -1,12 +1,8 @@
 <script setup>
 /**
- * @file PartidosUnicosView.vue - Vista de los partidos únicos
+ * @file ListaUsuariosView.vue - Vista de la lista de Usuarios
+ * @module ListaUsuariosView
  * @author Daniel Mera Sachse
- */
-/**
- * @vue-prop {String} results - Resultados rescatados
- * @vue-prop {String} search - Buscador rescatado
- * @vue-prop {String} idUsuario - Id del usuario rescatado
  */
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';

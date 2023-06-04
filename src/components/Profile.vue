@@ -3,22 +3,27 @@ import Modificar from './Modificar_cuenta.vue'
 import Partido from './Partido.vue'
 import Alerta from './Alerta.vue';
 /**
- * @file Iniciar_sesion.vue - Componente para iniciar sesión
+ * @file Perfil.vue - Componente para el perfil
+ * @module Profile
  * @author Daniel Mera Sachse
+ * @vue-prop {String} idUsuario - La ID del usuario
+ * @example
+ * // Uso del componente:
+ * <Profile :idUsuario="idUsuario"></Profile>
  */
-/**
- * @vue-prop {String} idUsuario - Id del usuario
- * @vue-data {String} nombre - Texto del nombre
- * @vue-data {String} fecha_nacimiento - Texto de la fecha
- * @vue-data {String} avatar - Avatar de la fecha
- * @vue-data {String} idUsuarioActual - Id del usuario actual
- */
-defineProps({
-    idUsuario: {
-        type: String,
-        required: true
-    }
-})
+ defineProps({
+  /**
+   * La ID del usuario.
+   *
+   * @type {String}
+   * @required
+   */
+  idUsuario: {
+    type: String,
+    required: true,
+  },
+});
+
 </script>
 <script>
 
