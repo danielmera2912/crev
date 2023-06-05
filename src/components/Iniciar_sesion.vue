@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import axios from 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
@@ -25,6 +25,14 @@ import 'sweetalert2/dist/sweetalert2.css'
  * @vue-data {String} inputType - Tipo del input
  * @vue-data {String} icon - Icono para el input
  */
+ defineProps({
+    cambioSesion: {
+        type: Function,
+        required: true
+    }
+})
+</script>
+<script>
 export default {
     data() {
         return {
@@ -82,7 +90,7 @@ export default {
                 this.hayErrores = true
             }
         },
-        
+
         async login() {
             await axios.post("http://127.0.0.1:8080/auth/login", {
                 username: this.textUser.trim(),
@@ -103,6 +111,9 @@ export default {
         recibirIdUsuario(id) {
             this.$emit('recibirIdUsuario', id)
         },
+        ejecutarInicioSesion(nueva_id) {
+            this.cambioSesion(nueva_id)
+        },
         async trasIniciar() {
             await this.$router.push('/perfil/' + localStorage.getItem('userId'))
             this.$emit('cerrarTodo')
@@ -115,6 +126,7 @@ export default {
                 timer: 1500
             })
             this.recibirIdUsuario(localStorage.getItem('userId'))
+            this.ejecutarInicioSesion(localStorage.getItem('userId'));
         },
         async lanzarIniciarSesion() {
             this.formData = {

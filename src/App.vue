@@ -32,8 +32,8 @@ export default {
     this.llamarApi()
   },
   methods: {
-    sesionCerrada() {
-      this.idUsuario = 0
+    cambioSesion(nueva_id) {
+      this.idUsuario = nueva_id
     },
     recibirIdUsuario(id) {
       localStorage.setItem('userId', id);
@@ -42,7 +42,6 @@ export default {
     async llamarApi() {
       this.cargando = false
       try {
-        const response = await fetch(this.API);
         const response2 = await fetch(this.API_iniciar);
 
         if (response2.status == 200) {
@@ -53,15 +52,13 @@ export default {
           this.llamarApi();
         }, 5000);
       }
-      const data = await response.json()
-      this.results = data
     }
   }
 }
 </script>
 <template>
-  <Header v-if="cargando" @sesionCerrada="sesionCerrada" :idUsuario="idUsuario"></Header>
-  <RouterView v-if="cargando" :search="search" @sesionCerrada="sesionCerrada" :id="id" :results="results"
+  <Header v-if="cargando" :cambioSesion="cambioSesion" :idUsuario="idUsuario"></Header>
+  <RouterView v-if="cargando" :search="search" :cambioSesion="cambioSesion" :id="id"
     :idUsuario="idUsuario" />
   <Footer v-if="cargando"></Footer>
   <div v-else class="servidor">

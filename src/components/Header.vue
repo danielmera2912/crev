@@ -8,7 +8,7 @@ import Buscador from './Buscador.vue'
  * @vue-data {String} searchTexto - Texto para establecer en el buscador
  * @vue-event {String} recibirIdUsuario - Evento emitido al modificar la ID del usuario
  */
- defineProps({
+defineProps({
   /**
    * Establece la ID del usuario.
    *
@@ -19,7 +19,7 @@ import Buscador from './Buscador.vue'
     type: String,
     required: true,
   },
-  sesionCerrada: {
+  cambioSesion: {
     type: Function,
     required: true,
   }
@@ -49,12 +49,16 @@ export default {
     recibirIdUsuario(id) {
       this.$emit('recibirIdUsuario', id);
     },
+    llamarCerrarSesion(nueva_id) {
+      this.cambioSesion(nueva_id);
+    },
   },
 };
 </script>
 <template>
   <header class="encabezado">
-    <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png" alt="Logo de CREV"/></RouterLink>
+    <RouterLink to="/"><img class="encabezado__logo" src="../assets/imagenes/crev_logo.png" alt="Logo de CREV" />
+    </RouterLink>
 
     <nav class="encabezado__navegador">
       <ul class="encabezado__lista">
@@ -70,6 +74,6 @@ export default {
       </ul>
     </nav>
 
-    <Menu :idUsuario="idUsuario" @sesionCerrada="sesionCerrada"></Menu>
+    <Menu :idUsuario="idUsuario" :cambioSesion="llamarCerrarSesion"></Menu>
   </header>
 </template>

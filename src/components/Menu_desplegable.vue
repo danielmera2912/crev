@@ -15,7 +15,7 @@ defineProps({
         type: String,
         required: true
     },
-    sesionCerrada: {
+    cambioSesion: {
         type: Function,
         required: true
     }
@@ -77,6 +77,9 @@ export default {
             }
 
         },
+        ejecutarCierreSesion(nueva_id) {
+          this.cambioSesion(nueva_id)  
+        },
         async cerrarSesion() {
             this.sesionIniciada = false;
             this.showIniciado = false;
@@ -86,7 +89,7 @@ export default {
                 await localStorage.removeItem('tokenjwt');
                 await localStorage.removeItem('username');
                 await localStorage.removeItem('avatar');
-                this.sesionCerrada();
+                this.ejecutarCierreSesion(0);
                 this.$router.push('/');
                 Swal.fire({
                     position: 'top-end',
@@ -204,7 +207,7 @@ export default {
     </div>
     <Iniciar v-if="showInicio" @cerrarTodo="toggleInicio" :showInicio="showInicio" @abrirRegistrar="toggleRegistrar"
         :showRegistrar="showRegistrar" :showAcceso="showAcceso" @iniciarSesion="accederPerfilconIniciar"
-        :sesionIniciada="sesionIniciada" @check="toggleCheck" :checkForm="checkForm" @recibirIdUsuario="recibirIdUsuario">
+        :sesionIniciada="sesionIniciada" @check="toggleCheck" :checkForm="checkForm" @recibirIdUsuario="recibirIdUsuario" :cambioSesion="ejecutarCierreSesion">
     </Iniciar>
     <Registrar v-if="showRegistrar" @cerrarTodo="toggleRegistrar" :showRegistrar="showRegistrar"
         @abrirIniciar="toggleInicioDesdeRegistro" :showInicio="showInicio" @check="toggleCheck2" :checkForm="checkRegistro"
