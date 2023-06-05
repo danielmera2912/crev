@@ -14,6 +14,10 @@ defineProps({
     idUsuario: {
         type: String,
         required: true
+    },
+    sesionCerrada: {
+        type: Function,
+        required: true
     }
 })
 </script>
@@ -82,6 +86,7 @@ export default {
                 await localStorage.removeItem('tokenjwt');
                 await localStorage.removeItem('username');
                 await localStorage.removeItem('avatar');
+                this.sesionCerrada();
                 this.$router.push('/');
                 Swal.fire({
                     position: 'top-end',

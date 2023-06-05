@@ -32,8 +32,8 @@ export default {
     this.llamarApi()
   },
   methods: {
-    recibirValores() {
-      //
+    sesionCerrada() {
+      this.idUsuario = 0
     },
     recibirIdUsuario(id) {
       localStorage.setItem('userId', id);
@@ -60,8 +60,8 @@ export default {
 }
 </script>
 <template>
-  <Header v-if="cargando" @recibirIdUsuario="recibirIdUsuario" :idUsuario="idUsuario"></Header>
-  <RouterView v-if="cargando" :search="search" @recibirValores="recibirValores" :id="id" :results="results"
+  <Header v-if="cargando" @sesionCerrada="sesionCerrada" :idUsuario="idUsuario"></Header>
+  <RouterView v-if="cargando" :search="search" @sesionCerrada="sesionCerrada" :id="id" :results="results"
     :idUsuario="idUsuario" />
   <Footer v-if="cargando"></Footer>
   <div v-else class="servidor">

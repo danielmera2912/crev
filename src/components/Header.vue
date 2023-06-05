@@ -19,6 +19,10 @@ import Buscador from './Buscador.vue'
     type: String,
     required: true,
   },
+  sesionCerrada: {
+    type: Function,
+    required: true,
+  }
 });
 
 
@@ -66,6 +70,6 @@ export default {
       </ul>
     </nav>
 
-    <Menu :idUsuario="idUsuario" @recibirIdUsuario="recibirIdUsuario"></Menu>
+    <Menu :idUsuario="idUsuario" @sesionCerrada="sesionCerrada"></Menu>
   </header>
 </template>
