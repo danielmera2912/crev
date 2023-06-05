@@ -56,8 +56,7 @@ export default {
             mensajeError3: "Necesitas tener un patrón correcto (ej: usuario@gmail.com)",
             mensajeError4: "Se necesita una fecha válida y ser mayor de 13 años",
             mensajeError5: "La contraseña no coincide",
-            mensajeError6: "El nombre de usuario ya existe",
-            mensajeError7: "El email de usuario ya existe",
+            mensajeError6: "Correo electrónico o el nombre de usuario que has ingresado ya están en uso",
             hayErrores: false,
             inputType: "password",
             inputType2: "password",
@@ -177,13 +176,7 @@ export default {
                 } else {
                     this.hayErrores = true
                     if (this.checkEmailServer) {
-                        this.correoValidoServer = false
-                    }
-                    else {
-                        this.correoValidoServer = true
-                    }
-                    if (this.checkUserServer) {
-                        this.userValidoServer = false
+                        this.userValidoServer= false;
                     }
                     else {
                         this.userValidoServer = true
@@ -191,6 +184,8 @@ export default {
                 }
 
             } catch (error) {
+                this.userValidoServer= false;
+                this.hayErrores = true
                 console.error(error);
             }
         }
@@ -210,16 +205,13 @@ export default {
                 <div v-if="!userValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError1
                 }}</div>
-                <div v-else-if="!userValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
-                    mensajeError6
-                }}</div>
                 <input v-on:input="cambiarTextoCorreo" className="registrar__caja__elemento" type="email"
                     placeholder="Correo electrónico..." />
                 <div v-if="!correoValido && hayErrores" className="registrar__caja__informativo1--visible">{{
                     mensajeError3
                 }}</div>
-                <div v-else-if="!correoValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
-                    mensajeError7
+                <div v-else-if="!userValidoServer && hayErrores" className="registrar__caja__informativo1--visible">{{
+                    mensajeError6
                 }}</div>
                 <input :type="inputType" @input="cambiarTextoPass" class="registrar__caja__elemento"
                     placeholder="Contraseña..." />
