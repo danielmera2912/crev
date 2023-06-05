@@ -57,7 +57,7 @@ export default {
             dataCiudad: '',
             resultadoLocal: 0,
             resultadoVisitante: 0,
-            mensajeError1: "No se pueden introducir décimales ni negativos",
+            mensajeError1: "No se pueden introducir decimales ni negativos",
             hayErrores: false,
             resultadoLocalValido: false,
             resultadoVisitanteValido: false

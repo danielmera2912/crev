@@ -78,7 +78,7 @@ export default {
 
         },
         ejecutarCierreSesion(nueva_id) {
-          this.cambioSesion(nueva_id)  
+          this.cambioSesion(nueva_id)
         },
         async cerrarSesion() {
             this.sesionIniciada = false;
