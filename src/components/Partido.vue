@@ -117,8 +117,8 @@ export default {
     <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Baloncesto'">
       <img :src="balonBaloncesto" alt="Balón de Baloncesto"/>
     </div>
-    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Padel'">
-      <img :src="balonPadel" alt="Balón de Padel"/>
+    <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Pádel'">
+      <img :src="balonPadel" alt="Balón de Pádel"/>
     </div>
     <div class="partido__estado partido__estado__imagenDeporte" v-if="deporte == 'Tenis'">
       <img :src="balonTenis" alt="Balón de Tenis"/>

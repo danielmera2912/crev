@@ -260,8 +260,8 @@ export default {
         <div v-if="estado == 'FINALIZADO'" class="partido-detalles__enfrentamiento__jugador__puntuacion">{{
           resultadoVisitante }}</div>
       </div>
-      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Padel'">
-        <img :src="balonPadel" alt="Balón de padel"/>
+      <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Pádel'">
+        <img :src="balonPadel" alt="Balón de pádel"/>
       </div>
       <div class="partido__estado partido__estado__imagenDeporteDetalles" v-if="deporte == 'Tenis'">
         <img :src="balonTenis" alt="Balón de tenis"/>
