@@ -260,7 +260,7 @@ export default {
     },
     methods: {
         async establecerCiudades() {
-            const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
+            const responseCiudad = await fetch("https://crevserverspring-production.up.railway.app/ciudad")
             this.dataCiudad = await responseCiudad.json()
         },
         cambiarTextoHora(e) {
@@ -325,7 +325,7 @@ export default {
                     }
                 };
             try {
-                const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
+                const response = await axios.put("https://crevserverspring-production.up.railway.app/evento/" + this.id, this.formData, config);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

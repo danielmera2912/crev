@@ -53,7 +53,7 @@ export default {
                 puntosVisitante: "",
                 estado: "FINALIZADO"
             },
-            API_partido: "http://127.0.0.1:8080/evento",
+            API_partido: "https://crevserverspring-production.up.railway.app/evento",
             dataCiudad: '',
             resultadoLocal: 0,
             resultadoVisitante: 0,
@@ -115,7 +115,7 @@ export default {
                 this.formData.deporte.id = data.deporte.id
                 this.formData.ciudad.id = data.ciudad.id
                 try {
-                    const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
+                    const response = await axios.put("https://crevserverspring-production.up.railway.app/evento/" + this.id, this.formData, config);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

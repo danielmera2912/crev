@@ -62,7 +62,7 @@ export default {
 
     methods: {
         async conseguirDatosUsuario() {
-            const usuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuarioActivo)
+            const usuario = await fetch("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuarioActivo)
             const dataUsuario = await usuario.json()
             this.avatarUsuario = dataUsuario.avatar
         },

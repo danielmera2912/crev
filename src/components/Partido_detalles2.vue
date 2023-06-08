@@ -96,8 +96,8 @@ export default {
       resultadoVisitante: '',
       registrarResultado: false,
       idCiudad: 0,
-      API: "http://127.0.0.1:8080/evento",
-      API2: "http://127.0.0.1:8080/equipo",
+      API: "https://crevserverspring-production.up.railway.app/evento",
+      API2: "https://crevserverspring-production.up.railway.app/equipo",
       contadorJugador: 1,
       result: false,
       permisoParticipar: false,
@@ -206,7 +206,7 @@ export default {
       };
       if (this.permisos) {
         try {
-          await axios.delete("http://127.0.0.1:8080/evento/" + this.id, config);
+          await axios.delete("https://crevserverspring-production.up.railway.app/evento/" + this.id, config);
           await this.$router.push('/');
           Swal.fire({
             position: 'top-end',
@@ -279,7 +279,7 @@ export default {
     },
     async establecerPermiso() {
       if (this.idUsuario != 0) {
-        const responseUsuarioPermiso = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
+        const responseUsuarioPermiso = await fetch("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuario)
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.username == this.jugador1) {
           this.permisos = true
@@ -296,7 +296,7 @@ export default {
           'Authorization': `Bearer ${token}`
         }
       };
-      const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuario)
+      const responseUsuario = await fetch("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuario)
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.username == this.jugador1 || this.resultsUsuario.username == this.jugador2 || this.resultsUsuario.username == this.jugador3 || this.resultsUsuario.username == this.jugador4
@@ -322,23 +322,23 @@ export default {
           })
       }
       else {
-        const equipos = await fetch("http://127.0.0.1:8080/evento/" + this.id + "/equipos")
+        const equipos = await fetch("https://crevserverspring-production.up.railway.app/evento/" + this.id + "/equipos")
         const listaEquipos = await equipos.json()
-        const componentesEquipo1 = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[0].id + "/usuarios")
+        const componentesEquipo1 = await fetch("https://crevserverspring-production.up.railway.app/equipo/" + listaEquipos[0].id + "/usuarios")
         const listaComponentesEquipo1 = await componentesEquipo1.json()
-        const componentesEquipo2 = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[1].id + "/usuarios")
+        const componentesEquipo2 = await fetch("https://crevserverspring-production.up.railway.app/equipo/" + listaEquipos[1].id + "/usuarios")
         const listaComponentesEquipo2 = await componentesEquipo2.json()
 
-        const componentesEquipo1Id = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[0].id + "/usuario-equipo-ids")
+        const componentesEquipo1Id = await fetch("https://crevserverspring-production.up.railway.app/equipo/" + listaEquipos[0].id + "/usuario-equipo-ids")
         const listaComponentesEquipo1Id = await componentesEquipo1Id.json()
-        const componentesEquipo2Id = await fetch("http://127.0.0.1:8080/equipo/" + listaEquipos[1].id + "/usuario-equipo-ids")
+        const componentesEquipo2Id = await fetch("https://crevserverspring-production.up.railway.app/equipo/" + listaEquipos[1].id + "/usuario-equipo-ids")
         const listaComponentesEquipo2Id = await componentesEquipo2Id.json()
 
         if (this.contadorJugador == 2) {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo2Id[0], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -348,7 +348,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo1Id[1], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -358,7 +358,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo2Id[1], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -368,7 +368,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo1Id[2], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -378,7 +378,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo2Id[2], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -388,7 +388,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo1Id[3], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -398,7 +398,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo2Id[3], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -408,7 +408,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[0].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo1Id[4], this.formDataUsuario, config);
           } catch (error) {
             console.error(error);
           }
@@ -418,7 +418,7 @@ export default {
           try {
             this.formDataUsuario.usuario.id = this.idUsuario
             this.formDataUsuario.equipo.id = listaEquipos[1].id
-            const response = await axios.put("http://127.0.0.1:8080/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario, config);
+            const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_equipo/" + listaComponentesEquipo2Id[4], this.formDataUsuario, config);
 
           } catch (error) {
             console.error(error);

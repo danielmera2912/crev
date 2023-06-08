@@ -26,7 +26,7 @@ export default {
     return {
       equipos: false,
       results2: null,
-      API_partido: "http://127.0.0.1:8080/evento",
+      API_partido: "https://crevserverspring-production.up.railway.app/evento",
       id: ''
     }
   },
