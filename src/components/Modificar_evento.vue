@@ -249,7 +249,7 @@ export default {
                     id: 0
                 }
             },
-            API: "http://127.0.0.1:8080",
+            API: "https://crevserverspring-production.up.railway.app",
         }
     },
     mounted() {
@@ -261,7 +261,9 @@ export default {
     },
     methods: {
         async establecerCiudades() {
+
             const responseCiudad = await fetch(this.API+"/ciudad")
+
             this.dataCiudad = await responseCiudad.json()
         },
         cambiarTextoHora(e) {
@@ -326,7 +328,9 @@ export default {
                     }
                 };
             try {
+
                 const response = await axios.put(this.API+"/evento/" + this.id, this.formData, config);
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

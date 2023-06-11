@@ -71,7 +71,7 @@ export default {
                 email: "",
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             },
-            API: "http://127.0.0.1:8080",
+            API: "https://crevserverspring-production.up.railway.app",
         }
     },
     methods: {
@@ -157,6 +157,7 @@ export default {
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             };
             try {
+
                 const response = await fetch(this.API+"/usuario/existeCorreo?correo=" + this.formData.correo)
                 const data = await response.json()
                 this.checkEmailServer = data
@@ -165,6 +166,7 @@ export default {
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
                     const responsePost = await axios.post(this.API+"/usuario", this.formData);
+
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

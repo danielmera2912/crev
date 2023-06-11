@@ -36,7 +36,7 @@ export default {
             checkRegistro: false,
             avatarUsuario: '',
             idUsuarioActivo: 0,
-            API: "http://127.0.0.1:8080",
+            API: "https://crevserverspring-production.up.railway.app",
         };
     },
     mounted() {
@@ -63,7 +63,9 @@ export default {
 
     methods: {
         async conseguirDatosUsuario() {
+
             const usuario = await fetch(this.API+"/usuario/" + this.idUsuarioActivo)
+
             const dataUsuario = await usuario.json()
             this.avatarUsuario = dataUsuario.avatar
         },

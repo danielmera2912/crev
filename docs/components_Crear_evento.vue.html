@@ -278,10 +278,10 @@ export default {
             // this.jugador1N = this.resultsUsuario.name
             // this.avatar = this.resultsUsuario.avatar
 
-            const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
+            const responseDeporte = await fetch("https://crevserverspring-production.up.railway.app/deporte")
             this.dataDeporte = await responseDeporte.json()
 
-            const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
+            const responseCiudad = await fetch("https://crevserverspring-production.up.railway.app/ciudad")
             this.dataCiudad = await responseCiudad.json()
         }
     }

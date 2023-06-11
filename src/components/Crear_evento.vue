@@ -161,8 +161,8 @@ export default {
              * @type {Boolean}
              */
             deporteEquipo: false,
-            API_ciudad: "http://127.0.0.1:8080/ciudad",
-            API_deporte: "http://127.0.0.1:8080/deporte"
+            API_ciudad: "https://crevserverspring-production.up.railway.app/ciudad",
+            API_deporte: "https://crevserverspring-production.up.railway.app/deporte"
         }
     },
     mounted() {
@@ -246,10 +246,12 @@ export default {
         },
         async llamarApiUsuario() {
 
+
             const responseDeporte = await fetch(this.API_deporte)
             this.dataDeporte = await responseDeporte.json()
 
             const responseCiudad = await fetch(this.API_ciudad)
+
             this.dataCiudad = await responseCiudad.json()
         }
     }

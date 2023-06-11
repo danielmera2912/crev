@@ -89,7 +89,7 @@ export default {
                 correo: '',
                 avatar: '',
             },
-            API: "http://127.0.0.1:8080",
+            API: "https://crevserverspring-production.up.railway.app",
         }
     },
     methods: {
@@ -163,7 +163,9 @@ export default {
 
                 let avatarFileName = "";
                 if (this.nuevoAvatar) {
+
                     const uploadResponse = await axios.post(this.API+"/media/upload", formData, config2);
+
                     avatarFileName = uploadResponse.data;
                 }
                 else {
@@ -178,7 +180,9 @@ export default {
                 };
 
 
+
                 const updateResponse = await axios.put(this.API+"/usuario/" + this.idUsuario, usuarioData, config);
+
                 localStorage.removeItem('avatar')
                 localStorage.setItem('avatar', avatarFileName);
                 Swal.fire({
