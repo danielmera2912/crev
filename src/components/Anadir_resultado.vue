@@ -53,8 +53,10 @@ export default {
                 puntosVisitante: "",
                 estado: "FINALIZADO"
             },
-            API: "http://127.0.0.1:8080",
-            API_partido: "http://127.0.0.1:8080/evento",
+            API: "https://crevserverspring-production.up.railway.app",
+
+            API_partido: "https://crevserverspring-production.up.railway.app/evento",
+
             dataCiudad: '',
             resultadoLocal: 0,
             resultadoVisitante: 0,
