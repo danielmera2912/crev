@@ -55,7 +55,7 @@ export default {
                 clave: "",
                 correo: ""
             },
-            API: "https://crevserverspring-production.up.railway.app"
+            API: "http://127.0.0.1:8080"
 
         }
     },
@@ -91,6 +91,7 @@ export default {
         },
 
         async login() {
+            await axios.post(this.API+"/auth/login", {
                 username: this.textUser.trim(),
                 password: this.textPass.trim()
             }, { withCredentials: true })
@@ -136,7 +137,6 @@ export default {
                 this.errorIniciar = false;
 
                 const responseUsuario = await fetch(this.API+`/usuario/buscarPorNombre/${encodeURIComponent(this.formData.correo)}`);
-
                 const dataUsuario = await responseUsuario.json();
 
                 let usuarioEncontrado = true;
