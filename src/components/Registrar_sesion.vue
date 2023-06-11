@@ -70,7 +70,8 @@ export default {
                 fecha_nacimiento: '',
                 email: "",
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
-            }
+            },
+            API: "http://127.0.0.1:8080",
         }
     },
     methods: {
@@ -156,14 +157,14 @@ export default {
                 avatar: "https://images.pexels.com/photos/5609026/pexels-photo-5609026.jpeg?auto=compress&cs=tinysrgb&w=600"
             };
             try {
-                const response = await fetch("http://127.0.0.1:8080/usuario/existeCorreo?correo=" + this.formData.correo)
+                const response = await fetch(this.API+"/usuario/existeCorreo?correo=" + this.formData.correo)
                 const data = await response.json()
                 this.checkEmailServer = data
-                const response2 = await fetch("http://127.0.0.1:8080/usuario/existeNombre?username=" + this.formData.nombre)
+                const response2 = await fetch(this.API+"/usuario/existeNombre?username=" + this.formData.nombre)
                 const data2 = await response2.json()
                 this.checkUserServer = data2
                 if (!this.checkEmailServer && !this.checkUserServer) {
-                    const responsePost = await axios.post("http://127.0.0.1:8080/usuario", this.formData);
+                    const responsePost = await axios.post(this.API+"/usuario", this.formData);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

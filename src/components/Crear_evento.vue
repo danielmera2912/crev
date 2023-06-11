@@ -161,6 +161,8 @@ export default {
              * @type {Boolean}
              */
             deporteEquipo: false,
+            API_ciudad: "http://127.0.0.1:8080/ciudad",
+            API_deporte: "http://127.0.0.1:8080/deporte"
         }
     },
     mounted() {
@@ -244,16 +246,10 @@ export default {
         },
         async llamarApiUsuario() {
 
-            // const responseUsuario = await fetch("http://127.0.0.1:3001/api/v1/users/" + this.idUsuario)
-            // const dataUsuario = await responseUsuario.json()
-            // this.resultsUsuario = dataUsuario
-            // this.jugador1N = this.resultsUsuario.name
-            // this.avatar = this.resultsUsuario.avatar
-
-            const responseDeporte = await fetch("http://127.0.0.1:8080/deporte")
+            const responseDeporte = await fetch(this.API_deporte)
             this.dataDeporte = await responseDeporte.json()
 
-            const responseCiudad = await fetch("http://127.0.0.1:8080/ciudad")
+            const responseCiudad = await fetch(this.API_ciudad)
             this.dataCiudad = await responseCiudad.json()
         }
     }

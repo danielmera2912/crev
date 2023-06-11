@@ -44,6 +44,7 @@ export default {
             equipoImagen2: "https://i.ibb.co/k9LNHCX/ballenazul.png",
             equipoNombre1: "Ciervo Verde",
             equipoNombre2: "Ballena Azul",
+            API: "http://127.0.0.1:8080",
         }
     },
     mounted() {
@@ -89,7 +90,7 @@ export default {
         },
         async llamarApiUsuario() {
             this.idUsuarioActual = this.$route.params.id;
-            const responseUsuario = await fetch("http://127.0.0.1:8080/usuario/" + this.idUsuarioActual)
+            const responseUsuario = await fetch(this.API+"/usuario/" + this.idUsuarioActual)
             const dataUsuario = await responseUsuario.json()
             this.resultsUsuario = dataUsuario
             this.nombre = this.resultsUsuario.username
@@ -99,7 +100,7 @@ export default {
             this.llamarEventos()
         },
         async llamarEventos() {
-            const responseEvento = await fetch("http://127.0.0.1:8080/usuarios/" + this.idUsuarioActual + "/eventos")
+            const responseEvento = await fetch(this.API+"/usuarios/" + this.idUsuarioActual + "/eventos")
             const dataEvento = await responseEvento.json()
             this.resultsEventos = dataEvento
         },

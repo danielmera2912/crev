@@ -12,12 +12,13 @@ const localSearch = ref('');
 const dataUsuario = ref([]);
 let paginaActual = 0;
 let totalPaginas = 0;
+const API =  "http://127.0.0.1:8080";
 const router = useRouter();
 
 onMounted(conseguirUsuarios);
 
 async function conseguirUsuarios() {
-    const responseUsuario = await fetch(`http://127.0.0.1:8080/usuario?page=${paginaActual}`);
+    const responseUsuario = await fetch(API+`/usuario?page=${paginaActual}`);
     const arrayUsuarios = await responseUsuario.json();
     const usuarios = arrayUsuarios.usuarios;
     totalPaginas = arrayUsuarios.totalPages;
@@ -26,7 +27,7 @@ async function conseguirUsuarios() {
 
 async function buscarUsuariosPorNombre() {
     if (localSearch.value !== '') {
-        const responseUsuario = await fetch(`http://127.0.0.1:8080/usuario/buscarPorNombre/${localSearch.value}`);
+        const responseUsuario = await fetch(API+`/usuario/buscarPorNombre/${localSearch.value}`);
         const usuarios = await responseUsuario.json();
         dataUsuario.value = usuarios;
     } else {

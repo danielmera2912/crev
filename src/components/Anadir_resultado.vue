@@ -53,6 +53,7 @@ export default {
                 puntosVisitante: "",
                 estado: "FINALIZADO"
             },
+            API: "http://127.0.0.1:8080",
             API_partido: "http://127.0.0.1:8080/evento",
             dataCiudad: '',
             resultadoLocal: 0,
@@ -115,7 +116,7 @@ export default {
                 this.formData.deporte.id = data.deporte.id
                 this.formData.ciudad.id = data.ciudad.id
                 try {
-                    const response = await axios.put("http://127.0.0.1:8080/evento/" + this.id, this.formData, config);
+                    const response = await axios.put(this.API_partido + "/" + this.id, this.formData, config);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
