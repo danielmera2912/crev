@@ -80,19 +80,18 @@ export default {
         },
         check() {
             if (this.passValido && this.userValido) {
-                //this.lanzarIniciarSesion()
                 this.login()
             }
         },
         iniciar() {
             this.check()
-            //this.$emit('iniciarSesion')
             if (!this.passValido || !this.userValido) {
                 this.hayErrores = true
             }
         },
 
         async login() {
+            await axios.post(this.API+"/auth/login", {
                 username: this.textUser.trim(),
                 password: this.textPass.trim()
             }, { withCredentials: true })
