@@ -249,6 +249,7 @@ export default {
                     id: 0
                 }
             },
+            API: "https://crevserverspring-production.up.railway.app",
         }
     },
     mounted() {
@@ -260,7 +261,9 @@ export default {
     },
     methods: {
         async establecerCiudades() {
-            const responseCiudad = await fetch("https://crevserverspring-production.up.railway.app/ciudad")
+
+            const responseCiudad = await fetch(this.API+"/ciudad")
+
             this.dataCiudad = await responseCiudad.json()
         },
         cambiarTextoHora(e) {
@@ -325,7 +328,9 @@ export default {
                     }
                 };
             try {
-                const response = await axios.put("https://crevserverspring-production.up.railway.app/evento/" + this.id, this.formData, config);
+
+                const response = await axios.put(this.API+"/evento/" + this.id, this.formData, config);
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

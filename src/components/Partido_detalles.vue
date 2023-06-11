@@ -51,6 +51,7 @@ export default {
       imagen2: 'https://cdn.resfu.com/img_data/players/medium/427788.jpg?size=120x&lossy=1',
       creacion: false,
       participacion: false,
+      API: "https://crevserverspring-production.up.railway.app",
       API_partido: "https://crevserverspring-production.up.railway.app/evento",
       results2: null,
       permisos: false,
@@ -113,7 +114,9 @@ export default {
       };
       if (this.permisos) {
         try {
-          await axios.delete("https://crevserverspring-production.up.railway.app/evento/" + this.id, config);
+
+          await axios.delete(this.API+"/evento/" + this.id, config);
+
           await this.$router.push('/');
           Swal.fire({
             position: 'top-end',
@@ -162,7 +165,9 @@ export default {
     },
     async establecerPermiso() {
       if (this.idUsuario != 0) {
-        const responseUsuarioPermiso = await fetch("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuario)
+
+        const responseUsuarioPermiso = await fetch(this.API+"/usuario/" + this.idUsuario)
+
         const dataUsuarioPermiso = await responseUsuarioPermiso.json()
         if (dataUsuarioPermiso.username == this.jugador1) {
           this.permisos = true
@@ -179,7 +184,9 @@ export default {
           'Authorization': `Bearer ${token}`
         }
       };
-      const responseUsuario = await fetch("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuario)
+
+      const responseUsuario = await fetch(this.API+"/usuario/" + this.idUsuario)
+
       const dataUsuario = await responseUsuario.json()
       this.resultsUsuario = dataUsuario
       if (this.resultsUsuario.name == this.jugador1) {
@@ -204,11 +211,13 @@ export default {
         this.formData.hora = this.hora
         this.formData.fecha = this.fecha
         try {
-          const usuarios = await fetch("https://crevserverspring-production.up.railway.app/usuario_evento/evento/" + this.id)
+
+          const usuarios = await fetch(this.API+"/usuario_evento/evento/" + this.id)
           const datosUsuarios = await usuarios.json()
           this.formDataEvento.evento.id = this.id
           this.formDataEvento.usuario.id = this.idUsuario
-          const response = await axios.put("https://crevserverspring-production.up.railway.app/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento, config);
+          const response = await axios.put(this.API+"/usuario_evento/" + datosUsuarios[1].id, this.formDataEvento, config);
+
           Swal.fire({
             position: 'top-end',
             icon: 'success',

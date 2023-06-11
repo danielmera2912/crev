@@ -12,12 +12,15 @@ const localSearch = ref('');
 const dataUsuario = ref([]);
 let paginaActual = 0;
 let totalPaginas = 0;
+const API =  "https://crevserverspring-production.up.railway.app";
 const router = useRouter();
 
 onMounted(conseguirUsuarios);
 
 async function conseguirUsuarios() {
-    const responseUsuario = await fetch(`https://crevserverspring-production.up.railway.app/usuario?page=${paginaActual}`);
+
+    const responseUsuario = await fetch(API+`/usuario?page=${paginaActual}`);
+
     const arrayUsuarios = await responseUsuario.json();
     const usuarios = arrayUsuarios.usuarios;
     totalPaginas = arrayUsuarios.totalPages;
@@ -26,7 +29,9 @@ async function conseguirUsuarios() {
 
 async function buscarUsuariosPorNombre() {
     if (localSearch.value !== '') {
-        const responseUsuario = await fetch(`https://crevserverspring-production.up.railway.app/usuario/buscarPorNombre/${localSearch.value}`);
+
+        const responseUsuario = await fetch(API+`/usuario/buscarPorNombre/${localSearch.value}`);
+
         const usuarios = await responseUsuario.json();
         dataUsuario.value = usuarios;
     } else {

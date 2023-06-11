@@ -214,6 +214,7 @@ export default {
       eventos: [],
       paginaActual: 0,
       totalPaginas: 0,
+      API: "https://crevserverspring-production.up.railway.app",
     };
   },
   mounted() {
@@ -225,7 +226,9 @@ export default {
   methods: {
     async obtenerEventos() {
       try {
-        const response = await axios.get(`https://crevserverspring-production.up.railway.app/evento?page=${this.paginaActual}`);
+
+        const response = await axios.get(this.API+`/evento?page=${this.paginaActual}`);
+
         this.eventos = response.data.eventos;
         this.totalPaginas = response.data.totalPages;
       } catch (error) {
@@ -241,7 +244,9 @@ export default {
       this.obtenerEventos();
     },
     async conseguirDeportes() {
-      const responseDeporte = await fetch("https://crevserverspring-production.up.railway.app/deporte")
+
+      const responseDeporte = await fetch(this.API+"/deporte")
+
       this.dataDeporte = await responseDeporte.json()
     },
     recibirValores() {
@@ -265,11 +270,13 @@ export default {
               'Authorization': `Bearer ${token}`
             }
           };
-          this.response = await axios.post("https://crevserverspring-production.up.railway.app/evento", this.formData, config);
+
+          this.response = await axios.post(this.API+"/evento", this.formData, config);
           this.formDataJugador1.evento.id = this.response.data.id;
           this.formDataJugador2.evento.id = this.response.data.id;
-          const response2 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_evento", this.formDataJugador1, config);
-          const response3 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_evento", this.formDataJugador2, config);
+          const response2 = await axios.post(this.API+"/usuario_evento", this.formDataJugador1, config);
+          const response3 = await axios.post(this.API+"/usuario_evento", this.formDataJugador2, config);
+
           if (this.deporteEquipo) {
             this.inscribirEquipos();
           }
@@ -293,9 +300,11 @@ export default {
       };
       this.formDataEquipo1.evento.id = this.response.data.id;
       this.formDataEquipo2.evento.id = this.response.data.id;
-      const response4 = await axios.post("https://crevserverspring-production.up.railway.app/equipo", this.formDataEquipo1, config);
 
-      const response5 = await axios.post("https://crevserverspring-production.up.railway.app/equipo", this.formDataEquipo2, config);
+      const response4 = await axios.post(this.API+"/equipo", this.formDataEquipo1, config);
+
+      const response5 = await axios.post(this.API+"/equipo", this.formDataEquipo2, config);
+
       this.inscripcionJ1.usuario.id = this.idUsuario;
       this.inscripcionJ1.equipo.id = response4.data.id;
       this.inscripcionJ2.equipo.id = response5.data.id;
@@ -307,16 +316,18 @@ export default {
       this.inscripcionJ8.equipo.id = response5.data.id;
       this.inscripcionJ9.equipo.id = response4.data.id;
       this.inscripcionJ10.equipo.id = response5.data.id;
-      const responseI1 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ1, config);
-      const responseI2 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ2, config);
-      const responseI3 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ3, config);
-      const responseI4 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ4, config);
-      const responseI5 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ5, config);
-      const responseI6 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ6, config);
-      const responseI7 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ7, config);
-      const responseI8 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ8, config);
-      const responseI9 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ9, config);
-      const responseI10 = await axios.post("https://crevserverspring-production.up.railway.app/usuario_equipo", this.inscripcionJ10, config);
+
+      const responseI1 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ1, config);
+      const responseI2 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ2, config);
+      const responseI3 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ3, config);
+      const responseI4 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ4, config);
+      const responseI5 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ5, config);
+      const responseI6 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ6, config);
+      const responseI7 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ7, config);
+      const responseI8 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ8, config);
+      const responseI9 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ9, config);
+      const responseI10 = await axios.post(this.API+"/usuario_equipo", this.inscripcionJ10, config);
+
       await this.$router.push('/partido_detalles/' + this.response.data.id);
       Swal.fire({
         position: 'top-end',
@@ -344,20 +355,26 @@ export default {
       }
     },
     async llamarApiCiudad() {
-      const response = await fetch("https://crevserverspring-production.up.railway.app/evento/busqueda?ciudad=" + this.search)
+
+      const response = await fetch(this.API+"/evento/busqueda?ciudad=" + this.search)
+
       const dataCiudad = await response.json()
       this.resultsCiudad = dataCiudad
     },
     async llamarApiDeporte() {
       if (this.filtroSeleccionado != "todos") {
-        const response = await fetch("https://crevserverspring-production.up.railway.app/evento/busqueda?deporte=" + this.filtroSeleccionado)
+
+        const response = await fetch(this.API+"/evento/busqueda?deporte=" + this.filtroSeleccionado)
+
         const dataDeporte = await response.json()
         this.resultsDeporte = dataDeporte
       }
 
     },
     async llamarApiFiltros() {
-      const response = await fetch("https://crevserverspring-production.up.railway.app/evento/busqueda?ciudad=" + this.search + "&deporte=" + this.filtroSeleccionado)
+
+      const response = await fetch(this.API+"/evento/busqueda?ciudad=" + this.search + "&deporte=" + this.filtroSeleccionado)
+
       const dataFiltros = await response.json()
       this.resultsFiltro = dataFiltros
     }

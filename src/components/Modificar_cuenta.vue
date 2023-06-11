@@ -88,7 +88,8 @@ export default {
                 fechaNacimiento: '',
                 correo: '',
                 avatar: '',
-            }
+            },
+            API: "https://crevserverspring-production.up.railway.app",
         }
     },
     methods: {
@@ -162,7 +163,9 @@ export default {
 
                 let avatarFileName = "";
                 if (this.nuevoAvatar) {
-                    const uploadResponse = await axios.post("https://crevserverspring-production.up.railway.app/media/upload", formData, config2);
+
+                    const uploadResponse = await axios.post(this.API+"/media/upload", formData, config2);
+
                     avatarFileName = uploadResponse.data;
                 }
                 else {
@@ -177,7 +180,9 @@ export default {
                 };
 
 
-                const updateResponse = await axios.put("https://crevserverspring-production.up.railway.app/usuario/" + this.idUsuario, usuarioData, config);
+
+                const updateResponse = await axios.put(this.API+"/usuario/" + this.idUsuario, usuarioData, config);
+
                 localStorage.removeItem('avatar')
                 localStorage.setItem('avatar', avatarFileName);
                 Swal.fire({
