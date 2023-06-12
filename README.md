@@ -22,7 +22,7 @@ Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión l
 
 [Aquí para visitar el repositorio del servidor, se deberá de clonar la rama local, si se desea instalar localmente](https://github.com/danielmera2912/crev_server_spring/tree/local).
 
-[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos).
+[Aquí para visitar la api que usa la página web](https://crevserverspring-production.up.railway.app).
 
 ## Manual de Uso
 
