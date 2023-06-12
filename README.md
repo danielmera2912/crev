@@ -4,22 +4,33 @@
   <img src="https://raw.githubusercontent.com/danielmera2912/crev_server/master/crev_logo.png" alt="Logo de CREV"/>
 </p>
 
+## Página principal de presentación de CREV
+
+[Para ver más detalles de los que aparece aquí, como la instalación, objetivo del proyecto y más, visita la página web del proyecto.](https://danielmera2912.github.io/crev/)
+
 ## Información
 
 Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la creación de eventos deportivos, tras registrarte puedes crear un evento para una ciudad y fecha concreta, puedes elegir entre varios deportes, algunos son partidos individuales y otros son partidos de equipos (Ciervos Verdes vs Ballenas Azules), también puedes participar en otros eventos deportivos de diferentes usuarios y acceder a sus perfiles para contactar con ellos y hacer grandes amigos de tus proximidades para poder jugar al deporte que más te gusta.
 
 ## Despliegue
 
-[Aquí para visitar la web](https://crev.netlify.app/)
+[Aquí para visitar la web](https://crev.netlify.app/).
 
 ## Servidor
 
+Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión local](https://github.com/danielmera2912/crev/tree/local).
 
-AVISO IMPORTANTE: Si se instala el cliente localmente no funcionará debido a la política de CORS, ya que en el servidor permite solo de origen: "https://crev.netlify.app/", para solucionar eso se necesitaría instalar el servidor localmente y modificar en index.js la línea 19 para cambiar dicho enlace por la ruta local donde está desplegado el servidor "localhost:3001", además habría que cambiar todas las llamadas a al API cambiando el enlace "https://crev-server.onrender.com/api/v1/" por "http://127.0.0.1:3001/api/v1/".
+[Aquí para visitar el repositorio del servidor, se deberá de clonar la rama local, si se desea instalar localmente](https://github.com/danielmera2912/crev_server_spring/tree/local).
 
-[Aquí para visitar el repositorio del servidor](https://github.com/danielmera2912/crev_server)
+[Aquí para visitar la api que usa la página web](https://crevserverspring-production.up.railway.app).
 
-[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos)
+## Manual de Uso
+
+[Pincha aquí para ver el manual de uso](https://github.com/danielmera2912/crev/blob/local/Manual%20de%20Uso%20de%20CREV.pdf).
+
+## Tecnologías usadas
+
+Ha sido usado para el frontend: VUE con JavaScript, SASS y múltiples librerías.
 
 ## Instalación
 
