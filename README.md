@@ -14,19 +14,19 @@ Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la cr
 
 ## Despliegue
 
-[Aquí para visitar la web](https://crev.netlify.app/)
+[Aquí para visitar la web](https://crev.netlify.app/).
 
 ## Servidor
 
-Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión local](https://github.com/danielmera2912/crev/tree/local)
+Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión local](https://github.com/danielmera2912/crev/tree/local).
 
-[Aquí para visitar el repositorio del servidor, se deberá de clonar la rama local, si se desea instalar localmente](https://github.com/danielmera2912/crev_server_spring/tree/local)
+[Aquí para visitar el repositorio del servidor, se deberá de clonar la rama local, si se desea instalar localmente](https://github.com/danielmera2912/crev_server_spring/tree/local).
 
-[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos)
+[Aquí para visitar la api que usa la página web](https://crev-server.onrender.com/api/v1/partidos).
 
 ## Manual de Uso
 
-[Pincha aquí para ver el manual de uso](https://github.com/danielmera2912/crev/blob/local/Manual%20de%20Uso%20de%20CREV.pdf)
+[Pincha aquí para ver el manual de uso](https://github.com/danielmera2912/crev/blob/local/Manual%20de%20Uso%20de%20CREV.pdf).
 
 ## Tecnologías usadas
 
