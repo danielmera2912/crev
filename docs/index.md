@@ -5,14 +5,19 @@
 
 # CREV
 
-## Enlaces del proyecto
+## Enlaces
 
-- [Despliegue del proyecto](https://crev.netlify.app/) (MÁS IMPORTANTE)
+### Enlace principal
+
+[Despliegue del proyecto](https://crev.netlify.app/)
+
+### Enlaces varios
+
 - [Repositorio del proyecto y código del frontend (DESPLEGADO)](https://github.com/danielmera2912/crev) (Enlace a la rama master para acceder al código del frontend que ha sido desplegado)
 - [Repositorio del proyecto y código del frontend (LOCAL)](https://github.com/danielmera2912/crev/tree/local) (Enlace a la rama local para acceder al código del frontend que ha sido desplegado)
 - [Repositorio del servidor del proyecto (DESPLEGADO)](https://github.com/danielmera2912/crev_server_spring) (Enlace a la rama master para acceder al código del backend que ha sido desplegado)
 - [Repositorio del servidor del proyecto (LOCAL)](https://github.com/danielmera2912/crev_server_spring/tree/local) (Enlace a la rama local para acceder al código del backend que ha sido desplegado)
-- [Despliegue del backend]()
+- [Despliegue del backend](https://crevserverspring-production.up.railway.app)
 - [Script de la Base de Datos](https://github.com/danielmera2912/crev_server_spring/blob/master/src/main/resources/script.sql) (para instalación local en el workbench)
 - [Script de la base de datos usada en el despliegue](https://github.com/danielmera2912/crev_server_spring/blob/master/src/main/resources/script_despliegue.sql) (no es útil para el usuario, solo expuesto a modo de curiosidad)
 - [Colección Postman con peticiones](https://github.com/danielmera2912/crev_server_spring/blob/master/src/main/resources/CREV.postman_collection.json)
@@ -39,6 +44,7 @@ En resumen, el objetivo del proyecto es desarrollar una plataforma web que facil
 - Gestión de Base de Datos: Workbench, MySQL
 - Control de Versiones: GitHub
 - Despliegue: Netlify (frontend), Railway (backend)
+- Testing de API: Postman
 
 ### Descripción
 
@@ -70,9 +76,13 @@ Y para la parte de backend, yo recomiendo el idle de Intellij Idea, simplemente 
 Se tendrá que cambiar la rama a la local, se tendrá que abrir el panel “Git” en la parte inferior de la ventana, se verá la rama actual donde te encuentras, y tendrás que pulsarla y te saldrá un desplegable con todas las ramas y tendrás que pulsar la “local” y clickear en “checkout”.
 O por el contrario, modificar el archivo de resources/application.properties para ajustarlo a tu gusto, habrá que ejecutar este script que contiene los datos básicos para poder iniciar el servidor y que todo funcione correctamente.
 Habrá que seleccionar este servidor de MySQL, ahora habrá que configurar la conexión de workbench de la siguiente forma:
+
+```
 spring.datasource.url=jdbc:mysql://localhost:3306/crev
 spring.datasource.username=root
 spring.datasource.password=1234
+```
+
 Por último ahora habrá que ejecutar “CrevServerSpringApplication.java” que se encuentra esta ruta: crev_server_spring/src/main/java/com/example/crev_server_spring
 Ya se encargará de construir todo lo necesario para su funcionamiento.
 
