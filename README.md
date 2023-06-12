@@ -6,7 +6,7 @@
 
 ## Página principal de presentación de CREV
 
-Para ver más detalles de los que aparece aquí, como la instalación, objetivo del proyecto y más, visita la página web del proyecto.
+[Para ver más detalles de los que aparece aquí, como la instalación, objetivo del proyecto y más, visita la página web del proyecto.](https://danielmera2912.github.io/crev/)
 
 ## Información
 
@@ -18,7 +18,6 @@ Esta página web llamada CREV (Creador de Eventos Deportivos), consiste en la cr
 
 ## Servidor
 
-
 Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión local](https://github.com/danielmera2912/crev/tree/local)
 
 [Aquí para visitar el repositorio del servidor, se deberá de clonar la rama local, si se desea instalar localmente](https://github.com/danielmera2912/crev_server_spring/tree/local)
@@ -28,6 +27,10 @@ Para hacer funcionar localmente el proyecto, se deberá de clonar la [versión l
 ## Manual de Uso
 
 [Pincha aquí para ver el manual de uso](https://github.com/danielmera2912/crev/blob/local/Manual%20de%20Uso%20de%20CREV.pdf)
+
+## Tecnologías usadas
+
+Ha sido usado para el frontend: VUE con JavaScript, SASS y múltiples librerías.
 
 ## Instalación
 
