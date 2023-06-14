@@ -161,8 +161,8 @@ export default {
              * @type {Boolean}
              */
             deporteEquipo: false,
-            API_ciudad: "https://crevserverspring-production.up.railway.app/ciudad",
-            API_deporte: "https://crevserverspring-production.up.railway.app/deporte"
+            API_ciudad: "http://127.0.0.1:8080/ciudad",
+            API_deporte: "http://127.0.0.1:8080/deporte"
         }
     },
     mounted() {

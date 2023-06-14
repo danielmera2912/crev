@@ -97,9 +97,9 @@ export default {
       registrarResultado: false,
       idCiudad: 0,
 
-      API: "https://crevserverspring-production.up.railway.app",
-      API_evento: "https://crevserverspring-production.up.railway.app/evento",
-      API_equipo: "https://crevserverspring-production.up.railway.app/equipo",
+      API: "http://127.0.0.1:8080",
+      API_evento: "http://127.0.0.1:8080/evento",
+      API_equipo: "http://127.0.0.1:8080/equipo",
 
       contadorJugador: 1,
       result: false,

@@ -36,7 +36,7 @@ export default {
             checkRegistro: false,
             avatarUsuario: '',
             idUsuarioActivo: 0,
-            API: "https://crevserverspring-production.up.railway.app",
+            API: "http://127.0.0.1:8080",
         };
     },
     mounted() {

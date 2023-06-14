@@ -12,7 +12,7 @@ const localSearch = ref('');
 const dataUsuario = ref([]);
 let paginaActual = 0;
 let totalPaginas = 0;
-const API =  "https://crevserverspring-production.up.railway.app";
+const API =  "http://127.0.0.1:8080";
 const router = useRouter();
 
 onMounted(conseguirUsuarios);

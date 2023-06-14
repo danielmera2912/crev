@@ -22,8 +22,8 @@ export default {
     return {
       cargando: '',
       id: '',
-      API_iniciar: "https://crevserverspring-production.up.railway.app/usuario",
-      API: "https://crevserverspring-production.up.railway.app/evento",
+      API_iniciar: "http://127.0.0.1:8080/usuario",
+      API: "http://127.0.0.1:8080/evento",
       results: null,
       idUsuario: localStorage.getItem('userId') ?? 0
     }
