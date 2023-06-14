@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 /**
  * @file Añadir_resultado.vue - Componente para añadir un resultado
  * @module Añadir_resultado

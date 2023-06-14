@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 /**
  * @file Modificar_evento.vue - Componente modificar evento de partido detalles
  * @author Daniel Mera Sachse

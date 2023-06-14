@@ -1,8 +1,7 @@
 <script setup>
-import { withScopeId } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import { RouterView } from 'vue-router';
+import Footer from './components/Footer.vue';
+import Header from './components/Header.vue';
 </script>
 <script>
 /**

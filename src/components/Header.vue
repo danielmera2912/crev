@@ -1,6 +1,5 @@
 <script setup>
-import Menu from './Menu_desplegable.vue'
-import Buscador from './Buscador.vue'
+import Menu from './Menu_desplegable.vue';
 /**
  * @file Header.vue - Componente del encabezado
  * @module Header

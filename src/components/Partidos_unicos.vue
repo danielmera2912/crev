@@ -1,12 +1,12 @@
 <script setup>
-import Partido from './Partido.vue'
-import Crear_evento from './Crear_evento.vue'
-import Alerta from './Alerta.vue'
+import axios from 'axios'
+import 'sweetalert2/dist/sweetalert2.css'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import Buscador from '../components/Buscador.vue'
 import Paginacion from '../components/Paginacion.vue'
-import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import Alerta from './Alerta.vue'
+import Crear_evento from './Crear_evento.vue'
+import Partido from './Partido.vue'
 /**
  * @file Partidos_unicos.vue - Componente de los partidos únicos
  * @author Daniel Mera Sachse

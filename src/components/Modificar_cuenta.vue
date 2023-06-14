@@ -1,8 +1,7 @@
 <script setup>
 import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
-import { ref } from 'vue';
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 /**
  * @file Modificar_cuenta.vue - Componente para modificar cuenta
  * @author Daniel Mera Sachse
