@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 /**
  * @file Registrar_sesion.vue - Componente para registrar sesión
  * @author Daniel Mera Sachse

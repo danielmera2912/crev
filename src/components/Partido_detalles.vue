@@ -1,10 +1,10 @@
 <script setup>
 import axios from 'axios';
-import Modificar_evento from './Modificar_evento.vue'
-import AnadirResultado from './Anadir_resultado.vue'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import Alerta from './Alerta.vue';
+import AnadirResultado from './Anadir_resultado.vue';
+import Modificar_evento from './Modificar_evento.vue';
 /**
  * @file Partido_detalles.vue - Componente de los detalles de un partido de 1vs1 individual en concreto
  * @author Daniel Mera Sachse

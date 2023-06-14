@@ -1,7 +1,7 @@
 <script setup>
-import Modificar from './Modificar_cuenta.vue'
-import Partido from './Partido.vue'
 import Alerta from './Alerta.vue';
+import Modificar from './Modificar_cuenta.vue';
+import Partido from './Partido.vue';
 /**
  * @file Perfil.vue - Componente para el perfil
  * @module Profile

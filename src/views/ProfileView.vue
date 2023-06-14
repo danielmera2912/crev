@@ -1,5 +1,5 @@
 <script setup>
-import Profile from '../components/Profile.vue'
+import Profile from '../components/Profile.vue';
 /**
  * @file ProfileView.vue - Vista del perfil
  * @author Daniel Mera Sachse

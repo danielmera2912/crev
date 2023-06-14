@@ -1,6 +1,6 @@
 <script setup>
-import PartidoDetalles from '../components/Partido_detalles.vue'
-import PartidoDetalles2 from '../components/Partido_detalles2.vue'
+import PartidoDetalles from '../components/Partido_detalles.vue';
+import PartidoDetalles2 from '../components/Partido_detalles2.vue';
 /**
  * @file PartidoDetallesView.vue - Vista del detalle de los partidos
  * @author Daniel Mera Sachse

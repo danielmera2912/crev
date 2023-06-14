@@ -1,6 +1,4 @@
 <script setup>
-import Menu from './Menu_desplegable.vue'
-import Buscador from './Buscador.vue'
 /**
  * @file Footer.vue - Componente del encabezado
  * @author Daniel Mera Sachse

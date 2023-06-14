@@ -1,5 +1,5 @@
 <script setup>
-import Partidos from '../components/Partidos_unicos.vue'
+import Partidos from '../components/Partidos_unicos.vue';
 
 /**
  * @file PartidosUnicosView.vue - Vista de los partidos únicos

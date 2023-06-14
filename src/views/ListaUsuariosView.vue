@@ -4,10 +4,10 @@
  * @module ListaUsuariosView
  * @author Daniel Mera Sachse
  */
-import { ref, onMounted, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import Paginacion from '../components/Paginacion.vue'
 import Alerta from '../components/Alerta.vue';
+import Paginacion from '../components/Paginacion.vue';
 const localSearch = ref('');
 const dataUsuario = ref([]);
 let paginaActual = 0;

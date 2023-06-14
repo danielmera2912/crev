@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router';
 /**
  * @file Partido.vue - Componente del partido
  * @author Daniel Mera Sachse

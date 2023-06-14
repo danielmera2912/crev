@@ -1,8 +1,8 @@
 <script setup>
-import Iniciar from './Iniciar_sesion.vue'
-import Registrar from './Registrar_sesion.vue'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+import 'sweetalert2/dist/sweetalert2.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Iniciar from './Iniciar_sesion.vue';
+import Registrar from './Registrar_sesion.vue';
 /**
  * @file Menu_desplegable.vue - Componente del menú desplegable
  * @author Daniel Mera Sachse
@@ -22,7 +22,6 @@ defineProps({
 })
 </script>
 <script>
-import axios from 'axios';
 export default {
     data() {
         return {
