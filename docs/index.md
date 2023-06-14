@@ -83,6 +83,8 @@ spring.datasource.username=root
 spring.datasource.password=1234
 ```
 
+O por el contrario, usar esas mismas credenciales para conectarlo a una base de datos mysql en un contenedor docker.
+
 Por último ahora habrá que ejecutar “CrevServerSpringApplication.java” que se encuentra esta ruta: crev_server_spring/src/main/java/com/example/crev_server_spring
 Ya se encargará de construir todo lo necesario para su funcionamiento.
 
